@@ -7,8 +7,15 @@ cv:
   summary: MSc student in theoretical physics at Johannes Gutenberg University Mainz, working on machine-learning methods for lattice field theory and lattice QCD. Previously a research assistant at CUHK-Shenzhen (2022–2025).
 
   social_networks:
-    - network: GitHub
-      username: # add your GitHub once available
+    - network: ORCID
+      username: 0009-0003-5919-5295
+      url: https://orcid.org/0009-0003-5919-5295
+    - network: InspireHEP
+      username: Qian Moxian
+      url: https://inspirehep.net/authors/3172807
+    - network: ResearchGate
+      username: Moxian Qian
+      url: https://www.researchgate.net/profile/Moxian-Qian
 
   address:
     street: Staudingerweg 7

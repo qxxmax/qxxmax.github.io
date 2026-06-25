@@ -105,6 +105,18 @@
                   </td>
                 </tr>
               {% endif %}
+              {% if cv.social_networks and cv.social_networks.size > 0 %}
+                <tr>
+                  <td class="p-1 pr-2 font-weight-bold"><b>Profiles</b></td>
+                  <td class="p-1 pl-2 font-weight-light">
+                    {% for net in cv.social_networks %}
+                      {% if net.url %}
+                        <a href="{{ net.url }}" target="_blank" rel="external nofollow noopener">{{ net.network }}{% if net.username and net.network != "GitHub" %} ({{ net.username }}){% endif %}</a>{% unless forloop.last %} &middot; {% endunless %}
+                      {% endif %}
+                    {% endfor %}
+                  </td>
+                </tr>
+              {% endif %}
             </table>
           </div>
         {% endif %}
