@@ -39,7 +39,7 @@ cv:
         end_date: 2022
         highlights:
           - Advisors&#58; Prof. Xibin Li, Prof. Yongjun Cao.
-          - Started in Material Physics, transferred into Physics; degree extended by one year.
+          - Started in Material Physics, later transferred into Physics.
           - Undergraduate research on general relativity and orbital mechanics.
 
     Experience:
@@ -60,6 +60,26 @@ cv:
         summary: University-wide recognition for academic and research achievement.
 
     Publications:
+      - title: Stochastic Path Sampler For Lattice Field Theory
+        authors:
+          - Shiyang Chen
+          - Moxian Qian
+          - Gert Aarts
+          - Biagio Lucini
+          - Kai Zhou
+        publisher: arXiv
+        releaseDate: 2026-06
+        url: https://arxiv.org/abs/2606.13790
+        summary: Data-free neural sampler based on nonequilibrium thermodynamics and stochastic quantization; matches HMC quality with much shorter autocorrelation in the pseudocritical region of 2D phi^4. Co-first author with S. Chen.
+
+      - title: Operator Spectroscopy of Trained Lattice Samplers
+        authors:
+          - Moxian Qian
+        publisher: arXiv
+        releaseDate: 2026-05
+        url: https://arxiv.org/abs/2605.11199
+        summary: Operator-spectroscopy framework that probes what neural samplers (flow / diffusion / autoregressive) actually learn about lattice field theories.
+
       - title: Variational Autoregressive Networks Applied to $\phi^4$ Field Theory Systems
         authors:
           - Moxian Qian
@@ -67,15 +87,7 @@ cv:
         publisher: arXiv
         releaseDate: 2025-12
         url: https://arxiv.org/abs/2512.19575
-        summary: Variational autoregressive networks for scalar phi^4 field theory on the lattice.
-
-      - title: Operator Spectroscopy of Trained Lattice Samplers
-        authors:
-          - Moxian Qian
-        publisher: arXiv
-        releaseDate: 2025
-        url: https://arxiv.org/abs/2605.11199
-        summary: Operator-spectroscopy framework that probes what neural samplers learn about lattice field theories.
+        summary: RL-style data-free training of variational autoregressive networks for the Ising model and 2D phi^4; single-site and block Metropolis-Hastings corrections reduce residual bias of pure VAN sampling.
 
       - title: Gravitation induced shrinkage of Mercury's orbit
         authors:
@@ -84,7 +96,7 @@ cv:
           - Yongjun Cao
         publisher: Chinese Physics B 29 (2020) 109501
         releaseDate: 2020-10
-        url: https://inspirehep.net/literature?q=qian+moxian
+        url: https://doi.org/10.1088/1674-1056/ab9f24
         summary: General-relativistic gravitational contribution to the secular shrinkage of Mercury's orbit.
 
     Skills:
@@ -97,14 +109,6 @@ cv:
         level: Daily
         icon: fa-solid fa-code
         keywords: Python, PyTorch, C++, Mathematica, Julia, LaTeX, Git
-
-    Languages:
-      - name: Mandarin Chinese
-        summary: Native
-      - name: English
-        summary: Fluent (working language)
-      - name: German
-        summary: Learning
 
     Interests:
       - name: Physics
