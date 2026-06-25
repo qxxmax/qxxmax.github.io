@@ -7,11 +7,11 @@ first_name: Moxian
 middle_name:
 last_name: Qian
 contact_note: >
-  Reach me by email is fastest. 邮件最方便。
+  <span class="en">Email is the fastest way to reach me.</span><span class="zh">邮件最方便。</span>
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   Moxian Qian (钱莫闲) — MSc student at Johannes Gutenberg University Mainz, working on machine learning for lattice field theory and lattice QCD.
 footer_text: >
-  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
+  <span class="en">Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.</span><span class="zh">由 <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> 驱动，使用 <a href="https://github.com/alshedivat/al-folio">al-folio</a> 主题。</span>
 keywords: Moxian Qian, 钱莫闲, lattice QCD, lattice field theory, machine learning, normalizing flows, JGU Mainz
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: ⚛️ # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
@@ -120,8 +120,8 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: notebook
-blog_description: research notes, half-baked experiments, and reading log. 研究笔记、未完的实验、读书随感。
+blog_name: '<span class="en">notebook</span><span class="zh">笔记</span>'
+blog_description: '<span class="en">research notes, half-baked experiments, and reading log.</span><span class="zh">研究笔记、未完的实验、读书随感。</span>'
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
 
@@ -312,8 +312,8 @@ jekyll-archives:
       tags: "/blog/:type/:name/"
       categories: "/blog/:type/:name/"
 
-display_tags: ["formatting", "images", "links", "math", "code", "blockquotes"] # these tags will be displayed on the front page of your blog
-display_categories: ["external-services"] # these categories will be displayed on the front page of your blog
+display_tags: ["meta", "notes"] # tags shown at the top of /blog/
+display_categories: [] # categories shown at the top of /blog/
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar
