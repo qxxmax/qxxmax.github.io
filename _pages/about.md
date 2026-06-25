@@ -1,6 +1,7 @@
 ---
 layout: about
 title: about
+title_zh: 关于
 permalink: /
 subtitle: <span class="en">MSc student · <a href='https://www.uni-mainz.de/' target='_blank'>Johannes Gutenberg University Mainz</a> · Lattice QCD & Machine Learning</span><span class="zh">硕士在读 · <a href='https://www.uni-mainz.de/' target='_blank'>美因茨大学</a> · 格点 QCD 与机器学习</span>
 
@@ -32,7 +33,7 @@ latest_posts:
 
 Hi, I'm **Moxian Qian** (钱莫闲) — a master's student in theoretical physics at **Johannes Gutenberg University Mainz** (JGU), Germany.
 
-I work at the intersection of **machine learning** and **lattice field theory**. My current interests include normalizing-flow / autoregressive samplers for lattice QCD, operator spectroscopy of trained samplers, and ways to make Monte-Carlo sampling on the lattice cheaper and better-conditioned. On the physics side I'm drawn to non-perturbative QCD: form factors, electromagnetic radii, and what lattice can say about the proton-radius puzzle.
+I work at the intersection of **machine learning** and **lattice field theory**. My current interests include normalizing-flow / autoregressive samplers for lattice QCD, operator spectroscopy of trained samplers (i.e. understanding what these samplers actually learn), and ways to make Monte-Carlo sampling on the lattice cheaper and better-conditioned.
 
 Before Mainz I spent about three years (Dec 2022 – Sep 2025) as a **research assistant** at **The Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen)**, working with Prof. **Jianhui Zhang** and Prof. **Kai Zhou**. I think of this stint as my first proper research-internship experience — most of what I now know about lattice field theory and machine learning for physics I started learning there.
 
@@ -46,7 +47,7 @@ Outside physics I write a little, listen to a lot of music, and keep a private j
 
 你好，我是 **钱莫闲**（Moxian Qian）——德国 **美因茨大学**（JGU）理论物理方向的硕士研究生。
 
-研究方向在 **机器学习** 与 **格点场论** 的交界处。目前主要做：用 normalizing flow / 自回归网络给格点 QCD 抽样、训练后采样器的算符谱学分析，以及让 Monte Carlo 在格点上更便宜、更稳的方法。物理那边喜欢非微扰 QCD：形状因子、电磁半径，以及格点能为质子半径之谜说些什么。
+研究方向在 **机器学习** 与 **格点场论** 的交界处。目前主要做：用 normalizing flow / 自回归网络给格点 QCD 抽样、训练后采样器的算符谱学分析（看看这些采样器到底学到了什么），以及让 Monte Carlo 在格点上更便宜、更稳的方法。
 
 来 Mainz 之前，2022 年 12 月到 2025 年 9 月在 **香港中文大学（深圳）** 跟随 **张建辉** 老师和 **周凯** 老师做 **research assistant**（HiWi / 科研实习）大约三年——格点场论和"用机器学习做物理"这些事我大部分是在这段时间里入门的。
 

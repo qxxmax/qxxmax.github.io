@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Moved to Mainz and started **MSc in theoretical physics at JGU Mainz**. 来到美因茨，开始美因茨大学理论物理硕士阶段。
+<span class="en">Moved to Mainz and started **MSc in theoretical physics at JGU Mainz**.</span><span class="zh">来到美因茨，开始 **美因茨大学理论物理硕士** 阶段。</span>

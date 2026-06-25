@@ -109,7 +109,7 @@ cv:
     Interests:
       - name: Physics
         icon: fa-solid fa-atom
-        keywords: non-perturbative QCD, proton radius, lattice methods
+        keywords: lattice field theory, Monte Carlo methods, general relativity
       - name: Machine Learning
         icon: fa-solid fa-microchip
-        keywords: generative models, normalizing flows, autoregressive networks, science-aware ML
+        keywords: generative models, normalizing flows, autoregressive networks, mechanistic interpretability

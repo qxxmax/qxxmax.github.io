@@ -2,7 +2,8 @@
 layout: page
 permalink: /publications/
 title: publications
-description: "Grouped by research theme; within each theme reverse-chronological · 按主题分组，组内按时间倒序"
+title_zh: 论文
+description: <span class="en">Grouped by research theme; within each theme reverse-chronological.</span><span class="zh">按主题分组，组内按时间倒序。</span>
 nav: true
 nav_order: 2
 ---
