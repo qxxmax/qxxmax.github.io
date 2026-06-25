@@ -1,0 +1,74 @@
+---
+---
+
+@string{cpb     = {Chinese Physics B}}
+@string{arxiv   = {arXiv preprint}}
+
+@article{chen2026sps,
+  abbr        = {arXiv},
+  bibtex_show = {true},
+  selected    = {true},
+  title       = {Stochastic Path Sampler For Lattice Field Theory},
+  author      = {Chen, Shiyang and Qian, Moxian and Aarts, Gert and Lucini, Biagio and Zhou, Kai},
+  journal     = arxiv,
+  year        = {2026},
+  month       = {Jun},
+  eprint      = {2606.13790},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-lat},
+  arxiv       = {2606.13790},
+  html        = {https://arxiv.org/abs/2606.13790},
+  note        = {S. Chen and M. Qian contributed equally},
+  abstract    = {In lattice field theory, target distributions are known only up to normalization, while the partition function is generally intractable. Markov chain Monte Carlo simulations often become inefficient near phase transitions or the continuum limit due to critical slowing down. We propose a novel sampler based on nonequilibrium thermodynamics, called Stochastic Path Sampler (SPS), which can generate configurations for the unnormalized target distribution without a need for training data. The central idea is to establish a trajectory-level balance for learnable forward and backward stochastic dynamics between two equilibrium states---the prior and target distributions---by minimizing the path-space variational free energy, equivalently an entropy-production upper bound. The learned forward process provides independent proposals, subsequently corrected by an extended-space Independence Metropolis--Hastings step. In two-dimensional phi^4 theory, our neural sampler matches HMC's sampling quality with a much shorter autocorrelation time in the pseudocritical region. SPS offers a stochastic-quantization-inspired route to data-free proposal construction for lattice field theory.}
+}
+
+@article{qian2025van,
+  abbr        = {arXiv},
+  bibtex_show = {true},
+  selected    = {true},
+  title       = {Variational Autoregressive Networks Applied to $\phi^4$ Field Theory Systems},
+  author      = {Qian, Moxian and Chen, Shiyang},
+  journal     = arxiv,
+  year        = {2025},
+  month       = {Dec},
+  eprint      = {2512.19575},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-lat},
+  arxiv       = {2512.19575},
+  html        = {https://arxiv.org/abs/2512.19575},
+  abstract    = {We combine reinforcement learning with variational autoregressive networks (VANs) to perform data-free training and sampling for the discrete Ising model and the continuous phi^4 scalar field theory. We quantify the complexity of the target distribution via the KL divergence between the magnetization distribution and a reference Gaussian distribution, and observe that configurations with smaller KL divergence typically require fewer training steps. Motivated by this observation, we investigate transfer learning and show that fine-tuning models pretrained at a single value of kappa can reduce training time compared with training from a Gaussian field. In addition, inspired by single-site and cluster Monte Carlo updates, we introduce single-site and block Metropolis-Hastings (MH) updates on top of VAN proposals. These MH corrections systematically reduce the residual bias of pure VAN sampling in the parameter range we study, while maintaining high sampling efficiency in terms of the effective sample size (ESS). For both the Ising model and the phi^4 theory, our results agree with standard Monte Carlo benchmarks within errors, and no clear critical slowing down is observed in the explored parameter ranges.}
+}
+
+@article{qian2026spectroscopy,
+  abbr        = {arXiv},
+  bibtex_show = {true},
+  selected    = {true},
+  title       = {Operator Spectroscopy of Trained Lattice Samplers},
+  author      = {Qian, Moxian},
+  journal     = arxiv,
+  year        = {2026},
+  month       = {May},
+  eprint      = {2605.11199},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-lat},
+  arxiv       = {2605.11199},
+  html        = {https://arxiv.org/abs/2605.11199},
+  abstract    = {Trained lattice samplers are usually judged by the ensembles they generate. Here we instead analyze the trained field-space function itself: a flow-matching velocity, a diffusion score, or a normalizing-flow action residual. We project these functions onto operator bases fixed before the fit, chosen from symmetry, exact Gaussian path limits, finite-volume modes, and gauge covariance. For two-dimensional lattice phi^4, a trained straight-flow teacher is not described by a local force basis alone. After the local transport basis, the residual separates into a zero-mode Binder component and a lowest-shell finite-k correlator component. The same projection also distinguishes other sampler classes: diffusion follows the force-resolvent ordering predicted by the free theory, reverse-KL normalizing-flow collapse appears as a forbidden odd zero-mode residual, and gauge-equivariant teachers are resolved by Wilson-loop-force tangent directions.}
+}
+
+@article{qian2020mercury,
+  abbr        = {CPB},
+  bibtex_show = {true},
+  selected    = {true},
+  title       = {Gravitation induced shrinkage of Mercury's orbit},
+  author      = {Qian, Moxian and Li, Xibin and Cao, Yongjun},
+  journal     = cpb,
+  volume      = {29},
+  number      = {10},
+  pages       = {109501},
+  year        = {2020},
+  doi         = {10.1088/1674-1056/ab9f24},
+  publisher   = {IOP Publishing},
+  html        = {https://cpb.iphy.ac.cn/EN/10.1088/1674-1056/ab9f24},
+  abstract    = {We analyze a gravitation-induced contribution to the secular shrinkage of Mercury's orbit, in addition to the standard relativistic perihelion precession.}
+}

@@ -1,0 +1,115 @@
+cv:
+  name: Moxian Qian
+  label: MSc Student
+  email: mqian@students.uni-mainz.de
+  location: Mainz, Germany
+  image: ""
+  summary: MSc student in theoretical physics at Johannes Gutenberg University Mainz, working on machine-learning methods for lattice field theory and lattice QCD. Previously a research assistant at CUHK-Shenzhen (2022–2025).
+
+  social_networks:
+    - network: GitHub
+      username: # add your GitHub once available
+
+  address:
+    street: Staudingerweg 7
+    city: Mainz
+    region: Rhineland-Palatinate
+    postalCode: "55128"
+    countryCode: DE
+
+  sections:
+    Education:
+      - institution: Johannes Gutenberg University Mainz
+        location: Mainz, Germany
+        url: https://www.uni-mainz.de/
+        area: Theoretical Physics — Lattice Field Theory & Machine Learning
+        studyType: M.Sc. (in progress)
+        start_date: 2025
+        end_date: present
+        highlights:
+          - Working on machine-learning samplers for lattice field theory.
+          - Operator spectroscopy of trained normalizing-flow / autoregressive samplers.
+
+      - institution: Inner Mongolia Normal University (IMNU)
+        location: Hohhot, China
+        url: https://www.imnu.edu.cn/
+        area: Physics (switched from Material Physics mid-program)
+        studyType: B.Sc.
+        start_date: 2017
+        end_date: 2022
+        highlights:
+          - Advisors&#58; Prof. Xibin Li, Prof. Yongjun Cao.
+          - Started in Material Physics, transferred into Physics; degree extended by one year.
+          - Undergraduate research on general relativity and orbital mechanics.
+
+    Experience:
+      - company: The Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen)
+        position: Research Assistant (research internship)
+        location: Shenzhen, China
+        start_date: 2022-12-01
+        end_date: 2025-09-30
+        summary: Roughly three years of research-assistant / HiWi-style work between undergrad and graduate school, supervised by Prof. Jianhui Zhang and Prof. Kai Zhou. Where I started learning lattice field theory and machine-learning methods for physics.
+        highlights:
+          - Advisors&#58; Prof. Jianhui Zhang, Prof. Kai Zhou.
+          - Hands-on training in lattice field theory, scientific computing, and machine learning for physics.
+
+    Awards:
+      - title: Top Ten Students / Star of Science and Technology
+        date: 2021-06-01
+        awarder: Inner Mongolia Normal University
+        summary: University-wide recognition for academic and research achievement.
+
+    Publications:
+      - title: Variational Autoregressive Networks Applied to $\phi^4$ Field Theory Systems
+        authors:
+          - Moxian Qian
+          - Shiyang Chen
+        publisher: arXiv
+        releaseDate: 2025-12
+        url: https://arxiv.org/abs/2512.19575
+        summary: Variational autoregressive networks for scalar phi^4 field theory on the lattice.
+
+      - title: Operator Spectroscopy of Trained Lattice Samplers
+        authors:
+          - Moxian Qian
+        publisher: arXiv
+        releaseDate: 2025
+        url: https://arxiv.org/abs/2605.11199
+        summary: Operator-spectroscopy framework that probes what neural samplers learn about lattice field theories.
+
+      - title: Gravitation induced shrinkage of Mercury's orbit
+        authors:
+          - Moxian Qian
+          - Xibin Li
+          - Yongjun Cao
+        publisher: Chinese Physics B 29 (2020) 109501
+        releaseDate: 2020-10
+        url: https://inspirehep.net/literature?q=qian+moxian
+        summary: General-relativistic gravitational contribution to the secular shrinkage of Mercury's orbit.
+
+    Skills:
+      - name: Lattice Field Theory
+        level: Researcher
+        icon: fa-solid fa-atom
+        keywords: lattice QCD, normalizing flows, autoregressive networks, Monte Carlo, form factors
+
+      - name: Programming
+        level: Daily
+        icon: fa-solid fa-code
+        keywords: Python, PyTorch, C++, Mathematica, Julia, LaTeX, Git
+
+    Languages:
+      - name: Mandarin Chinese
+        summary: Native
+      - name: English
+        summary: Fluent (working language)
+      - name: German
+        summary: Learning
+
+    Interests:
+      - name: Physics
+        icon: fa-solid fa-atom
+        keywords: non-perturbative QCD, proton radius, lattice methods
+      - name: Machine Learning
+        icon: fa-solid fa-microchip
+        keywords: generative models, normalizing flows, autoregressive networks, science-aware ML
