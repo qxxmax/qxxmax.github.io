@@ -1,10 +1,10 @@
 cv:
   name: Moxian Qian
-  label: MSc Student
+  label: '<span class="en">MSc Student</span><span class="zh">硕士研究生</span>'
   email: mqian@students.uni-mainz.de
   location: Mainz, Germany
   image: ""
-  summary: MSc student in theoretical physics at Johannes Gutenberg University Mainz, working on machine-learning methods for lattice field theory and lattice QCD. Previously a research assistant at CUHK-Shenzhen (2022–2025).
+  summary: '<span class="en">MSc student in theoretical physics at Johannes Gutenberg University Mainz, working on machine-learning methods for lattice field theory and lattice QCD. Previously a research assistant at CUHK-Shenzhen (2022–2025).</span><span class="zh">美因茨大学（JGU）理论物理硕士在读，研究方向是格点场论 / 格点 QCD 的机器学习方法。此前在香港中文大学（深圳）做了大约三年（2022–2025）的 research assistant。</span>'
 
   social_networks:
     - network: ORCID

@@ -60,35 +60,35 @@
         <!-- Header/Contact Information -->
         {% if cv.name or cv.label or cv.location or cv.email or cv.phone or cv.website %}
           <div class="card mt-3 p-3">
-            <h3 class="card-title font-weight-medium">Contact Information</h3>
+            <h3 class="card-title font-weight-medium"><span class="en">Contact Information</span><span class="zh">联系方式</span></h3>
             <table class="table table-cv table-sm table-borderless">
               {% if cv.name %}
                 <tr>
-                  <td class="p-1 pr-2 font-weight-bold"><b>Name</b></td>
+                  <td class="p-1 pr-2 font-weight-bold"><b><span class="en">Name</span><span class="zh">姓名</span></b></td>
                   <td class="p-1 pl-2 font-weight-light">{{ cv.name }}</td>
                 </tr>
               {% endif %}
               {% if cv.label %}
                 <tr>
-                  <td class="p-1 pr-2 font-weight-bold"><b>Professional Title</b></td>
+                  <td class="p-1 pr-2 font-weight-bold"><b><span class="en">Title</span><span class="zh">身份</span></b></td>
                   <td class="p-1 pl-2 font-weight-light">{{ cv.label }}</td>
                 </tr>
               {% endif %}
               {% if cv.email %}
                 <tr>
-                  <td class="p-1 pr-2 font-weight-bold"><b>Email</b></td>
+                  <td class="p-1 pr-2 font-weight-bold"><b><span class="en">Email</span><span class="zh">邮箱</span></b></td>
                   <td class="p-1 pl-2 font-weight-light">{{ cv.email }}</td>
                 </tr>
               {% endif %}
               {% if cv.phone %}
                 <tr>
-                  <td class="p-1 pr-2 font-weight-bold"><b>Phone</b></td>
+                  <td class="p-1 pr-2 font-weight-bold"><b><span class="en">Phone</span><span class="zh">电话</span></b></td>
                   <td class="p-1 pl-2 font-weight-light">{{ cv.phone }}</td>
                 </tr>
               {% endif %}
               {% if cv.address %}
                 <tr>
-                  <td class="p-1 pr-2 font-weight-bold"><b>Location</b></td>
+                  <td class="p-1 pr-2 font-weight-bold"><b><span class="en">Location</span><span class="zh">地址</span></b></td>
                   <td class="p-1 pl-2 font-weight-light">
                     {% if cv.address.street %}{{ cv.address.street }}, {% endif %}
                     {% if cv.address.city %}{{ cv.address.city }}, {% endif %}
@@ -99,7 +99,7 @@
               {% endif %}
               {% if cv.website %}
                 <tr>
-                  <td class="p-1 pr-2 font-weight-bold"><b>Website</b></td>
+                  <td class="p-1 pr-2 font-weight-bold"><b><span class="en">Website</span><span class="zh">主页</span></b></td>
                   <td class="p-1 pl-2 font-weight-light">
                     <a href="{{ cv.website }}" target="_blank">{{ cv.website }}</a>
                   </td>
@@ -107,7 +107,7 @@
               {% endif %}
               {% if cv.social_networks and cv.social_networks.size > 0 %}
                 <tr>
-                  <td class="p-1 pr-2 font-weight-bold"><b>Profiles</b></td>
+                  <td class="p-1 pr-2 font-weight-bold"><b><span class="en">Profiles</span><span class="zh">学术主页</span></b></td>
                   <td class="p-1 pl-2 font-weight-light">
                     {% for net in cv.social_networks %}
                       {% if net.url %}
@@ -124,7 +124,7 @@
         <!-- Summary -->
         {% if cv.summary %}
           <div class="card mt-3 p-3">
-            <h3 class="card-title font-weight-medium">Professional Summary</h3>
+            <h3 class="card-title font-weight-medium"><span class="en">Professional Summary</span><span class="zh">个人简介</span></h3>
             <p>{{ cv.summary | markdownify | remove: '<p>' | remove: '</p>' }}</p>
           </div>
         {% endif %}
@@ -136,9 +136,8 @@
         {% assign vol = cv.sections.Volunteer | default: empty_array %}
         {% assign combined_experience = exp | concat: vol %}
         {% if combined_experience.size > 0 %}
-          <a class="anchor" id="experience"></a>
           <div class="card mt-3 p-3">
-            <h3 class="card-title font-weight-medium">Experience</h3>
+            <h3 class="card-title font-weight-medium"><span class="en">Experience</span><span class="zh">工作经历</span></h3>
             <div>
               {% assign entries = combined_experience %}
               {% include cv/experience.liquid %}
@@ -156,9 +155,24 @@
             {% continue %}
           {% endif %}
 
-          <a class="anchor" id="{{ section_title | slugify }}"></a>
+          {% case section_title %}
+            {% when 'Education' %}{% assign section_title_zh = '教育经历' %}
+            {% when 'Awards' %}{% assign section_title_zh = '荣誉' %}
+            {% when 'Honors and Awards' %}{% assign section_title_zh = '荣誉' %}
+            {% when 'Publications' %}{% assign section_title_zh = '论文' %}
+            {% when 'Skills' %}{% assign section_title_zh = '技能' %}
+            {% when 'Languages' %}{% assign section_title_zh = '语言' %}
+            {% when 'Interests' %}{% assign section_title_zh = '研究兴趣' %}
+            {% when 'Academic Interests' %}{% assign section_title_zh = '学术兴趣' %}
+            {% when 'Certificates' %}{% assign section_title_zh = '证书' %}
+            {% when 'Projects' %}{% assign section_title_zh = '项目' %}
+            {% when 'Open Source Projects' %}{% assign section_title_zh = '开源项目' %}
+            {% when 'References' %}{% assign section_title_zh = '推荐人' %}
+            {% else %}{% assign section_title_zh = section_title %}
+          {% endcase %}
+
           <div class="card mt-3 p-3">
-            <h3 class="card-title font-weight-medium">{{ section_title }}</h3>
+            <h3 class="card-title font-weight-medium"><span class="en">{{ section_title }}</span><span class="zh">{{ section_title_zh }}</span></h3>
             <div>
               {% if section_title == 'Education' %}
                 {% assign entries = section_entries %}
@@ -399,3 +413,44 @@
     </div>
   </article>
 </div>
+
+<script>
+  // CV sidebar TOC is generated by tocbot from headings via textContent, which
+  // collapses both `<span class="en">` and `<span class="zh">` into one string
+  // (e.g. "Contact Information联系方式"). After tocbot has populated the sidebar
+  // we copy each heading's full innerHTML back into its toc-link so the en/zh
+  // spans survive and the i18n CSS can show only the active language.
+  (function () {
+    var swap = function () {
+      var toc = document.getElementById("toc-sidebar");
+      if (!toc) return;
+      var links = toc.querySelectorAll(".toc-link");
+      if (!links.length) return false;
+      links.forEach(function (link) {
+        var href = link.getAttribute("href") || "";
+        var id = decodeURIComponent(href.replace(/^#/, ""));
+        if (!id) return;
+        var h = document.getElementById(id);
+        if (h) link.innerHTML = h.innerHTML;
+      });
+      return true;
+    };
+
+    var attempt = function () {
+      if (swap()) return;
+      var toc = document.getElementById("toc-sidebar");
+      if (!toc) return;
+      var mo = new MutationObserver(function () {
+        if (swap()) mo.disconnect();
+      });
+      mo.observe(toc, { childList: true, subtree: true });
+      setTimeout(function () { mo.disconnect(); swap(); }, 2000);
+    };
+
+    if (document.readyState === "complete") {
+      attempt();
+    } else {
+      window.addEventListener("load", attempt);
+    }
+  })();
+</script>
