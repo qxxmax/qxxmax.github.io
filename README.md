@@ -1,4 +1,4 @@
-# moxianqian.github.io
+# qxxmax.github.io
 
 Personal academic homepage of **Moxian Qian / 钱莫闲**, built on [al-folio](https://github.com/alshedivat/al-folio) (Jekyll, v1.x).
 
