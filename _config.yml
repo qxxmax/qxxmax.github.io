@@ -341,8 +341,9 @@ scholar:
   details_link: Details
 
   query: "@*"
-  group_by: year
-  group_order: descending
+  sort_by: year,month
+  order: descending
+  group_by: none
 
 # Display different badges withs stats for your publications
 # Customize badge behavior in _layouts/bib.liquid
@@ -379,6 +380,7 @@ filtered_bibtex_keywords:
     selected,
     slides,
     supp,
+    topic,
     video,
     website,
   ]
