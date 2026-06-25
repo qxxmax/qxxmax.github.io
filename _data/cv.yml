@@ -26,46 +26,46 @@ cv:
 
   sections:
     Education:
-      - institution: Johannes Gutenberg University Mainz
-        location: Mainz, Germany
+      - institution: '<span class="en">Johannes Gutenberg University Mainz</span><span class="zh">美因茨大学（JGU）</span>'
+        location: '<span class="en">Mainz, Germany</span><span class="zh">德国 美因茨</span>'
         url: https://www.uni-mainz.de/
-        area: Theoretical Physics — Lattice Field Theory & Machine Learning
-        studyType: M.Sc. (in progress)
+        area: '<span class="en">Theoretical Physics — Lattice Field Theory &amp; Machine Learning</span><span class="zh">理论物理 — 格点场论 与 机器学习</span>'
+        studyType: '<span class="en">M.Sc. (in progress)</span><span class="zh">硕士在读</span>'
         start_date: 2025
-        end_date: present
+        end_date: '<span class="en">present</span><span class="zh">至今</span>'
         highlights:
-          - Working on machine-learning samplers for lattice field theory.
-          - Operator spectroscopy of trained normalizing-flow / autoregressive samplers.
+          - '<span class="en">Working on machine-learning samplers for lattice field theory.</span><span class="zh">做格点场论的机器学习采样器。</span>'
+          - '<span class="en">Operator spectroscopy of trained normalizing-flow / autoregressive samplers.</span><span class="zh">对训练后的 normalizing flow / 自回归采样器做算符谱学分析。</span>'
 
-      - institution: Inner Mongolia Normal University (IMNU)
-        location: Hohhot, China
+      - institution: '<span class="en">Inner Mongolia Normal University (IMNU)</span><span class="zh">内蒙古师范大学</span>'
+        location: '<span class="en">Hohhot, China</span><span class="zh">中国 呼和浩特</span>'
         url: https://www.imnu.edu.cn/
-        area: Physics (switched from Material Physics mid-program)
-        studyType: B.Sc.
+        area: '<span class="en">Physics (switched from Material Physics mid-program)</span><span class="zh">物理学（中途从材料物理转入）</span>'
+        studyType: '<span class="en">B.Sc.</span><span class="zh">理学学士</span>'
         start_date: 2017
         end_date: 2022
         highlights:
-          - Advisors&#58; Prof. Xibin Li, Prof. Yongjun Cao.
-          - Started in Material Physics, later transferred into Physics.
-          - Undergraduate research on general relativity and orbital mechanics.
+          - '<span class="en">Advisors&#58; Prof. Xibin Li, Prof. Yongjun Cao.</span><span class="zh">导师：李喜彬 老师、曹永军 老师。</span>'
+          - '<span class="en">Started in Material Physics, later transferred into Physics.</span><span class="zh">从材料物理入学，中途转入物理学。</span>'
+          - '<span class="en">Undergraduate research on general relativity and orbital mechanics.</span><span class="zh">本科研究方向是广义相对论与天体轨道力学。</span>'
 
     Experience:
-      - company: The Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen)
-        position: Research Assistant (research internship)
-        location: Shenzhen, China
+      - company: '<span class="en">The Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen)</span><span class="zh">香港中文大学（深圳）</span>'
+        position: '<span class="en">Research Assistant (research internship)</span><span class="zh">Research Assistant（科研实习 / HiWi）</span>'
+        location: '<span class="en">Shenzhen, China</span><span class="zh">中国 深圳</span>'
         start_date: 2022-12-01
         end_date: 2025-09-30
-        summary: Roughly three years of research-assistant / HiWi-style work between undergrad and graduate school, supervised by Prof. Jianhui Zhang and Prof. Kai Zhou. Where I started learning lattice field theory and machine-learning methods for physics.
+        summary: '<span class="en">Roughly three years of research-assistant / HiWi-style work between undergrad and graduate school, supervised by Prof. Jianhui Zhang and Prof. Kai Zhou. Where I started learning lattice field theory and machine-learning methods for physics.</span><span class="zh">本科与硕士之间约三年的 research assistant / HiWi 形式的工作，由 张建辉 老师与 周凯 老师共同指导。在这里入门了格点场论以及「用机器学习做物理」。</span>'
         highlights:
-          - Advisors&#58; Prof. Jianhui Zhang, Prof. Kai Zhou.
-          - Hands-on training in lattice field theory, scientific computing, and machine learning for physics.
-          - Computational algebraic geometry, plus integration-by-parts (IBP) and integrand-reduction methods for Feynman diagrams, applied to jet algorithms.
+          - '<span class="en">Advisors&#58; Prof. Jianhui Zhang, Prof. Kai Zhou.</span><span class="zh">导师：张建辉 老师、周凯 老师。</span>'
+          - '<span class="en">Hands-on training in lattice field theory, scientific computing, and machine learning for physics.</span><span class="zh">格点场论、科学计算、面向物理的机器学习等方向的实战训练。</span>'
+          - '<span class="en">Computational algebraic geometry, plus integration-by-parts (IBP) and integrand-reduction methods for Feynman diagrams, applied to jet algorithms.</span><span class="zh">计算代数几何，以及 Feynman 图的 IBP 与 integrand-reduction 方法，应用于 jet algorithm。</span>'
 
     Awards:
-      - title: Top Ten Students / Star of Science and Technology
+      - title: '<span class="en">Top Ten Students / Star of Science and Technology</span><span class="zh">十佳大学生 / 科技之星</span>'
         date: 2021-06-01
-        awarder: Inner Mongolia Normal University
-        summary: University-wide recognition for academic and research achievement.
+        awarder: '<span class="en">Inner Mongolia Normal University</span><span class="zh">内蒙古师范大学</span>'
+        summary: '<span class="en">University-wide recognition for academic and research achievement.</span><span class="zh">校级表彰，颁给学习与科研表现突出的本科生。</span>'
 
     Publications:
       - title: Stochastic Path Sampler For Lattice Field Theory
@@ -78,7 +78,7 @@ cv:
         publisher: arXiv
         releaseDate: 2026-06
         url: https://arxiv.org/abs/2606.13790
-        summary: Data-free neural sampler based on nonequilibrium thermodynamics and stochastic quantization; matches HMC quality with much shorter autocorrelation in the pseudocritical region of 2D phi^4. Co-first author with S. Chen.
+        summary: '<span class="en">Data-free neural sampler based on nonequilibrium thermodynamics and stochastic quantization; matches HMC quality with much shorter autocorrelation in the pseudocritical region of 2D phi^4. Co-first author with S. Chen.</span><span class="zh">基于非平衡热力学与随机量子化的数据无关神经采样器；在 2D φ⁴ 伪临界区，质量与 HMC 相当，自相关时间显著更短。与 S. Chen 共同一作。</span>'
 
       - title: Operator Spectroscopy of Trained Lattice Samplers
         authors:
@@ -86,7 +86,7 @@ cv:
         publisher: arXiv
         releaseDate: 2026-05
         url: https://arxiv.org/abs/2605.11199
-        summary: Operator-spectroscopy framework that probes what neural samplers (flow / diffusion / autoregressive) actually learn about lattice field theories.
+        summary: '<span class="en">Operator-spectroscopy framework that probes what neural samplers (flow / diffusion / autoregressive) actually learn about lattice field theories.</span><span class="zh">用算符谱学的框架去探测神经采样器（flow / diffusion / 自回归）究竟学到了什么样的格点场论结构。</span>'
 
       - title: Variational Autoregressive Networks Applied to $\phi^4$ Field Theory Systems
         authors:
@@ -95,7 +95,7 @@ cv:
         publisher: arXiv
         releaseDate: 2025-12
         url: https://arxiv.org/abs/2512.19575
-        summary: RL-style data-free training of variational autoregressive networks for the Ising model and 2D phi^4; single-site and block Metropolis-Hastings corrections reduce residual bias of pure VAN sampling.
+        summary: '<span class="en">RL-style data-free training of variational autoregressive networks for the Ising model and 2D phi^4; single-site and block Metropolis-Hastings corrections reduce residual bias of pure VAN sampling.</span><span class="zh">用强化学习方式数据无关地训练变分自回归网络，应用于 Ising 模型与 2D φ⁴；单点 / 块 Metropolis-Hastings 修正显著降低纯 VAN 采样的剩余偏差。</span>'
 
       - title: Gravitation induced shrinkage of Mercury's orbit
         authors:
@@ -105,23 +105,23 @@ cv:
         publisher: Chinese Physics B 29 (2020) 109501
         releaseDate: 2020-10
         url: https://doi.org/10.1088/1674-1056/ab9f24
-        summary: General-relativistic gravitational contribution to the secular shrinkage of Mercury's orbit.
+        summary: '<span class="en">General-relativistic gravitational contribution to the secular shrinkage of Mercury''s orbit.</span><span class="zh">水星轨道长期收缩的广义相对论引力修正贡献。</span>'
 
     Skills:
-      - name: Lattice Field Theory
-        level: Researcher
+      - name: '<span class="en">Lattice Field Theory</span><span class="zh">格点场论</span>'
+        level: '<span class="en">Researcher</span><span class="zh">研究方向</span>'
         icon: fa-solid fa-atom
-        keywords: lattice QCD, normalizing flows, autoregressive networks, Monte Carlo, form factors
+        keywords: '<span class="en">lattice QCD, normalizing flows, autoregressive networks, Monte Carlo, form factors</span><span class="zh">格点 QCD、normalizing flow、自回归网络、Monte Carlo、形状因子</span>'
 
-      - name: Programming
-        level: Daily
+      - name: '<span class="en">Programming</span><span class="zh">编程</span>'
+        level: '<span class="en">Daily</span><span class="zh">日常</span>'
         icon: fa-solid fa-code
-        keywords: Python, PyTorch, C++, Mathematica, Julia, LaTeX, Git
+        keywords: '<span class="en">Python, PyTorch, C++, Mathematica, Julia, LaTeX, Git</span><span class="zh">Python、PyTorch、C++、Mathematica、Julia、LaTeX、Git</span>'
 
     Interests:
-      - name: Physics
+      - name: '<span class="en">Physics</span><span class="zh">物理</span>'
         icon: fa-solid fa-atom
-        keywords: lattice field theory, Monte Carlo methods, general relativity
-      - name: Machine Learning
+        keywords: '<span class="en">lattice field theory, Monte Carlo methods, general relativity</span><span class="zh">格点场论、Monte Carlo 方法、广义相对论</span>'
+      - name: '<span class="en">Machine Learning</span><span class="zh">机器学习</span>'
         icon: fa-solid fa-microchip
-        keywords: generative models, normalizing flows, autoregressive networks, mechanistic interpretability
+        keywords: '<span class="en">generative models, normalizing flows, autoregressive networks, mechanistic interpretability</span><span class="zh">生成模型、normalizing flow、自回归网络、机制可解释性</span>'
