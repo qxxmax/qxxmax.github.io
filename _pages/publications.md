@@ -21,63 +21,45 @@ nav_order: 2
 {% bibliography -f papers -q @*[topic=ml_boltzmann] %}
 
 <h2 class="year">
-  <span lang="en">Agent workflows</span>
-  <span lang="zh" hidden>Agent 工作流</span>
+  <span lang="en">What does the network learn?</span>
+  <span lang="zh" hidden>网络本身在学什么</span>
 </h2>
 
-{% bibliography -f papers -q @*[topic=agent_workflow] %}
-
-{% assign agent_papers = site.data.papers | where: "topic", "agent_workflow" %}
-<p class="text-muted" id="agent_workflow_empty"><em lang="en">In preparation — preprints coming soon.</em><em lang="zh" hidden>预印本筹备中。</em></p>
+{% bibliography -f papers -q @*[topic=network_analysis] %}
 
 <h2 class="year">
-  <span lang="en">Base / foundation models</span>
-  <span lang="zh" hidden>基础模型</span>
+  <span lang="en">General relativity</span>
+  <span lang="zh" hidden>广义相对论</span>
 </h2>
 
-{% bibliography -f papers -q @*[topic=base_model] %}
-
-<p class="text-muted" id="base_model_empty"><em lang="en">In preparation — preprints coming soon.</em><em lang="zh" hidden>预印本筹备中。</em></p>
-
-<h2 class="year">
-  <span lang="en">Bayesian neural networks</span>
-  <span lang="zh" hidden>贝叶斯神经网络</span>
-</h2>
-
-{% bibliography -f papers -q @*[topic=bayesian_nn] %}
-
-<p class="text-muted" id="bayesian_nn_empty"><em lang="en">In preparation — preprints coming soon.</em><em lang="zh" hidden>预印本筹备中。</em></p>
-
-<h2 class="year">
-  <span lang="en">Real-time evolution</span>
-  <span lang="zh" hidden>实时演化</span>
-</h2>
-
-{% bibliography -f papers -q @*[topic=realtime] %}
-
-<p class="text-muted" id="realtime_empty"><em lang="en">In preparation — preprints coming soon.</em><em lang="zh" hidden>预印本筹备中。</em></p>
-
-<h2 class="year">
-  <span lang="en">Other</span>
-  <span lang="zh" hidden>其它</span>
-</h2>
-
-{% bibliography -f papers -q @*[topic=other] %}
+{% bibliography -f papers -q @*[topic=general_relativity] %}
 
 </div>
 
-<script>
-(function () {
-  // Hide the "coming soon" placeholder when the preceding {% bibliography %} block
-  // actually emitted any entries (jekyll-scholar renders <ol class="bibliography">).
-  ['agent_workflow', 'base_model', 'bayesian_nn', 'realtime'].forEach(function (id) {
-    var el = document.getElementById(id + '_empty');
-    if (!el) return;
-    var prev = el.previousElementSibling;
-    while (prev && prev.nodeType === 3) prev = prev.previousElementSibling;
-    if (prev && prev.matches && prev.matches('ol.bibliography')) {
-      el.style.display = 'none';
-    }
-  });
-})();
-</script>
+<!--
+  Hidden sections — un-comment a block when it has at least one paper:
+
+  <h2 class="year">
+    <span lang="en">Agent workflows</span>
+    <span lang="zh" hidden>Agent 工作流</span>
+  </h2>
+  {% bibliography -f papers -q @*[topic=agent_workflow] %}
+
+  <h2 class="year">
+    <span lang="en">Base / foundation models</span>
+    <span lang="zh" hidden>基础模型</span>
+  </h2>
+  {% bibliography -f papers -q @*[topic=base_model] %}
+
+  <h2 class="year">
+    <span lang="en">Bayesian neural networks</span>
+    <span lang="zh" hidden>贝叶斯神经网络</span>
+  </h2>
+  {% bibliography -f papers -q @*[topic=bayesian_nn] %}
+
+  <h2 class="year">
+    <span lang="en">Real-time evolution</span>
+    <span lang="zh" hidden>实时演化</span>
+  </h2>
+  {% bibliography -f papers -q @*[topic=realtime] %}
+-->
