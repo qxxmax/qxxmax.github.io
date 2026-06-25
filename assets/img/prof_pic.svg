@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dfe6f1"/>
+      <stop offset="1" stop-color="#aab8cc"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#g)"/>
+  <text x="200" y="245" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="180" font-weight="300" fill="#3b485c"
+        letter-spacing="-6">MQ</text>
+</svg>

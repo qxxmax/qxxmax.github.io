@@ -1,0 +1,37 @@
+/* Bilingual visibility — toggled by data-lang on <html>.
+   Default treats elements without explicit lang class as language-neutral. */
+
+html[data-lang="en"] .zh,
+html[data-lang="en"] .lang-label-zh {
+  display: none !important;
+}
+
+html[data-lang="zh"] .en,
+html[data-lang="zh"] .lang-label-en {
+  display: none !important;
+}
+
+/* Subtitle bilingual spans should not stack to next line. */
+.post-title .en,
+.post-title .zh {
+  display: inline;
+}
+
+/* Language toggle pill in navbar. */
+#lang-toggle {
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 9999px;
+  padding: 0.1rem 0.55rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+  transition: opacity 0.15s ease;
+}
+
+#lang-toggle:hover {
+  opacity: 1;
+}
