@@ -7,8 +7,8 @@ subtitle: <span class="en">MSc student · <a href='https://www.uni-mainz.de/' ta
 
 profile:
   align: right
-  image: prof_pic.svg
-  image_circular: true
+  image: prof_pic.jpg
+  image_circular: false
   more_info: >
     <p>Institut für Physik (THEP)</p>
     <p>Johannes Gutenberg-Universität</p>
