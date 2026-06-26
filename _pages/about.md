@@ -10,7 +10,6 @@ profile:
   image: prof_pic.jpg
   image_circular: false
   more_info: >
-    <p>Institut für Physik (THEP)</p>
     <p>Johannes Gutenberg-Universität</p>
     <p>Staudingerweg 7, 55128 Mainz</p>
     <p>Germany</p>
