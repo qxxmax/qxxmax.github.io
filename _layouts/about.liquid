@@ -49,7 +49,7 @@ layout: default
     {% endif %}
 
     <!-- Latest posts -->
-    {% if page.latest_posts and page.latest_posts.enabled %}
+    {% if page.latest_posts and page.latest_posts.enabled and site.posts.size > 0 %}
       <h2>
         <a href="{{ '/blog/' | relative_url }}" style="color: inherit"><span class="en">latest posts</span><span class="zh">最新博客</span></a>
       </h2>

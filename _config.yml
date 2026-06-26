@@ -312,7 +312,7 @@ jekyll-archives:
       tags: "/blog/:type/:name/"
       categories: "/blog/:type/:name/"
 
-display_tags: ["meta", "notes"] # tags shown at the top of /blog/
+display_tags: [] # tags shown at the top of /blog/
 display_categories: [] # categories shown at the top of /blog/
 
 # -----------------------------------------------------------------------------
