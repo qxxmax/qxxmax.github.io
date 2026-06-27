@@ -32,7 +32,7 @@ latest_posts:
 
 Hi, I'm **Moxian Qian** (钱莫闲) — a master's student in theoretical physics at **Johannes Gutenberg University Mainz** (JGU), Germany.
 
-I work at the intersection of **machine learning** and **lattice field theory**. My current interests include normalizing-flow / autoregressive samplers for lattice QCD, operator spectroscopy of trained samplers (i.e. understanding what these samplers actually learn), and ways to make Monte-Carlo sampling on the lattice cheaper and better-conditioned.
+I work at the intersection of **machine learning** and **lattice field theory**. More broadly I'm drawn to the **structure and regularities** of physical systems; concretely, I'm interested in new sampling algorithms for physics — in particular ways to get around the **sign problem**, **critical slowing down**, and **topological freezing**.
 
 Before Mainz I spent about three years (Dec 2022 – Sep 2025) as a **research assistant** at **The Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen)**, working with Prof. **Jianhui Zhang** and Prof. **Kai Zhou**. I think of this stint as my first proper research-internship experience — most of what I now know about lattice field theory and machine learning for physics I started learning there.
 
@@ -46,7 +46,7 @@ Outside physics I write a little, listen to a lot of music, and keep a private j
 
 你好，我是 **钱莫闲**（Moxian Qian）——德国 **美因茨大学**（JGU）理论物理方向的硕士研究生。
 
-研究方向在 **机器学习** 与 **格点场论** 的交界处。目前主要做：用 normalizing flow / 自回归网络给格点 QCD 抽样、训练后采样器的算符谱学分析（看看这些采样器到底学到了什么），以及让 Monte Carlo 在格点上更便宜、更稳的方法。
+研究方向在 **机器学习** 与 **格点场论** 的交界处。更宽泛一点说，比较关心 **事物的结构与规律**；具体到工作上，是新的物理抽样算法，尤其是如何克服采样里的 **符号问题**、**临界慢化** 和 **拓扑冻结**。
 
 来 Mainz 之前，2022 年 12 月到 2025 年 9 月在 **香港中文大学（深圳）** 跟随 **张建辉** 老师和 **周凯** 老师做 **research assistant** 大约三年——格点场论和「用机器学习做物理」这些事我大部分是在这段时间里入门的。
 
