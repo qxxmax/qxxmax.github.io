@@ -176,6 +176,11 @@ collections:
     defaults:
       layout: post
     output: true
+  notes:
+    defaults:
+      layout: note
+    output: true
+    permalink: /notes/:path/
 
 # -----------------------------------------------------------------------------
 # Jekyll settings
@@ -274,6 +279,11 @@ defaults:
       path: "assets"
     values:
       sitemap: false
+  - scope:
+      path: ""
+      type: "notes"
+    values:
+      layout: "note"
 
 sass:
   style: compressed

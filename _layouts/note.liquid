@@ -1,0 +1,44 @@
+---
+layout: default
+---
+{% if page._styles %}
+  <style type="text/css">
+    {{ page._styles }}
+  </style>
+{% endif %}
+
+<div class="post">
+  <header class="post-header">
+    <h1 class="post-title">
+      <span class="en">{{ page.title }}</span>{% if page.title_zh %}<span class="zh">{{ page.title_zh }}</span>{% else %}<span class="zh">{{ page.title }}</span>{% endif %}
+    </h1>
+    <p class="post-meta">
+      {% assign last_date = page.last_modified_at | default: page.last_updated %}
+      {% if last_date %}
+        <span class="en">Last updated {{ last_date | date: '%B %d, %Y' }}</span><span class="zh">最近更新 {{ last_date | date: '%Y 年 %-m 月 %-d 日' }}</span>
+      {% else %}
+        <span class="en">{{ page.date | date: '%B %d, %Y' }}</span><span class="zh">{{ page.date | date: '%Y 年 %-m 月 %-d 日' }}</span>
+      {% endif %}
+      {% if page.external_pdf %}
+        &nbsp; &middot; &nbsp;
+        <a href="{{ page.external_pdf }}" rel="external nofollow noopener" target="_blank">
+          <span class="en">Open PDF</span><span class="zh">打开 PDF</span>
+        </a>
+      {% endif %}
+    </p>
+    {% if page.description %}
+      <p class="post-description">{{ page.description }}</p>
+    {% endif %}
+  </header>
+
+  <article>
+    {{ content }}
+  </article>
+
+  {% if page.related_publications %}
+    <h2><span class="en">References</span><span class="zh">参考文献</span></h2>
+    <div class="publications">
+      {% bibliography --group_by none --cited_in_order %}
+    </div>
+  {% endif %}
+</div>
