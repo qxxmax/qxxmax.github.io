@@ -31,7 +31,7 @@ cv:
         url: https://www.uni-mainz.de/
         area: '<span class="en">Theoretical Physics — Lattice Field Theory &amp; Machine Learning</span><span class="zh">理论物理 — 格点场论 与 机器学习</span>'
         studyType: '<span class="en">M.Sc. (in progress)</span><span class="zh">硕士在读</span>'
-        start_date: 2025
+        start_date: 2026-04
         end_date: '<span class="en">present</span><span class="zh">至今</span>'
         highlights:
           - '<span class="en">Working on machine-learning samplers for lattice field theory.</span><span class="zh">做格点场论的机器学习采样器。</span>'
@@ -51,11 +51,11 @@ cv:
 
     Experience:
       - company: '<span class="en">The Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen)</span><span class="zh">香港中文大学（深圳）</span>'
-        position: '<span class="en">Research Assistant (research internship)</span><span class="zh">Research Assistant（科研实习 / HiWi）</span>'
+        position: '<span class="en">Research Assistant</span><span class="zh">Research Assistant（科研实习）</span>'
         location: '<span class="en">Shenzhen, China</span><span class="zh">中国 深圳</span>'
         start_date: 2022-12-01
         end_date: 2025-09-30
-        summary: '<span class="en">Roughly three years of research-assistant / HiWi-style work between undergrad and graduate school, supervised by Prof. Jianhui Zhang and Prof. Kai Zhou. Where I started learning lattice field theory and machine-learning methods for physics.</span><span class="zh">本科与硕士之间约三年的 research assistant / HiWi 形式的工作，由 张建辉 老师与 周凯 老师共同指导。在这里入门了格点场论以及「用机器学习做物理」。</span>'
+        summary: '<span class="en">Roughly three years of research-assistant work between undergrad and graduate school, supervised by Prof. Jianhui Zhang and Prof. Kai Zhou. Where I started learning lattice field theory and machine-learning methods for physics.</span><span class="zh">本科与硕士之间约三年的 research assistant 工作，由 张建辉 老师与 周凯 老师共同指导。在这里入门了格点场论以及「用机器学习做物理」。</span>'
         highlights:
           - '<span class="en">Advisors&#58; Prof. Jianhui Zhang, Prof. Kai Zhou.</span><span class="zh">导师：张建辉 老师、周凯 老师。</span>'
           - '<span class="en">Hands-on training in lattice field theory, scientific computing, and machine learning for physics.</span><span class="zh">格点场论、科学计算、面向物理的机器学习等方向的实战训练。</span>'
