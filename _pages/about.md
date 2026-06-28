@@ -46,6 +46,18 @@ Outside physics I write a little, listen to a lot of music, and keep a private j
 **Listening:** *Storyteller* by Silence Wang — just released, 23 June.
 </div>
 
+<div class="quotes" markdown="1">
+**Lines I admire — Jensen Huang:**
+
+> A lot of success comes from really, really hard work.
+
+> Greatness is not intelligence. Greatness comes from character. And character isn't formed out of smart people, it's formed out of people who suffered.
+
+> There's hard work, and then there's insanely hard work.
+
+<span class="src">From the Joe Rogan podcast; Stanford SIEPR talk (Mar 2024); NBIM *In Good Company* (Nov 2023), in that order.</span>
+</div>
+
 <div class="motto" markdown="1">
 Love life. Be guided by science. Hold life in reverence.
 
@@ -70,6 +82,18 @@ Meet the world with kindness and warmth, and you will arrive where you are meant
 **在读：**王小波《爱你就像爱生命》。
 
 **在听：**汪苏泷《写故事的人》—— 6 月 23 日刚发的。
+</div>
+
+<div class="quotes" markdown="1">
+**很喜欢的几句话 —— 黄仁勋：**
+
+> 很多成功，其实来自非常、非常艰苦的努力。
+
+> 伟大不来自聪明。伟大来自品格；而品格不是从聪明人身上长出来的，是从那些受过苦的人身上长出来的。
+
+> 努力是一回事，疯狂程度的努力又是另一回事。
+
+<span class="src">依次出自 Joe Rogan 访谈、斯坦福 SIEPR 讲话（2024 年 3 月）、NBIM《In Good Company》播客（2023 年 11 月）。</span>
 </div>
 
 <div class="motto" markdown="1">
