@@ -45,6 +45,37 @@ html[data-lang="zh"] .lang-label-en {
   line-height: 1.45;
 }
 
+/* "Lines I admire" — small collection of external quotes I keep coming
+   back to. Distinct from .motto (which is my own credo, italic, solid
+   left border): regular weight, dotted left border, with a small
+   attribution / source line at the bottom. */
+.quotes {
+  margin: 1.6rem 0 0.4rem;
+  font-size: 0.95em;
+  line-height: 1.55;
+}
+.quotes > p:first-child {
+  margin-bottom: 0.4rem;
+  opacity: 0.85;
+}
+.quotes blockquote {
+  margin: 0.5rem 0;
+  padding: 0.15rem 0 0.15rem 0.8rem;
+  border-left: 2px dotted currentColor;
+  opacity: 0.78;
+  font-style: normal;
+}
+.quotes blockquote p {
+  margin: 0;
+}
+.quotes .src {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 0.82em;
+  font-style: italic;
+  opacity: 0.55;
+}
+
 /* "Now" block — what I'm currently reading / listening to, etc.
    Deliberately styled differently from .motto (no border, no italics)
    so the two don't read as a pair. */
