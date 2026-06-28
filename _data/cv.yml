@@ -65,7 +65,6 @@ cv:
       - title: '<span class="en">Top Ten Students / Star of Science and Technology</span><span class="zh">十佳大学生 / 科技之星</span>'
         date: 2021-06-01
         awarder: '<span class="en">Inner Mongolia Normal University</span><span class="zh">内蒙古师范大学</span>'
-        summary: '<span class="en">University-wide recognition for academic and research achievement.</span><span class="zh">校级表彰，颁给学习与科研表现突出的本科生。</span>'
 
     Publications:
       - title: Stochastic Path Sampler For Lattice Field Theory
