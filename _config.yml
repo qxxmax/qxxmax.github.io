@@ -9,10 +9,10 @@ last_name: Qian
 contact_note: >
   <span class="en">Email is the fastest way to reach me.</span><span class="zh">邮件最方便。</span>
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  Moxian Qian (钱莫闲) — MSc student at Johannes Gutenberg University Mainz, working on machine learning for lattice field theory and lattice QCD.
+  Qian Moxian (钱莫闲) — MSc student at Johannes Gutenberg University Mainz, working on machine learning for lattice field theory and lattice QCD.
 footer_text: >
   <span class="en">Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.</span><span class="zh">由 <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> 驱动，使用 <a href="https://github.com/alshedivat/al-folio">al-folio</a> 主题。</span>
-keywords: Moxian Qian, 钱莫闲, lattice QCD, lattice field theory, machine learning, normalizing flows, JGU Mainz
+keywords: Qian Moxian, 钱莫闲, lattice QCD, lattice field theory, machine learning, normalizing flows, JGU Mainz
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: ⚛️ # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
