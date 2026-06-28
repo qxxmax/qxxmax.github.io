@@ -38,7 +38,7 @@ Before Mainz I spent about three years (Dec 2022 – Sep 2025) as a **research a
 
 I received my B.Sc. in Physics (2017–2022) from **Inner Mongolia Normal University**. I started in Material Physics and switched into Physics mid-program. Once in Physics I was lucky to work with Prof. **Xibin Li** and Prof. **Yongjun Cao** on general relativity and gravitational corrections to planetary orbits. My undergraduate paper on the gravitation-induced shrinkage of Mercury's orbit was published in *Chinese Physics B*. I was also recognized as one of the university's *Top Ten Students* / *Star of Science and Technology* for 2021.
 
-Outside physics I write a little, listen to a lot of music, and keep a private journal of notes and small experiments — some of which leak into the [blog](/blog/) here. Currently making my way through *Love You Like Loving Life* (《爱你就像爱生命》) by Wang Xiaobo (王小波).
+Outside physics I write a little, listen to a lot of music, and keep a private journal of notes and small experiments — some of which leak into the [blog](/blog/) here. Currently making my way through *Love You Like Loving Life* by Wang Xiaobo.
 
 <div class="motto" markdown="1">
 Love life. Be guided by science. Hold life in reverence.
