@@ -111,7 +111,7 @@ cv:
       - name: '<span class="en">Lattice Field Theory</span><span class="zh">格点场论</span>'
         level: '<span class="en">Researcher</span><span class="zh">研究方向</span>'
         icon: fa-solid fa-atom
-        keywords: '<span class="en">lattice QCD, normalizing flows, autoregressive networks, Monte Carlo, form factors</span><span class="zh">格点 QCD、normalizing flow、自回归网络、Monte Carlo、形状因子</span>'
+        keywords: '<span class="en">lattice QCD, normalizing flows, autoregressive networks, Monte Carlo</span><span class="zh">格点 QCD、normalizing flow、自回归网络、Monte Carlo</span>'
 
       - name: '<span class="en">Programming</span><span class="zh">编程</span>'
         level: '<span class="en">Daily</span><span class="zh">日常</span>'
@@ -124,4 +124,4 @@ cv:
         keywords: '<span class="en">lattice field theory, Monte Carlo methods, general relativity</span><span class="zh">格点场论、Monte Carlo 方法、广义相对论</span>'
       - name: '<span class="en">Machine Learning</span><span class="zh">机器学习</span>'
         icon: fa-solid fa-microchip
-        keywords: '<span class="en">generative models, normalizing flows, autoregressive networks, mechanistic interpretability</span><span class="zh">生成模型、normalizing flow、自回归网络、机制可解释性</span>'
+        keywords: '<span class="en">generative models, mechanistic interpretability, Bayesian methods, agent workflows, emergent intelligence</span><span class="zh">生成模型、机制可解释性、贝叶斯方法、Agent 工作流、智能与涌现</span>'
