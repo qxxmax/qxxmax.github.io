@@ -390,6 +390,8 @@ filtered_bibtex_keywords:
     selected,
     slides,
     supp,
+    tldr,
+    tldr_zh,
     topic,
     video,
     website,
