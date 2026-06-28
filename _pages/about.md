@@ -40,6 +40,12 @@ I received my B.Sc. in Physics (2017–2022) from **Inner Mongolia Normal Univer
 
 Outside physics I write a little, listen to a lot of music, and keep a private journal of notes and small experiments — some of which leak into the [blog](/blog/) here.
 
+<div class="motto" markdown="1">
+Love life. Trust in science. Stand in awe of life.
+
+Move through everything in this world with kindness and warmth — and you will arrive where you are meant to be.
+</div>
+
 </div>
 
 <div class="zh" markdown="1">
@@ -53,5 +59,11 @@ Outside physics I write a little, listen to a lot of music, and keep a private j
 本科 2017–2022 在 **内蒙古师范大学** 念物理学。一开始读的是材料物理，中途转到物理学。转到物理学之后跟随 **李喜彬** 老师和 **曹永军** 老师做广义相对论与行星轨道的引力修正。本科期间的工作发表于 *Chinese Physics B*；同时获评内蒙古师范大学 *十佳大学生 / 科技之星*（2021）。
 
 物理之外会写点字、听很多音乐，也写一些个人的小笔记和实验记录 —— 其中一些会出现在这里的 [博客](/blog/) 里。
+
+<div class="motto" markdown="1">
+热爱生活，信仰科学，敬畏生命。
+
+我们应当怀抱着善良和热诚去生活、去和这个世界的一切交互；而你会去往你最终当去的地方。
+</div>
 
 </div>

@@ -20,6 +20,8 @@
   arxiv       = {2606.13790},
   html        = {https://arxiv.org/abs/2606.13790},
   note        = {S. Chen and M. Qian contributed equally},
+  tldr        = {A data-free neural sampler built from learnable forward/backward stochastic dynamics; matches HMC quality with much shorter autocorrelation near the pseudo-critical region of 2D phi^4.},
+  tldr_zh     = {一种不需要训练数据的神经网络采样器，用可学习的前/后向随机动力学构造；在二维 phi^4 的赝临界区域，能匹配 HMC 的精度但自相关时间短得多。},
   abstract    = {In lattice field theory, target distributions are known only up to normalization, while the partition function is generally intractable. Markov chain Monte Carlo simulations often become inefficient near phase transitions or the continuum limit due to critical slowing down. We propose a novel sampler based on nonequilibrium thermodynamics, called Stochastic Path Sampler (SPS), which can generate configurations for the unnormalized target distribution without a need for training data. The central idea is to establish a trajectory-level balance for learnable forward and backward stochastic dynamics between two equilibrium states---the prior and target distributions---by minimizing the path-space variational free energy, equivalently an entropy-production upper bound. The learned forward process provides independent proposals, subsequently corrected by an extended-space Independence Metropolis--Hastings step. In two-dimensional phi^4 theory, our neural sampler matches HMC's sampling quality with a much shorter autocorrelation time in the pseudocritical region. SPS offers a stochastic-quantization-inspired route to data-free proposal construction for lattice field theory.}
 }
 
@@ -38,6 +40,8 @@
   primaryClass  = {hep-lat},
   arxiv       = {2512.19575},
   html        = {https://arxiv.org/abs/2512.19575},
+  tldr        = {Trains autoregressive networks via reinforcement learning for data-free sampling on Ising and phi^4; small Metropolis-Hastings corrections on top of the network proposals remove residual bias while keeping high sample efficiency.},
+  tldr_zh     = {用强化学习训练自回归网络，对 Ising 与 phi^4 做无数据采样；在网络提议之上叠加小的 Metropolis-Hastings 修正，去掉残余偏差同时保持高采样效率。},
   abstract    = {We combine reinforcement learning with variational autoregressive networks (VANs) to perform data-free training and sampling for the discrete Ising model and the continuous phi^4 scalar field theory. We quantify the complexity of the target distribution via the KL divergence between the magnetization distribution and a reference Gaussian distribution, and observe that configurations with smaller KL divergence typically require fewer training steps. Motivated by this observation, we investigate transfer learning and show that fine-tuning models pretrained at a single value of kappa can reduce training time compared with training from a Gaussian field. In addition, inspired by single-site and cluster Monte Carlo updates, we introduce single-site and block Metropolis-Hastings (MH) updates on top of VAN proposals. These MH corrections systematically reduce the residual bias of pure VAN sampling in the parameter range we study, while maintaining high sampling efficiency in terms of the effective sample size (ESS). For both the Ising model and the phi^4 theory, our results agree with standard Monte Carlo benchmarks within errors, and no clear critical slowing down is observed in the explored parameter ranges.}
 }
 
@@ -56,6 +60,8 @@
   primaryClass  = {hep-lat},
   arxiv       = {2605.11199},
   html        = {https://arxiv.org/abs/2605.11199},
+  tldr        = {Instead of judging trained samplers only by the ensembles they produce, projects the learned field-space function onto symmetry-fixed operator bases — revealing what different sampler families (flow-matching, diffusion, normalizing flows, gauge-equivariant) actually learn.},
+  tldr_zh     = {不再只看采样器产生的 ensemble，而是把训练后的场空间函数投影到事先按对称性固定好的算符基上 —— 由此看清楚 flow matching、diffusion、normalizing flow、规范等变这几类采样器到底学到了什么。},
   abstract    = {Trained lattice samplers are usually judged by the ensembles they generate. Here we instead analyze the trained field-space function itself: a flow-matching velocity, a diffusion score, or a normalizing-flow action residual. We project these functions onto operator bases fixed before the fit, chosen from symmetry, exact Gaussian path limits, finite-volume modes, and gauge covariance. For two-dimensional lattice phi^4, a trained straight-flow teacher is not described by a local force basis alone. After the local transport basis, the residual separates into a zero-mode Binder component and a lowest-shell finite-k correlator component. The same projection also distinguishes other sampler classes: diffusion follows the force-resolvent ordering predicted by the free theory, reverse-KL normalizing-flow collapse appears as a forbidden odd zero-mode residual, and gauge-equivariant teachers are resolved by Wilson-loop-force tangent directions.}
 }
 
@@ -74,5 +80,7 @@
   doi         = {10.1088/1674-1056/ab9f24},
   publisher   = {IOP Publishing},
   html        = {https://cpb.iphy.ac.cn/EN/10.1088/1674-1056/ab9f24},
+  tldr        = {Identifies a gravitation-induced secular contribution to the shrinkage of Mercury's orbit, beyond the standard relativistic perihelion precession.},
+  tldr_zh     = {在标准的相对论性近日点进动之外，识别出一项引力诱导的水星轨道长期收缩贡献。},
   abstract    = {We analyze a gravitation-induced contribution to the secular shrinkage of Mercury's orbit, in addition to the standard relativistic perihelion precession.}
 }
