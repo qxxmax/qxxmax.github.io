@@ -108,11 +108,6 @@ cv:
         summary: '<span class="en">General-relativistic gravitational contribution to the secular shrinkage of Mercury''s orbit.</span><span class="zh">水星轨道长期收缩的广义相对论引力修正贡献。</span>'
 
     Skills:
-      - name: '<span class="en">Lattice Field Theory</span><span class="zh">格点场论</span>'
-        level: '<span class="en">Researcher</span><span class="zh">研究方向</span>'
-        icon: fa-solid fa-atom
-        keywords: '<span class="en">lattice QCD, normalizing flows, autoregressive networks, Monte Carlo</span><span class="zh">格点 QCD、normalizing flow、自回归网络、Monte Carlo</span>'
-
       - name: '<span class="en">Programming</span><span class="zh">编程</span>'
         level: '<span class="en">Daily</span><span class="zh">日常</span>'
         icon: fa-solid fa-code
