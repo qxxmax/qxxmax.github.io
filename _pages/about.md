@@ -38,11 +38,7 @@ Before Mainz I spent about three years (Dec 2022 – Sep 2025) as a **research a
 
 I received my B.Sc. in Physics (2017–2022) from **Inner Mongolia Normal University**. I started in Material Physics and switched into Physics mid-program. Once in Physics I was lucky to work with Prof. **Xibin Li** and Prof. **Yongjun Cao** on general relativity and gravitational corrections to planetary orbits. My undergraduate paper on the gravitation-induced shrinkage of Mercury's orbit was published in *Chinese Physics B*. I was also recognized as one of the university's *Top Ten Students* / *Star of Science and Technology* for 2021.
 
-Outside physics I write a little, listen to a lot of music, and keep a private journal of notes and small experiments — some of which leak into the [blog](/blog/) here.
-
-<div class="now-reading" markdown="1">
-Now reading: *《爱你就像爱生命》* — Wang Xiaobo (王小波).
-</div>
+Outside physics I write a little, listen to a lot of music, and keep a private journal of notes and small experiments — some of which leak into the [blog](/blog/) here. Currently making my way through *Love You Like Loving Life* (《爱你就像爱生命》) by Wang Xiaobo (王小波).
 
 <div class="motto" markdown="1">
 Love life. Be guided by science. Hold life in reverence.
@@ -62,11 +58,7 @@ Meet the world with kindness and warmth, and you will arrive where you are meant
 
 本科 2017–2022 在 **内蒙古师范大学** 念物理学。一开始读的是材料物理，中途转到物理学。转到物理学之后跟随 **李喜彬** 老师和 **曹永军** 老师做广义相对论与行星轨道的引力修正。本科期间的工作发表于 *Chinese Physics B*；同时获评内蒙古师范大学 *十佳大学生 / 科技之星*（2021）。
 
-物理之外会写点字、听很多音乐，也写一些个人的小笔记和实验记录 —— 其中一些会出现在这里的 [博客](/blog/) 里。
-
-<div class="now-reading" markdown="1">
-最近在读：*《爱你就像爱生命》* · 王小波。
-</div>
+物理之外会写点字、听很多音乐，也写一些个人的小笔记和实验记录 —— 其中一些会出现在这里的 [博客](/blog/) 里。最近在读王小波的《爱你就像爱生命》。
 
 <div class="motto" markdown="1">
 热爱生活，信仰科学，敬畏生命。
