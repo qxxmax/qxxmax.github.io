@@ -66,6 +66,32 @@ cv:
         date: 2021-06-01
         awarder: '<span class="en">Inner Mongolia Normal University</span><span class="zh">内蒙古师范大学</span>'
 
+      - title: '<span class="en">Mathematics Competition for College Students of China — National Second Prize</span><span class="zh">全国大学生数学竞赛 国家二等奖</span>'
+        date: 2020-06-01
+        awarder: '<span class="en">Chinese Mathematical Society</span><span class="zh">中国数学会</span>'
+
+      - title: '<span class="en">"Challenge Cup" — Inner Mongolia Autonomous Region Special Award</span><span class="zh">「挑战杯」内蒙古自治区 特等奖</span>'
+        date: 2019-07-01
+        awarder: '<span class="en">Inner Mongolia Autonomous Region</span><span class="zh">内蒙古自治区</span>'
+
+      - title: '<span class="en">College Debate Competition — Second Prize &amp; Best Debater</span><span class="zh">校级辩论赛 二等奖 &amp; 最佳辩手</span>'
+        date: 2018-10-01
+        awarder: '<span class="en">Inner Mongolia Normal University</span><span class="zh">内蒙古师范大学</span>'
+
+      - title: '<span class="en">"100-Second Forum" Speech Contest — Second Prize</span><span class="zh">「百秒论坛」演讲比赛 二等奖</span>'
+        date: 2018-09-01
+        awarder: '<span class="en">Inner Mongolia Normal University</span><span class="zh">内蒙古师范大学</span>'
+
+    Projects:
+      - name: '<span class="en">Orbital dynamics in strongly curved spacetime</span><span class="zh">强引力时空下的轨道动力学</span>'
+        summary: '<span class="en">**2020 – 2022** · funded student research project (College Students'' Innovative Training Program of the Inner Mongolia Education Department). Produced the first-author *Chinese Physics B* paper on Mercury''s gravitation-induced orbital shrinkage.</span><span class="zh">**2020 – 2022** · 内蒙古自治区教育厅资助的大学生创新训练计划。这一项目最终产出了发表于 *Chinese Physics B* 的水星轨道引力收缩论文（第一作者）。</span>'
+
+      - name: '<span class="en">FAST ideal-paraboloid determination and reflective-panel shaping</span><span class="zh">FAST 理想抛物面的确定与反射面板成形</span>'
+        summary: '<span class="en">**2021** · China Undergraduate Mathematical Contest in Modeling (CUMCM). Modeled the signal-reception path of the FAST telescope using Monte Carlo within the 1-m feeder module. Inner Mongolia Provincial First Prize.</span><span class="zh">**2021** · 全国大学生数学建模竞赛（CUMCM）题目。在 1 米馈源模块内用 Monte Carlo 建模 FAST 望远镜的信号接收路径。内蒙古自治区一等奖。</span>'
+
+      - name: '<span class="en">Preparation of Cu-Zn-Sn-S (CZTS) thin films</span><span class="zh">铜锌锡硫（CZTS）薄膜的制备</span>'
+        summary: '<span class="en">**2018** · National College Students'' Innovation and Entrepreneurship Training Program (funded by the Ministry of Education of China). Materials-physics-era project from the first year of undergrad, before switching into physics.</span><span class="zh">**2018** · 国家级大学生创新创业训练计划（教育部资助）。本科入学第一年、转入物理学之前在材料物理方向做的项目。</span>'
+
     Publications:
       - title: Stochastic Path Sampler For Lattice Field Theory
         authors:
