@@ -1,5 +1,5 @@
 cv:
-  name: Qian Moxian
+  name: Moxian Qian
   label: '<span class="en">MSc Student</span><span class="zh">硕士研究生</span>'
   email: mqian@students.uni-mainz.de
   location: Mainz, Germany
@@ -14,7 +14,7 @@ cv:
       username: Qian Moxian
       url: https://inspirehep.net/authors/3172807
     - network: ResearchGate
-      username: Qian Moxian
+      username: Moxian Qian
       url: https://www.researchgate.net/profile/Moxian-Qian
 
   address:
@@ -45,7 +45,7 @@ cv:
         start_date: 2017
         end_date: 2022
         highlights:
-          - '<span class="en">Advisors&#58; Prof. Li Xibin, Prof. Cao Yongjun.</span><span class="zh">导师：李喜彬 老师、曹永军 老师。</span>'
+          - '<span class="en">Advisors&#58; Prof. Xibin Li, Prof. Yongjun Cao.</span><span class="zh">导师：李喜彬 老师、曹永军 老师。</span>'
           - '<span class="en">Started in Material Physics, later transferred into Physics.</span><span class="zh">从材料物理入学，中途转入物理学。</span>'
           - '<span class="en">Undergraduate research on general relativity and orbital mechanics.</span><span class="zh">本科研究方向是广义相对论与天体轨道力学。</span>'
 
@@ -55,9 +55,9 @@ cv:
         location: '<span class="en">Shenzhen, China</span><span class="zh">中国 深圳</span>'
         start_date: 2022-12-01
         end_date: 2025-09-30
-        summary: '<span class="en">Roughly three years of research-assistant work between undergrad and graduate school, supervised by Prof. Zhang Jianhui and Prof. Zhou Kai. Where I started learning lattice field theory and machine-learning methods for physics.</span><span class="zh">本科与硕士之间约三年的 research assistant 工作，由 张建辉 老师与 周凯 老师共同指导。在这里入门了格点场论以及「用机器学习做物理」。</span>'
+        summary: '<span class="en">Roughly three years of research-assistant work between undergrad and graduate school, supervised by Prof. Jianhui Zhang and Prof. Kai Zhou. Where I started learning lattice field theory and machine-learning methods for physics.</span><span class="zh">本科与硕士之间约三年的 research assistant 工作，由 张建辉 老师与 周凯 老师共同指导。在这里入门了格点场论以及「用机器学习做物理」。</span>'
         highlights:
-          - '<span class="en">Advisors&#58; Prof. Zhang Jianhui, Prof. Zhou Kai.</span><span class="zh">导师：张建辉 老师、周凯 老师。</span>'
+          - '<span class="en">Advisors&#58; Prof. Jianhui Zhang, Prof. Kai Zhou.</span><span class="zh">导师：张建辉 老师、周凯 老师。</span>'
           - '<span class="en">Hands-on training in lattice field theory, scientific computing, and machine learning for physics.</span><span class="zh">格点场论、科学计算、面向物理的机器学习等方向的实战训练。</span>'
           - '<span class="en">Computational algebraic geometry, plus integration-by-parts (IBP) and integrand-reduction methods for Feynman diagrams, applied to jet algorithms.</span><span class="zh">计算代数几何，以及 Feynman 图的 IBP 与 integrand-reduction 方法，应用于 jet algorithm。</span>'
 
@@ -95,19 +95,19 @@ cv:
     Publications:
       - title: Stochastic Path Sampler For Lattice Field Theory
         authors:
-          - Chen Shiyang
-          - Qian Moxian
+          - Shiyang Chen
+          - Moxian Qian
           - Gert Aarts
           - Biagio Lucini
-          - Zhou Kai
+          - Kai Zhou
         publisher: arXiv
         releaseDate: 2026-06
         url: https://arxiv.org/abs/2606.13790
-        summary: '<span class="en">Data-free neural sampler based on nonequilibrium thermodynamics and stochastic quantization; matches HMC quality with much shorter autocorrelation in the pseudocritical region of 2D phi^4. Co-first author with Chen S.</span><span class="zh">基于非平衡热力学与随机量子化的数据无关神经采样器；在 2D φ⁴ 伪临界区，质量与 HMC 相当，自相关时间显著更短。与 陈世洋 共同一作。</span>'
+        summary: '<span class="en">Data-free neural sampler based on nonequilibrium thermodynamics and stochastic quantization; matches HMC quality with much shorter autocorrelation in the pseudocritical region of 2D phi^4. Co-first author with S. Chen.</span><span class="zh">基于非平衡热力学与随机量子化的数据无关神经采样器；在 2D φ⁴ 伪临界区，质量与 HMC 相当，自相关时间显著更短。与 S. Chen 共同一作。</span>'
 
       - title: Operator Spectroscopy of Trained Lattice Samplers
         authors:
-          - Qian Moxian
+          - Moxian Qian
         publisher: arXiv
         releaseDate: 2026-05
         url: https://arxiv.org/abs/2605.11199
@@ -115,8 +115,8 @@ cv:
 
       - title: Variational Autoregressive Networks Applied to $\phi^4$ Field Theory Systems
         authors:
-          - Qian Moxian
-          - Chen Shiyang
+          - Moxian Qian
+          - Shiyang Chen
         publisher: arXiv
         releaseDate: 2025-12
         url: https://arxiv.org/abs/2512.19575
@@ -124,9 +124,9 @@ cv:
 
       - title: Gravitation induced shrinkage of Mercury's orbit
         authors:
-          - Qian Moxian
-          - Li Xibin
-          - Cao Yongjun
+          - Moxian Qian
+          - Xibin Li
+          - Yongjun Cao
         publisher: Chinese Physics B 29 (2020) 109501
         releaseDate: 2020-10
         url: https://doi.org/10.1088/1674-1056/ab9f24

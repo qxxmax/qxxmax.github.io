@@ -30,13 +30,13 @@ latest_posts:
 
 <div class="en" markdown="1">
 
-Hi, I'm **Qian Moxian** (钱莫闲) — a master's student in theoretical physics at **Johannes Gutenberg University Mainz** (JGU), Germany.
+Hi, I'm **Moxian Qian** (钱莫闲) — a master's student in theoretical physics at **Johannes Gutenberg University Mainz** (JGU), Germany.
 
 I work at the intersection of **machine learning** and **lattice field theory**. More broadly I'm drawn to the **structure and regularities** of physical systems; concretely, I'm interested in new sampling algorithms for physics — in particular ways to get around the **sign problem**, **critical slowing down**, and **topological freezing**.
 
-Before Mainz I spent about three years (Dec 2022 – Sep 2025) as a **research assistant** at **The Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen)**, working with Prof. **Zhang Jianhui** and Prof. **Zhou Kai**. I think of this stint as my first proper research-internship experience — most of what I now know about lattice field theory and machine learning for physics I started learning there.
+Before Mainz I spent about three years (Dec 2022 – Sep 2025) as a **research assistant** at **The Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen)**, working with Prof. **Jianhui Zhang** and Prof. **Kai Zhou**. I think of this stint as my first proper research-internship experience — most of what I now know about lattice field theory and machine learning for physics I started learning there.
 
-I received my B.Sc. in Physics (2017–2022) from **Inner Mongolia Normal University**. I started in Material Physics and switched into Physics mid-program. Once in Physics I was lucky to work with Prof. **Li Xibin** and Prof. **Cao Yongjun** on general relativity and gravitational corrections to planetary orbits. My undergraduate paper on the gravitation-induced shrinkage of Mercury's orbit was published in *Chinese Physics B*. I was also recognized as one of the university's *Top Ten Students* / *Star of Science and Technology* for 2021.
+I received my B.Sc. in Physics (2017–2022) from **Inner Mongolia Normal University**. I started in Material Physics and switched into Physics mid-program. Once in Physics I was lucky to work with Prof. **Xibin Li** and Prof. **Yongjun Cao** on general relativity and gravitational corrections to planetary orbits. My undergraduate paper on the gravitation-induced shrinkage of Mercury's orbit was published in *Chinese Physics B*. I was also recognized as one of the university's *Top Ten Students* / *Star of Science and Technology* for 2021.
 
 Outside physics I write a little, listen to a lot of music, and keep a private journal of notes and small experiments — some of which leak into the [blog](/blog/) here.
 
@@ -54,7 +54,7 @@ Meet the world with kindness and warmth, and you will arrive where you are meant
 
 <div class="zh" markdown="1">
 
-你好，我是 **钱莫闲**（Qian Moxian）——德国 **美因茨大学**（JGU）理论物理方向的硕士研究生。
+你好，我是 **钱莫闲**（Moxian Qian）——德国 **美因茨大学**（JGU）理论物理方向的硕士研究生。
 
 研究方向在 **机器学习** 与 **格点场论** 的交界处。更宽泛一点说，比较关心 **事物的结构与规律**；具体到工作上，是新的物理抽样算法，尤其是如何克服采样里的 **符号问题**、**临界慢化** 和 **拓扑冻结**。
 

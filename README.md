@@ -1,6 +1,6 @@
 # qxxmax.github.io
 
-Personal academic homepage of **Qian Moxian / 钱莫闲**, built on [al-folio](https://github.com/alshedivat/al-folio) (Jekyll, v1.x).
+Personal academic homepage of **Moxian Qian / 钱莫闲**, built on [al-folio](https://github.com/alshedivat/al-folio) (Jekyll, v1.x).
 
 Bilingual (中 / EN) toggle in the top-right of the navbar — uses `localStorage` to remember the chosen language.
 

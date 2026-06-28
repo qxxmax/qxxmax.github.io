@@ -5,10 +5,9 @@
       {% if page.permalink != '/' %}
         <a class="navbar-brand title font-weight-lighter" href="{{ site.baseurl }}/">
           {% if site.title == 'blank' %}
-            {% comment %} Chinese surname-first order: last_name → middle_name → first_name. {% endcomment %}
-            {% if site.last_name %}
+            {% if site.first_name %}
               <span class="font-weight-bold">
-                {{- site.last_name -}}
+                {{- site.first_name -}}
               </span>
             {% endif %}
             {% if site.middle_name %}
@@ -16,9 +15,9 @@
                 {{- site.middle_name -}}
               </span>
             {% endif %}
-            {% if site.first_name %}
+            {% if site.last_name %}
               <span class="font-weight-bold">
-                {{- site.first_name -}}
+                {{- site.last_name -}}
               </span>
             {% endif %}
           {% else %}

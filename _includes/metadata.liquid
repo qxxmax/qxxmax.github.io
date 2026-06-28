@@ -14,8 +14,7 @@
   <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
 {% endif %}
 
-{% comment %} Chinese surname-first order: last_name → middle_name → first_name. {% endcomment %}
-{% capture author_name %}{{ site.last_name }}{% if site.middle_name %} {{ site.middle_name }}{% endif %} {{ site.first_name }}{% endcapture %}
+{% capture author_name %}{{ site.first_name }}{% if site.middle_name %} {{ site.middle_name }}{% endif %} {{ site.last_name }}{% endcapture %}
 
 <!-- Standard metadata -->
 <meta charset="utf-8">
