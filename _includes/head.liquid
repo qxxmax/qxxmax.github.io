@@ -102,6 +102,12 @@
     id="highlight_theme_dark"
   >
   <script>
+    // Local override: default first-time visitors to the "夜樱 / night sakura"
+    // dark palette. Users who have already toggled (localStorage has a value)
+    // keep their own preference; the theme toggle still works normally.
+    if (!localStorage.getItem("theme")) {
+      localStorage.setItem("theme", "dark");
+    }
     initTheme();
   </script>
 {% endif %}

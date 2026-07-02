@@ -111,3 +111,55 @@ html[data-lang="zh"] .lang-label-en {
 .motto p + p {
   margin-top: 0.4rem;
 }
+
+/* ============================================================
+   Color palette override — "樱雨 / restrained sakura"
+   ------------------------------------------------------------
+   Whisper-of-pink cream in light mode, deep plum-charcoal in
+   dark mode. Accent is a dried-petal deep rose, not a hot pink,
+   so it stays academic-feeling. All colors go through the same
+   --global-* variables the theme already exposes.
+   ============================================================ */
+
+:root {
+  /* Paper with the faintest pink undertone. */
+  --global-bg-color: #fdf6f5;
+  --global-text-color: #2a1f26;
+  --global-text-color-light: #7a6b74;
+
+  /* Dried-petal deep rose. Links / hovers / badges. */
+  --global-theme-color: #b93a5a;
+  --global-hover-color: #b93a5a;
+  --global-hover-text-color: #fdf6f5;
+
+  --global-card-bg-color: #fffaf9;
+  --global-divider-color: rgba(42, 31, 38, 0.08);
+  --global-code-bg-color: rgba(185, 58, 90, 0.05);
+
+  --global-highlight-color: #8a2843;
+
+  /* Footer — inverted, warm-plum charcoal so it grounds the page. */
+  --global-footer-bg-color: #2a1f26;
+  --global-footer-text-color: #d8c8ce;
+  --global-footer-link-color: #fdf6f5;
+}
+
+html[data-theme="dark"] {
+  --global-bg-color: #1a1418;
+  --global-text-color: #f5e6e4;
+  --global-text-color-light: #a08a90;
+
+  --global-theme-color: #eb8fa5;
+  --global-hover-color: #eb8fa5;
+  --global-hover-text-color: #1a1418;
+
+  --global-card-bg-color: #221a1e;
+  --global-divider-color: #3a2f34;
+  --global-code-bg-color: #2a2126;
+
+  --global-highlight-color: #f2b0c0;
+
+  --global-footer-bg-color: #221a1e;
+  --global-footer-text-color: #f5e6e4;
+  --global-footer-link-color: #eb8fa5;
+}
