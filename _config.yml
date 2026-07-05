@@ -181,6 +181,11 @@ collections:
       layout: note
     output: true
     permalink: /notes/:path/
+  reviews:
+    defaults:
+      layout: note
+    output: true
+    permalink: /reviews/:path/
 
 # -----------------------------------------------------------------------------
 # Jekyll settings
@@ -282,6 +287,11 @@ defaults:
   - scope:
       path: ""
       type: "notes"
+    values:
+      layout: "note"
+  - scope:
+      path: ""
+      type: "reviews"
     values:
       layout: "note"
 
