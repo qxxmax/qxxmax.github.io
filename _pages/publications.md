@@ -63,4 +63,10 @@ nav_order: 2
     <span lang="zh" hidden>实时演化</span>
   </h2>
   {% bibliography -f papers -q @*[topic=realtime] %}
+
+  <h2 class="year">
+    <span lang="en">Skill learning</span>
+    <span lang="zh" hidden>技能学习</span>
+  </h2>
+  {% bibliography -f papers -q @*[topic=skill] %}
 -->
