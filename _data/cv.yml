@@ -66,21 +66,9 @@ cv:
         date: 2021-06-01
         awarder: '<span class="en">Inner Mongolia Normal University</span><span class="zh">内蒙古师范大学</span>'
 
-      - title: '<span class="en">Mathematics Competition for College Students of China — National Second Prize</span><span class="zh">全国大学生数学竞赛 国家二等奖</span>'
-        date: 2020-06-01
-        awarder: '<span class="en">Chinese Mathematical Society</span><span class="zh">中国数学会</span>'
-
       - title: '<span class="en">"Challenge Cup" — Inner Mongolia Autonomous Region Special Award</span><span class="zh">「挑战杯」内蒙古自治区 特等奖</span>'
         date: 2019-07-01
         awarder: '<span class="en">Inner Mongolia Autonomous Region</span><span class="zh">内蒙古自治区</span>'
-
-      - title: '<span class="en">College Debate Competition — Second Prize &amp; Best Debater</span><span class="zh">校级辩论赛 二等奖 &amp; 最佳辩手</span>'
-        date: 2018-10-01
-        awarder: '<span class="en">Inner Mongolia Normal University</span><span class="zh">内蒙古师范大学</span>'
-
-      - title: '<span class="en">"100-Second Forum" Speech Contest — Second Prize</span><span class="zh">「百秒论坛」演讲比赛 二等奖</span>'
-        date: 2018-09-01
-        awarder: '<span class="en">Inner Mongolia Normal University</span><span class="zh">内蒙古师范大学</span>'
 
     Projects:
       - name: '<span class="en">Orbital dynamics in strongly curved spacetime</span><span class="zh">强引力时空下的轨道动力学</span>'
