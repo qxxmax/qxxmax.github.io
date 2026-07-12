@@ -186,6 +186,11 @@ collections:
       layout: note
     output: true
     permalink: /reviews/:path/
+  talks:
+    defaults:
+      layout: note
+    output: true
+    permalink: /talks/:path/
 
 # -----------------------------------------------------------------------------
 # Jekyll settings

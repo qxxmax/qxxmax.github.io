@@ -4,7 +4,7 @@ permalink: /blog/
 title: blog
 title_zh: 博客
 nav: true
-nav_order: 5
+nav_order: 6
 pagination:
   enabled: true
   collection: posts
