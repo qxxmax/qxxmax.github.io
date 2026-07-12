@@ -5,7 +5,7 @@ date: 2026-06-01
 event: "Seminar II · Nuclear and Particle Physics · JGU Mainz"
 pdf: /assets/pdf/talks/proton-radius-puzzle-and-lattice-qcd-moxian-qian.pdf
 external_pdf: /assets/pdf/talks/proton-radius-puzzle-and-lattice-qcd-moxian-qian.pdf
-description: <span class="en">A pedagogical introduction to proton-radius measurements and the lattice-QCD calculation of electromagnetic form factors. Public handout with technical backup material.</span><span class="zh">从质子半径的实验测量出发，介绍电磁形状因子以及格点 QCD 如何从关联函数计算同一个电磁矩阵元；公开版包含技术附录。</span>
+description: <span class="en">Starting from the basic physics of proton-radius measurements, the slides gradually introduce how lattice QCD calculates the proton charge radius. Public handout with technical backup material.</span><span class="zh">这套 slides 从质子半径测量的基础物理图像出发，逐步引入如何在格点 QCD 中计算质子电荷半径；公开版包含技术附录。</span>
 ---
 
 <div class="en" markdown="1">
