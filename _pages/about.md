@@ -3,15 +3,15 @@ layout: about
 title: about
 title_zh: 关于
 permalink: /
-subtitle: <span class="en">MSc student · <a href='https://www.uni-mainz.de/' target='_blank'>Johannes Gutenberg University Mainz</a> · Lattice QCD & Machine Learning</span><span class="zh">硕士在读 · <a href='https://www.uni-mainz.de/' target='_blank'>美因茨大学</a> · 格点 QCD 与机器学习</span>
+subtitle: <span class="en">MSc student · <a href='https://www.hi-mainz.de/' target='_blank'>Helmholtz Institute Mainz</a> / <a href='https://www.uni-mainz.de/' target='_blank'>JGU Mainz</a> · Lattice QCD & Machine Learning</span><span class="zh">硕士在读 · <a href='https://www.hi-mainz.de/' target='_blank'>美因茨亥姆霍兹研究所</a> / <a href='https://www.uni-mainz.de/' target='_blank'>美因茨大学</a> · 格点 QCD 与机器学习</span>
 
 profile:
   align: right
   image: prof_pic.jpg
   image_circular: false
   more_info: >
-    <p>Johannes Gutenberg-Universität</p>
-    <p>Staudingerweg 7, 55128 Mainz</p>
+    <p>Helmholtz Institute Mainz</p>
+    <p>Staudingerweg 18, 55128 Mainz</p>
     <p>Germany</p>
 
 selected_papers: true
@@ -30,7 +30,7 @@ latest_posts:
 
 <div class="en" markdown="1">
 
-Hi, I'm **Moxian Qian** (钱莫闲) — a master's student in theoretical physics at **Johannes Gutenberg University Mainz** (JGU), Germany.
+Hi, I'm **Moxian Qian** (钱莫闲) — a master's student in theoretical physics at **Johannes Gutenberg University Mainz** (JGU), Germany. I am currently based at the **Helmholtz Institute Mainz** (HIM), where I work with Prof. **Dmitry Budker** and Dr. **Konstantin Gaul**.
 
 I work at the intersection of **machine learning** and **lattice field theory**. More broadly I'm drawn to the **structure and regularities** of physical systems; concretely, I'm interested in new sampling algorithms for physics — in particular ways to get around the **sign problem**, **critical slowing down**, and **topological freezing**.
 
@@ -68,7 +68,7 @@ Meet the world with kindness and warmth, and you will arrive where you are meant
 
 <div class="zh" markdown="1">
 
-你好，我是 **钱莫闲**（Moxian Qian）——德国 **美因茨大学**（JGU）理论物理方向的硕士研究生。
+你好，我是 **钱莫闲**（Moxian Qian）——德国 **美因茨大学**（JGU）理论物理方向的硕士研究生。目前在 **美因茨亥姆霍兹研究所**（HIM）与 **Dmitry Budker 教授**和 **Konstantin Gaul 博士**合作。
 
 研究方向在 **机器学习** 与 **格点场论** 的交界处。更宽泛一点说，比较关心 **事物的结构与规律**；具体到工作上，是新的物理抽样算法，尤其是如何克服采样里的 **符号问题**、**临界慢化** 和 **拓扑冻结**。
 
