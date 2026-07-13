@@ -32,7 +32,7 @@ latest_posts:
 
 Hi, I'm **Moxian Qian** (钱莫闲) — a master's student in theoretical physics at **Johannes Gutenberg University Mainz** (JGU), Germany. I am currently based at the **Helmholtz Institute Mainz** (HIM), where I work with Prof. **Dmitry Budker** and Dr. **Konstantin Gaul**. I also collaborate with Prof. **Lukas Stelzl** at the **Institute of Molecular Biology** (IMB), Mainz.
 
-I work at the intersection of **machine learning** and **lattice field theory**. More broadly I'm drawn to the **structure and regularities** of physical systems; concretely, I'm interested in new sampling algorithms for physics — in particular ways to get around the **sign problem**, **critical slowing down**, and **topological freezing**.
+I work at the intersection of **machine learning** and **lattice field theory**. More broadly I'm drawn to the **structure and regularities** of physical systems; concretely, I'm interested in new sampling algorithms for physics — in particular ways to get around the **sign problem**, **critical slowing down**, and **topological freezing**. My broader research interests also include **mechanistic interpretability of large models**, **information-theoretic principles**, **Bayesian methods**, and their applications in physics.
 
 Before Mainz I spent about three years (Dec 2022 – Sep 2025) as a **research assistant** at **The Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen)**, working with Prof. **Jianhui Zhang** and Prof. **Kai Zhou**. I think of this stint as my first proper research-internship experience — most of what I now know about lattice field theory and machine learning for physics I started learning there.
 
@@ -70,7 +70,7 @@ Meet the world with kindness and warmth, and you will arrive where you are meant
 
 你好，我是 **钱莫闲**（Moxian Qian）——德国 **美因茨大学**（JGU）理论物理方向的硕士研究生。目前在 **美因茨亥姆霍兹研究所**（HIM）与 **Dmitry Budker 教授**和 **Konstantin Gaul 博士**合作，同时与美因茨 **分子生物学研究所**（IMB）的 **Lukas Stelzl 教授**合作。
 
-研究方向在 **机器学习** 与 **格点场论** 的交界处。更宽泛一点说，比较关心 **事物的结构与规律**；具体到工作上，是新的物理抽样算法，尤其是如何克服采样里的 **符号问题**、**临界慢化** 和 **拓扑冻结**。
+研究方向在 **机器学习** 与 **格点场论** 的交界处。更宽泛一点说，比较关心 **事物的结构与规律**；具体到工作上，是新的物理抽样算法，尤其是如何克服采样里的 **符号问题**、**临界慢化** 和 **拓扑冻结**。此外，我也关注 **大模型的机制与可解释性**、**信息原理**、**贝叶斯方法**及其在物理学中的应用。
 
 来 Mainz 之前，2022 年 12 月到 2025 年 9 月在 **香港中文大学（深圳）** 跟随 **张建辉** 老师和 **周凯** 老师做 **research assistant** 大约三年——格点场论和「用机器学习做物理」这些事我大部分是在这段时间里入门的。
 
