@@ -12,6 +12,8 @@ nav_order: 3
 
 ## play-the-toy-with-children
 
+**Uploaded:** 13 July 2026
+
 A six-part workflow for working with AI from literature research to project execution, proposal writing, publication, and presentations. **Part 1 is complete and public; Parts 2-6 are the development roadmap.**
 
 ### Part 1: literature research
@@ -29,11 +31,17 @@ It records source-linked paper identities, full-text reading notes, literature m
 ### Invoke
 
 ```text
-Use $play-the-toy-with-children.
-intent=cover, scan=full, graph_mode=on, optimizer=dijkstra.
-Return to the original sources in every round and preserve sources,
-boundaries, and open questions.
+Use $play-the-toy-with-children for Part 1 literature research.
+Topic: [paper, field, or verbal clue]
+intent_mode.primary=cover
+scan_level=full
+token_policy=balanced
+screenshot_policy=key-only
+Output: source matrix, paper-reading records, claim/evidence ledger,
+lineage, gap ledger, and report.
 ```
+
+For a family tree, citation graph, or search-strategy audit, also request `graph_mode=on` and `optimizer=dijkstra`. The Dijkstra path is navigation metadata, not scientific evidence.
 
 Chinese versions: [Part 1 overview](/assets/pdf/play-the-toy-part1-literature-research.pdf) · [Six-part roadmap](/assets/pdf/play-the-toy-six-part-roadmap.pdf)
 
@@ -42,6 +50,8 @@ Chinese versions: [Part 1 overview](/assets/pdf/play-the-toy-part1-literature-re
 <div class="zh" markdown="1">
 
 ## play-the-toy-with-children
+
+**上传日期：**2026 年 7 月 13 日
 
 一套从文献调研、研究执行、proposal、论文与代码交付，到 slides 的六部分 AI 科研协作流程。**Part 1 已完成并公开；Parts 2-6 是后续开发路线。**
 
@@ -60,10 +70,17 @@ Chinese versions: [Part 1 overview](/assets/pdf/play-the-toy-part1-literature-re
 ### 调用
 
 ```text
-Use $play-the-toy-with-children.
-intent=cover, scan=full, graph_mode=on, optimizer=dijkstra.
-每轮回到原文核查，并保留来源、边界与待确认问题。
+Use $play-the-toy-with-children 做 Part 1 文献调研。
+口头线索：[论文、领域或一句问题]
+intent_mode.primary=cover
+scan_level=full
+token_policy=balanced
+screenshot_policy=key-only
+输出：source matrix、逐篇阅读记录、claim/evidence ledger、
+谱系图、gap ledger 和调研报告。
 ```
+
+需要家族谱系、引用图或搜索算法审计时，再加入 `graph_mode=on` 和 `optimizer=dijkstra`。Dijkstra 路径只是导航信息，不是科学证据。
 
 英文版本：[Part 1 overview](/assets/pdf/play-the-toy-part1-literature-research-en.pdf) · [Six-part roadmap](/assets/pdf/play-the-toy-six-part-roadmap-en.pdf)
 
