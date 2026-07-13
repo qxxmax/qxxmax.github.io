@@ -5,7 +5,7 @@ title: lecture notes
 title_zh: 讲义笔记
 description: <span class="en">Self-study notes — mostly on lattice field theory and machine learning for physics. Living documents; expect typos and revisions.</span><span class="zh">自学笔记，主要围绕格点场论与「用机器学习做物理」。处于持续整理中，可能有错漏，会陆续修订。</span>
 nav: true
-nav_order: 4
+nav_order: 5
 ---
 
 <!-- _pages/notes.md -->
