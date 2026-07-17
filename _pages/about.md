@@ -41,7 +41,7 @@ I received my B.Sc. in Physics (2017–2022) from **Inner Mongolia Normal Univer
 Outside physics I write a little, listen to a lot of music, and keep a private journal of notes and small experiments — some of which leak into the [blog](/blog/) here.
 
 <div class="now" markdown="1">
-**Reading:** *Love You Like Loving Life* by Wang Xiaobo.
+**Reading:** That damn Weinberg QFT — speedrunning Vol. 1 in four days. SOS.
 
 **Listening:** *Our Shared Glory* (*彼此的光荣*) by Silence Wang.
 </div>
@@ -79,7 +79,7 @@ Meet the world with kindness and warmth, and you will arrive where you are meant
 物理之外会写点字、听很多音乐，也写一些个人的小笔记和实验记录 —— 其中一些会出现在这里的 [博客](/blog/) 里。
 
 <div class="now" markdown="1">
-**在读：**王小波《爱你就像爱生命》。
+**在读：**该死的 Weinberg QFT——4 天速通 QFT 1，SOS。
 
 **在听：**汪苏泷《彼此的光荣》。
 </div>
