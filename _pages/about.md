@@ -43,7 +43,7 @@ Outside physics I write a little, listen to a lot of music, and keep a private j
 <div class="now" markdown="1">
 **Reading:** *Love You Like Loving Life* by Wang Xiaobo.
 
-**Listening:** *Storyteller* by Silence Wang — just released, 23 June.
+**Listening:** *彼此的光荣* by Silence Wang.
 </div>
 
 <div class="motto" markdown="1">
@@ -81,7 +81,7 @@ Meet the world with kindness and warmth, and you will arrive where you are meant
 <div class="now" markdown="1">
 **在读：**王小波《爱你就像爱生命》。
 
-**在听：**汪苏泷《写故事的人》—— 6 月 23 日刚发的。
+**在听：**汪苏泷《彼此的光荣》。
 </div>
 
 <div class="motto" markdown="1">
