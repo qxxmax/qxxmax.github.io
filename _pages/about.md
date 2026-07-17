@@ -43,7 +43,7 @@ Outside physics I write a little, listen to a lot of music, and keep a private j
 <div class="now" markdown="1">
 **Reading:** *Love You Like Loving Life* by Wang Xiaobo.
 
-**Listening:** *彼此的光荣* by Silence Wang.
+**Listening:** *Our Shared Glory* (*彼此的光荣*) by Silence Wang.
 </div>
 
 <div class="motto" markdown="1">
