@@ -80,6 +80,14 @@ cv:
         summary: '<span class="en">**2018** · National College Students'' Innovation and Entrepreneurship Training Program (funded by the Ministry of Education of China). Advisor: Prof. **Yang Yanchun**. Materials-physics-era project from the first year of undergrad, before switching into physics.</span><span class="zh">**2018** · 国家级大学生创新创业训练计划（教育部资助）。指导老师：**杨艳春** 老师。本科入学第一年、转入物理学之前在材料物理方向做的项目。</span>'
 
     Publications:
+      - title: Neural Non-Equilibrium Hamiltonian Monte Carlo for Corrected Boltzmann Sampling
+        authors:
+          - Moxian Qian
+        publisher: arXiv
+        releaseDate: 2026-07
+        url: https://arxiv.org/abs/2607.15682
+        summary: '<span class="en">Learned stochastic Hamiltonian paths with recorded-work correction: path-SNIS/path-IMH plus a proved shared-bridge round-trip Metropolis kernel. Tested on analytic many-well and finite-volume 2D phi^4 targets; molecular and compact U(1) results retain explicit feasibility boundaries.</span><span class="zh">用记录功修正可学习的随机 Hamiltonian 路径：包括 path-SNIS / path-IMH，以及经过证明的共享桥接点 round-trip Metropolis 核。已在解析多阱与有限体积二维 phi^4 上测试；分子和紧致 U(1) 结果保留明确的可行性边界。</span>'
+
       - title: Stochastic Path Sampler For Lattice Field Theory
         authors:
           - Shiyang Chen
