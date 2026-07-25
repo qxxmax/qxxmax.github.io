@@ -45,6 +45,43 @@ html[data-lang="zh"] .lang-label-en {
   line-height: 1.45;
 }
 
+/* Original concept/result figures for the three sampler papers. */
+.publications .publication-feature {
+  width: min(100%, 42rem);
+  margin: 0.85rem 0 0.75rem;
+}
+
+.publications .publication-feature figure {
+  margin: 0;
+}
+
+.publications .publication-feature picture {
+  display: block;
+}
+
+.publications .publication-feature-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 4px;
+}
+
+.publications .publication-feature-caption {
+  margin-top: 0.4rem;
+  color: var(--global-text-color-light);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 575px) {
+  .publications .publication-feature {
+    width: 100%;
+    margin-top: 0.7rem;
+  }
+}
+
 /* "Lines I admire" — small collection of external quotes I keep coming
    back to. Distinct from .motto (which is my own credo, italic, solid
    left border): regular weight, dotted left border, with a small
