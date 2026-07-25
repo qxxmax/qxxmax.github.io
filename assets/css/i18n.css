@@ -92,6 +92,42 @@ html[data-lang="zh"] .lang-label-en {
   margin-top: 0.15rem;
 }
 
+/* Homepage-only background. Official key visual:
+   https://tv.violet-evergarden.jp/special/gallery/ */
+.violet-home {
+  position: relative;
+  isolation: isolate;
+}
+
+.violet-home::before {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background-image: url("/assets/img/violet-evergarden-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.12;
+}
+
+html[data-theme="dark"] .violet-home::before {
+  filter: brightness(0.7) saturate(0.75);
+  opacity: 0.08;
+}
+
+@media (max-width: 767px) {
+  .violet-home::before {
+    background-position: 28% top;
+    opacity: 0.05;
+  }
+
+  html[data-theme="dark"] .violet-home::before {
+    opacity: 0.04;
+  }
+}
+
 /* Personal motto / epigraph used at the bottom of the bio. */
 .motto {
   margin: 1.6rem 0 0.4rem;
