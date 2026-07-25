@@ -194,6 +194,28 @@
       </div>
     {% endif %}
 
+    {% if entry.feature_image %}
+      {% assign feature_path = entry.feature_image | prepend: '/assets/img/publication_story/' %}
+      <div class="publication-feature">
+        {%
+          include figure.liquid
+          loading="lazy"
+          path=feature_path
+          sizes="(min-width: 768px) 640px, 92vw"
+          class="publication-feature-image"
+          zoomable=true
+          avoid_scaling=true
+          alt=entry.feature_alt
+        %}
+        {% if entry.feature_caption or entry.feature_caption_zh %}
+          <div class="publication-feature-caption">
+            {% if entry.feature_caption %}<span class="en">{{ entry.feature_caption }}</span>{% endif %}
+            {% if entry.feature_caption_zh %}<span class="zh">{{ entry.feature_caption_zh }}</span>{% endif %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
     <!-- Links/Buttons -->
     <div class="links">
       {% if entry.award %}
