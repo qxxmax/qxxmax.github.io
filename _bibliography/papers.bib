@@ -70,10 +70,14 @@
   html        = {https://arxiv.org/abs/2512.19575},
   tldr        = {Trains autoregressive networks via reinforcement learning for data-free sampling on Ising and phi^4; small Metropolis-Hastings corrections on top of the network proposals reduce residual bias while keeping high sample efficiency.},
   tldr_zh     = {用强化学习训练自回归网络，对 Ising 与 phi^4 做无数据采样；在网络提议之上叠加小的 Metropolis-Hastings 修正，降低残余偏差同时保持高采样效率。},
-  feature_image = {van-block-mh-magnetization.png},
-  feature_alt = {Magnetization comparison among HMC, VAN, VAN plus single-site MH, and VAN plus block MH},
-  feature_caption = {Figure 5a. In the 2D phi^4 benchmark, VAN+Block MH follows the HMC magnetization curve where the uncorrected VAN shows residual bias.},
-  feature_caption_zh = {图 5(a)。在二维 phi^4 基准中，未修正的 VAN 出现残余偏差，而 VAN+Block MH 的磁化强度结果重新贴近 HMC 曲线。},
+  feature_image = {van-analytic-sampling-path.png},
+  feature_alt = {Analytic VAN sampling path from a unimodal prior to a bimodal Gaussian-mixture target},
+  feature_caption = {Figure 1. In an analytic two-dimensional Gaussian-mixture example, VAN samples s1 and then s2 conditional on s1, routing a unimodal prior into the two modes of the target.},
+  feature_caption_zh = {图 1。在解析的二维 Gaussian-mixture 例子中，VAN 先采样 s1，再根据 s1 条件采样 s2，把单峰先验中的样本送入目标分布的两个模态。},
+  feature_image_secondary = {van-block-mh-magnetization.png},
+  feature_alt_secondary = {Magnetization comparison among HMC, VAN, VAN plus single-site MH, and VAN plus block MH},
+  feature_caption_secondary = {Figure 5a. In the 2D phi^4 benchmark, VAN+Block MH follows the HMC magnetization curve where the uncorrected VAN shows residual bias.},
+  feature_caption_secondary_zh = {图 5(a)。在二维 phi^4 基准中，未修正的 VAN 出现残余偏差，而 VAN+Block MH 的磁化强度结果重新贴近 HMC 曲线。},
   abstract    = {We combine reinforcement learning with variational autoregressive networks (VANs) to perform data-free training and sampling for the discrete Ising model and the continuous phi^4 scalar field theory. We quantify the complexity of the target distribution via the KL divergence between the magnetization distribution and a reference Gaussian distribution, and observe that configurations with smaller KL divergence typically require fewer training steps. Motivated by this observation, we investigate transfer learning and show that fine-tuning models pretrained at a single value of kappa can reduce training time compared with training from a Gaussian field. In addition, inspired by single-site and cluster Monte Carlo updates, we introduce single-site and block Metropolis-Hastings (MH) updates on top of VAN proposals. These MH corrections systematically reduce the residual bias of pure VAN sampling in the parameter range we study, while maintaining high sampling efficiency in terms of the effective sample size (ESS). For both the Ising model and the phi^4 theory, our results agree with standard Monte Carlo benchmarks within errors, and no clear critical slowing down is observed in the explored parameter ranges.}
 }
 
