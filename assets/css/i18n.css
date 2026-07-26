@@ -75,6 +75,11 @@ html[data-lang="zh"] .lang-label-en {
   line-height: 1.45;
 }
 
+.publications .publication-feature-secondary {
+  width: min(100%, 32rem);
+  margin-top: 0.65rem;
+}
+
 @media (max-width: 575px) {
   .publications .publication-feature {
     width: 100%;
