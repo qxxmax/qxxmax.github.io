@@ -159,6 +159,54 @@ html[data-theme="dark"] .violet-home::before {
   opacity: 0.12;
 }
 
+/* Page-specific character backgrounds for the four main work sections. */
+.anime-page {
+  position: relative;
+  isolation: isolate;
+}
+
+.anime-page::before {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background-image: var(--page-background);
+  background-repeat: no-repeat;
+  background-position: var(--page-background-position, center center);
+  background-size: cover;
+  opacity: var(--page-background-opacity, 0.11);
+}
+
+.page-bg-youzitsu {
+  --page-background: url("/assets/img/page-backgrounds/classroom-of-the-elite.webp");
+  --page-background-position: center 34%;
+  --page-background-opacity: 0.12;
+}
+
+.page-bg-kaoruhana {
+  --page-background: url("/assets/img/page-backgrounds/fragrant-flower.jpg");
+  --page-background-position: center 58%;
+  --page-background-opacity: 0.11;
+}
+
+.page-bg-kimiuso {
+  --page-background: url("/assets/img/page-backgrounds/your-lie-in-april.jpg");
+  --page-background-position: center center;
+  --page-background-opacity: 0.12;
+}
+
+.page-bg-charlotte {
+  --page-background: url("/assets/img/page-backgrounds/charlotte.jpg");
+  --page-background-position: center 38%;
+  --page-background-opacity: 0.1;
+}
+
+html[data-theme="dark"] .anime-page::before {
+  filter: brightness(0.68) saturate(0.78);
+  opacity: 0.075;
+}
+
 @media (max-width: 767px) {
   .violet-home::before {
     background-position: 28% top;
@@ -167,6 +215,30 @@ html[data-theme="dark"] .violet-home::before {
 
   html[data-theme="dark"] .violet-home::before {
     opacity: 0.055;
+  }
+
+  .anime-page::before {
+    opacity: 0.07;
+  }
+
+  .page-bg-youzitsu::before {
+    background-position: center 28%;
+  }
+
+  .page-bg-kaoruhana::before {
+    background-position: center 58%;
+  }
+
+  .page-bg-kimiuso::before {
+    background-position: 30% center;
+  }
+
+  .page-bg-charlotte::before {
+    background-position: 52% 34%;
+  }
+
+  html[data-theme="dark"] .anime-page::before {
+    opacity: 0.05;
   }
 }
 
