@@ -6,6 +6,7 @@ title_zh: 报告与讲演
 description: <span class="en">Slides and handouts from seminars and research presentations.</span><span class="zh">研讨课与研究报告的幻灯片及公开讲义。</span>
 nav: true
 nav_order: 4
+background_class: page-bg-kimiuso
 ---
 
 {% assign talks_sorted = site.talks | sort: 'date' | reverse %}

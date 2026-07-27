@@ -6,6 +6,7 @@ title_zh: 论文
 description: <span class="en">Grouped by research theme; within each theme reverse-chronological.</span><span class="zh">按主题分组，组内按时间倒序。</span>
 nav: true
 nav_order: 2
+background_class: page-bg-youzitsu
 ---
 
 <!-- _pages/publications.md -->

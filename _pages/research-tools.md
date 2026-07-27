@@ -6,6 +6,7 @@ title_zh: 研究工具
 description: <span class="en">Auditable AI-assisted workflows for research.</span><span class="zh">可审计的 AI 科研协作流程。</span>
 nav: true
 nav_order: 3
+background_class: page-bg-kaoruhana
 ---
 
 <div class="en" markdown="1">
