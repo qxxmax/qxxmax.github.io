@@ -184,8 +184,12 @@ html[data-theme="dark"] .violet-home::before {
 
 .page-bg-youzitsu {
   --page-background: url("/assets/img/page-backgrounds/classroom-of-the-elite.webp");
-  --page-background-position: center 34%;
+  --page-background-position: right top;
   --page-background-opacity: 0.12;
+}
+
+.page-bg-youzitsu::before {
+  background-size: auto 116vh;
 }
 
 .page-bg-kaoruhana {
@@ -244,7 +248,8 @@ html[data-theme="dark"] .anime-page::before {
   }
 
   .page-bg-youzitsu::before {
-    background-position: center 28%;
+    background-position: center top;
+    background-size: contain;
   }
 
   .page-bg-kaoruhana::before {
