@@ -183,13 +183,9 @@ html[data-theme="dark"] .violet-home::before {
 }
 
 .page-bg-youzitsu {
-  --page-background: url("/assets/img/page-backgrounds/classroom-of-the-elite.webp");
-  --page-background-position: right top;
+  --page-background: url("/assets/img/page-backgrounds/classroom-of-the-elite-wide.jpg");
+  --page-background-position: center center;
   --page-background-opacity: 0.12;
-}
-
-.page-bg-youzitsu::before {
-  background-size: auto 116vh;
 }
 
 .page-bg-kaoruhana {
@@ -248,6 +244,7 @@ html[data-theme="dark"] .anime-page::before {
   }
 
   .page-bg-youzitsu::before {
+    background-image: url("/assets/img/page-backgrounds/classroom-of-the-elite.webp");
     background-position: center top;
     background-size: contain;
   }
