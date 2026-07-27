@@ -5,6 +5,7 @@ title: blog
 title_zh: 博客
 nav: true
 nav_order: 7
+background_class: page-bg-aobuta
 pagination:
   enabled: true
   collection: posts
@@ -17,7 +18,7 @@ pagination:
     after: 3 # The number of links after the current page
 ---
 
-<div class="post">
+<div class="post{% if page.background_class %} anime-page {{ page.background_class }}{% endif %}">
 
 {% assign blog_name_size = site.blog_name | size %}
 {% assign blog_description_size = site.blog_description | size %}

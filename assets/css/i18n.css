@@ -163,7 +163,7 @@ html[data-theme="dark"] .violet-home::before {
   opacity: 0.12;
 }
 
-/* Page-specific character backgrounds for the four main work sections. */
+/* Page-specific character backgrounds for the main navigation sections. */
 .anime-page {
   position: relative;
   isolation: isolate;
@@ -206,6 +206,24 @@ html[data-theme="dark"] .violet-home::before {
   --page-background-opacity: 0.1;
 }
 
+.page-bg-quintuplets {
+  --page-background: url("/assets/img/page-backgrounds/quintessential-quintuplets-study.png");
+  --page-background-position: center center;
+  --page-background-opacity: 0.1;
+}
+
+.page-bg-aobuta {
+  --page-background: url("/assets/img/page-backgrounds/rascal-mai-sakuta.jpg");
+  --page-background-position: center center;
+  --page-background-opacity: 0.1;
+}
+
+.page-bg-frieren {
+  --page-background: url("/assets/img/page-backgrounds/frieren-journey.jpg");
+  --page-background-position: center center;
+  --page-background-opacity: 0.085;
+}
+
 html[data-theme="dark"] .anime-page::before {
   filter: brightness(0.68) saturate(0.78);
   opacity: 0.075;
@@ -240,6 +258,21 @@ html[data-theme="dark"] .anime-page::before {
 
   .page-bg-charlotte::before {
     background-position: 52% 34%;
+  }
+
+  .page-bg-quintuplets::before {
+    background-position: center top;
+    background-size: auto 42vh;
+  }
+
+  .page-bg-aobuta::before {
+    background-position: center top;
+    background-size: auto 45vh;
+  }
+
+  .page-bg-frieren::before {
+    background-position: 58% top;
+    background-size: auto 48vh;
   }
 
   html[data-theme="dark"] .anime-page::before {
