@@ -202,7 +202,7 @@ html[data-theme="dark"] .violet-home::before {
 
 .page-bg-charlotte {
   --page-background: url("/assets/img/page-backgrounds/charlotte.jpg");
-  --page-background-position: center 38%;
+  --page-background-position: center 13%;
   --page-background-opacity: 0.1;
 }
 
@@ -259,7 +259,8 @@ html[data-theme="dark"] .anime-page::before {
   }
 
   .page-bg-charlotte::before {
-    background-position: 52% 34%;
+    background-position: 68% 56px;
+    background-size: auto calc(100vh - 24px);
   }
 
   .page-bg-quintuplets::before {
