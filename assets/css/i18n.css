@@ -218,10 +218,10 @@ html[data-theme="dark"] .violet-home::before {
   --page-background-opacity: 0.1;
 }
 
-.page-bg-frieren {
-  --page-background: url("/assets/img/page-backgrounds/frieren-journey.jpg");
-  --page-background-position: center center;
-  --page-background-opacity: 0.085;
+.page-bg-erii {
+  --page-background: url("/assets/img/page-backgrounds/dragon-raja-erii-cherry-blossom.webp");
+  --page-background-position: center 45%;
+  --page-background-opacity: 0.1;
 }
 
 html[data-theme="dark"] .anime-page::before {
@@ -273,9 +273,9 @@ html[data-theme="dark"] .anime-page::before {
     background-size: auto 45vh;
   }
 
-  .page-bg-frieren::before {
-    background-position: 58% top;
-    background-size: auto 48vh;
+  .page-bg-erii::before {
+    background-position: 38% top;
+    background-size: auto 52vh;
   }
 
   html[data-theme="dark"] .anime-page::before {
