@@ -5,6 +5,8 @@ date: 2026-07-15
 event: "Helmholtz Institute Mainz (HIM)"
 pdf: /assets/pdf/talks/ai-literature-research-sps-moxian-qian-en.pdf
 external_pdf: /assets/pdf/talks/ai-literature-research-sps-moxian-qian-en.pdf
+cover: /assets/img/talks/ai-literature-research-sps-cover.jpg
+cover_alt: "First slide of How to Play with a Child Holding Mythic Weapons"
 description: <span class="en">An auditable SPS case study covering target lock, multi-round search, paper reading, Dijkstra ranking, citation lineage, and claim boundaries. <a href="/assets/pdf/talks/ai-literature-research-sps-moxian-qian-zh.pdf" target="_blank" rel="noopener">Chinese slides</a>.</span><span class="zh">以 SPS 为案例，展示对象确认、多轮搜索、逐篇阅读、Dijkstra 排序、引用谱系与结论边界。<a href="/assets/pdf/talks/ai-literature-research-sps-moxian-qian-zh.pdf" target="_blank" rel="noopener">中文 slides</a>。</span>
 ---
 

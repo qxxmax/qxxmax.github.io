@@ -13,7 +13,22 @@ background_class: page-bg-kimiuso
 
 <ul class="post-list">
 {% for talk in talks_sorted %}
-  <li>
+  <li class="talk-entry">
+    {% if talk.cover %}
+      {% if talk.pdf %}
+        {% assign talk_cover_target = talk.pdf %}
+      {% else %}
+        {% assign talk_cover_target = talk.url %}
+      {% endif %}
+      <a class="talk-cover-link" href="{{ talk_cover_target | relative_url }}"{% if talk.pdf %} target="_blank" rel="noopener"{% endif %}>
+        <img
+          class="talk-cover-image"
+          src="{{ talk.cover | relative_url }}"
+          alt="{{ talk.cover_alt | default: talk.title }}"
+          loading="lazy"
+        >
+      </a>
+    {% endif %}
     <h3>
       {% if talk.pdf %}
         <a href="{{ talk.pdf | relative_url }}" target="_blank" rel="noopener">
