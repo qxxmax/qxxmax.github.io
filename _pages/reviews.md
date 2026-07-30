@@ -5,7 +5,7 @@ title: revision notes
 title_zh: 复习讲义
 description: <span class="en">AI-drafted revision handouts — condensed summaries for exam prep, mostly PDFs. Empty for now; entries will be added over time.</span><span class="zh">由 AI 起草的复习讲义，主要用于考试复习的浓缩总结，多为 PDF。目前还是空的，之后会陆续加内容。</span>
 nav: true
-nav_order: 6
+nav_order: 7
 background_class: page-bg-quintuplets
 ---
 

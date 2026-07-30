@@ -224,6 +224,12 @@ html[data-theme="dark"] .violet-home::before {
   --page-background-opacity: 0.1;
 }
 
+.page-bg-frieren {
+  --page-background: url("/assets/img/page-backgrounds/frieren-journey.jpg");
+  --page-background-position: center center;
+  --page-background-opacity: 0.1;
+}
+
 html[data-theme="dark"] .anime-page::before {
   filter: brightness(0.68) saturate(0.78);
   opacity: 0.075;
@@ -278,6 +284,11 @@ html[data-theme="dark"] .anime-page::before {
     background-size: auto 52vh;
   }
 
+  .page-bg-frieren::before {
+    background-position: center top;
+    background-size: auto 48vh;
+  }
+
   html[data-theme="dark"] .anime-page::before {
     opacity: 0.05;
   }
@@ -322,6 +333,60 @@ html[data-theme="dark"] .anime-page::before {
 .talk-cover-link:focus-visible .talk-cover-image {
   box-shadow: 0 10px 28px rgba(42, 31, 38, 0.18);
   transform: translateY(-1px);
+}
+
+/* Conference, school, and research-visit timeline. */
+.journey-list {
+  margin: 1.5rem 0 2rem;
+}
+
+.journey-group-title {
+  margin: 0;
+  color: var(--global-text-color-light);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.journey-entry {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.2rem 0;
+  border-top: 1px solid var(--global-divider-color);
+}
+
+.journey-date,
+.journey-details p {
+  margin: 0;
+}
+
+.journey-date {
+  color: var(--global-theme-color);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.journey-details h3 {
+  margin: 0 0 0.2rem;
+  font-size: 1.15rem;
+}
+
+.journey-event-type {
+  color: var(--global-text-color);
+  font-weight: 600;
+}
+
+.journey-details p:last-child {
+  margin-top: 0.35rem;
+  color: var(--global-text-color-light);
+}
+
+@media (max-width: 575px) {
+  .journey-entry {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+    padding: 1rem 0;
+  }
 }
 
 /* ============================================================

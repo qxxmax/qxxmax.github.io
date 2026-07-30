@@ -4,7 +4,7 @@ permalink: /cv/
 title: CV
 title_zh: 简历
 nav: true
-nav_order: 8
+nav_order: 9
 background_class: page-bg-erii
 # cv_pdf: /assets/pdf/cv.pdf  # drop your CV PDF here to enable the download button
 cv_format: rendercv

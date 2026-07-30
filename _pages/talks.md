@@ -1,55 +1,21 @@
 ---
-layout: page
+layout: null
 permalink: /talks/
-title: talks
-title_zh: 报告与讲演
-description: <span class="en">Slides and handouts from seminars and research presentations.</span><span class="zh">研讨课与研究报告的幻灯片及公开讲义。</span>
-nav: true
-nav_order: 4
-background_class: page-bg-kimiuso
+sitemap: false
 ---
-
-{% assign talks_sorted = site.talks | sort: 'date' | reverse %}
-
-<ul class="post-list">
-{% for talk in talks_sorted %}
-  <li class="talk-entry">
-    {% if talk.cover %}
-      {% if talk.pdf %}
-        {% assign talk_cover_target = talk.pdf %}
-      {% else %}
-        {% assign talk_cover_target = talk.url %}
-      {% endif %}
-      <a class="talk-cover-link" href="{{ talk_cover_target | relative_url }}"{% if talk.pdf %} target="_blank" rel="noopener"{% endif %}>
-        <img
-          class="talk-cover-image"
-          src="{{ talk.cover | relative_url }}"
-          alt="{{ talk.cover_alt | default: talk.title }}"
-          loading="lazy"
-        >
-      </a>
-    {% endif %}
-    <h3>
-      {% if talk.pdf %}
-        <a href="{{ talk.pdf | relative_url }}" target="_blank" rel="noopener">
-      {% else %}
-        <a href="{{ talk.url | relative_url }}">
-      {% endif %}
-        <span class="en">{{ talk.title }}</span>{% if talk.title_zh %}<span class="zh">{{ talk.title_zh }}</span>{% else %}<span class="zh">{{ talk.title }}</span>{% endif %}
-      </a>
-      {% if talk.pdf %}
-        <small><span class="en">[PDF]</span><span class="zh">[PDF]</span></small>
-      {% endif %}
-    </h3>
-    <p class="post-meta">
-      <span class="en">{{ talk.date | date: '%b %d, %Y' }}</span><span class="zh">{{ talk.date | date: '%Y 年 %-m 月 %-d 日' }}</span>
-      {% if talk.event %}&nbsp; &middot; &nbsp;{{ talk.event }}{% endif %}
-    </p>
-    {% if talk.description %}<p>{{ talk.description }}</p>{% endif %}
-  </li>
-{% endfor %}
-</ul>
-
-{% if talks_sorted.size == 0 %}
-<p><span class="en">No talks yet.</span><span class="zh">暂时还没有公开报告。</span></p>
-{% endif %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="0; url={{ '/slides/' | relative_url }}">
+    <link rel="canonical" href="{{ '/slides/' | absolute_url }}">
+    <title>Slides | Moxian Qian</title>
+    <script>
+      window.location.replace({{ '/slides/' | relative_url | jsonify }});
+    </script>
+  </head>
+  <body>
+    <p><a href="{{ '/slides/' | relative_url }}">Slides / 幻灯片</a></p>
+  </body>
+</html>

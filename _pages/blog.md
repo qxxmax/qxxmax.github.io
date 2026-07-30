@@ -4,7 +4,7 @@ permalink: /blog/
 title: blog
 title_zh: 博客
 nav: true
-nav_order: 7
+nav_order: 8
 background_class: page-bg-aobuta
 pagination:
   enabled: true
