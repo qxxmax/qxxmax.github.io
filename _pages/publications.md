@@ -37,6 +37,11 @@ background_class: page-bg-youzitsu
 {% bibliography -f papers -q @*[topic=network_analysis] %}
 
 <h2 class="year">
+  <span class="en">Fifth force</span>
+  <span class="zh">第五力</span>
+</h2>
+
+<h2 class="year">
   <span class="en">General relativity</span>
   <span class="zh">广义相对论</span>
 </h2>
@@ -77,10 +82,4 @@ background_class: page-bg-youzitsu
     <span lang="zh" hidden>技能学习</span>
   </h2>
   {% bibliography -f papers -q @*[topic=skill] %}
-
-  <h2 class="year">
-    <span class="en">Fifth force</span>
-    <span class="zh">第五力</span>
-  </h2>
-  {% bibliography -f papers -q @*[topic=fifth_force] %}
 -->
