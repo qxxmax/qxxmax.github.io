@@ -41,8 +41,6 @@ background_class: page-bg-youzitsu
   <span class="zh">第五力</span>
 </h2>
 
-{% bibliography -f papers -q @*[topic=fifth_force] %}
-
 <h2 class="year">
   <span class="en">General relativity</span>
   <span class="zh">广义相对论</span>
