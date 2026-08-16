@@ -23,11 +23,25 @@ background_class: page-bg-youzitsu
 {% bibliography -f papers -q @*[topic=ml_boltzmann] %}
 
 <h2 class="year">
+  <span class="en">ML and Feynman integrals</span>
+  <span class="zh">机器学习与费曼积分</span>
+</h2>
+
+{% bibliography -f papers -q @*[topic=ml_feynman] %}
+
+<h2 class="year">
   <span class="en">Mechanistic interpretability</span>
   <span class="zh">可解释性的一种</span>
 </h2>
 
 {% bibliography -f papers -q @*[topic=network_analysis] %}
+
+<h2 class="year">
+  <span class="en">Fifth force</span>
+  <span class="zh">第五力</span>
+</h2>
+
+{% bibliography -f papers -q @*[topic=fifth_force] %}
 
 <h2 class="year">
   <span class="en">General relativity</span>
