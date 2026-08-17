@@ -96,8 +96,8 @@
   primaryClass  = {hep-lat},
   arxiv       = {2605.11199},
   html        = {https://arxiv.org/abs/2605.11199},
-  tldr        = {Instead of judging trained samplers only by the ensembles they produce, projects the learned field-space function onto symmetry-fixed operator bases — revealing what different sampler families (flow-matching, diffusion, normalizing flows, gauge-equivariant) actually learn.},
-  tldr_zh     = {不再只看采样器产生的 ensemble，而是把训练后的场空间函数投影到事先按对称性固定好的算符基上 —— 由此看清楚 flow matching、diffusion、normalizing flow、规范等变这几类采样器到底学到了什么。},
+  tldr        = {Generative Boltzmann samplers still hit scaling, unbalanced mode weights, and mode collapse. Gauge fields make this worse: an equivariant architecture is almost required, so training becomes expensive. This work therefore reads off the analytic operator bases a trained network actually uses, and asks whether those bases can be built into a smaller architecture that trains more cheaply.},
+  tldr_zh     = {用生成式算法做玻尔兹曼采样，仍然会碰到标度问题、模态权重失衡和模态崩溃。规范场上几乎必须用等变架构，训练因此非常贵。本文由此去看训练后的网络实际学到了哪些解析算符基，并问这些基能不能用来搭建网络，从而得到更好的训练效果。},
   abstract    = {Trained lattice samplers are usually judged by the ensembles they generate. Here we instead analyze the trained field-space function itself: a flow-matching velocity, a diffusion score, or a normalizing-flow action residual. We project these functions onto operator bases fixed before the fit, chosen from symmetry, exact Gaussian path limits, finite-volume modes, and gauge covariance. For two-dimensional lattice phi^4, a trained straight-flow teacher is not described by a local force basis alone. After the local transport basis, the residual separates into a zero-mode Binder component and a lowest-shell finite-k correlator component. The same projection also distinguishes other sampler classes: diffusion follows the force-resolvent ordering predicted by the free theory, reverse-KL normalizing-flow collapse appears as a forbidden odd zero-mode residual, and gauge-equivariant teachers are resolved by Wilson-loop-force tangent directions.}
 }
 
