@@ -4,7 +4,7 @@ cv:
   email: mqian@students.uni-mainz.de
   location: Mainz, Germany
   image: ""
-  summary: '<span class="en">MSc student in theoretical physics at Johannes Gutenberg University Mainz, currently based at the Helmholtz Institute Mainz and working with Prof. Dmitry Budker and Dr. Konstantin Gaul. I also collaborate with Prof. Lukas Stelzl at the Institute of Molecular Biology (IMB), Mainz. My research includes machine-learning methods for lattice field theory and lattice QCD. Previously a research assistant at CUHK-Shenzhen (2022–2025).</span><span class="zh">美因茨大学（JGU）理论物理硕士在读，目前在美因茨亥姆霍兹研究所（HIM）与 Dmitry Budker 教授和 Konstantin Gaul 博士合作，同时与美因茨分子生物学研究所（IMB）的 Lukas Stelzl 教授合作。研究方向包括格点场论 / 格点 QCD 的机器学习方法。此前在香港中文大学（深圳）做了大约三年（2022–2025）的 research assistant。</span>'
+  summary: '<span class="en">MSc student in theoretical physics at Johannes Gutenberg University Mainz, currently based at the Helmholtz Institute Mainz and working with Dr. Konstantin Gaul. My research includes machine-learning methods for lattice field theory and lattice QCD. Previously a research assistant at CUHK-Shenzhen (2022–2025).</span><span class="zh">美因茨大学（JGU）理论物理硕士在读，目前在美因茨亥姆霍兹研究所（HIM）与 Konstantin Gaul 博士合作。研究方向包括格点场论 / 格点 QCD 的机器学习方法。此前在香港中文大学（深圳）做了大约三年（2022–2025）的 research assistant。</span>'
 
   social_networks:
     - network: ORCID
@@ -34,8 +34,7 @@ cv:
         start_date: 2026-04
         end_date: '<span class="en">present</span><span class="zh">至今</span>'
         highlights:
-          - '<span class="en">Based at the Helmholtz Institute Mainz, working with Prof. Dmitry Budker and Dr. Konstantin Gaul.</span><span class="zh">目前在美因茨亥姆霍兹研究所（HIM）与 Dmitry Budker 教授和 Konstantin Gaul 博士合作。</span>'
-          - '<span class="en">Collaborating with Prof. Lukas Stelzl at the Institute of Molecular Biology (IMB), Mainz.</span><span class="zh">同时与美因茨分子生物学研究所（IMB）的 Lukas Stelzl 教授合作。</span>'
+          - '<span class="en">Based at the Helmholtz Institute Mainz, working with Dr. Konstantin Gaul.</span><span class="zh">目前在美因茨亥姆霍兹研究所（HIM）与 Konstantin Gaul 博士合作。</span>'
           - '<span class="en">Working on machine-learning samplers for lattice field theory.</span><span class="zh">做格点场论的机器学习采样器。</span>'
           - '<span class="en">Operator spectroscopy of trained normalizing-flow / autoregressive samplers.</span><span class="zh">对训练后的 normalizing flow / 自回归采样器做算符谱学分析。</span>'
 
