@@ -624,3 +624,11 @@ html[data-theme="dark"] {
   --global-footer-text-color: #f5e6e4;
   --global-footer-link-color: #eb8fa5;
 }
+
+.profile .profile-image-caption {
+  margin-top: 0.45rem;
+  color: var(--global-text-color-light);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  text-align: center;
+}
