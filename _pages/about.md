@@ -9,6 +9,9 @@ profile:
   align: right
   image: prof_pic.jpg
   image_circular: false
+  image_caption: >
+    <span class="en">At HIM, photographed by a lovely friend.</span>
+    <span class="zh">在 HIM，可爱的小伙伴拍的。</span>
   more_info: >
     <p>Helmholtz Institute Mainz</p>
     <p>Staudingerweg 18, 55128 Mainz</p>
