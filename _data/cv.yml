@@ -105,7 +105,7 @@ cv:
         publisher: arXiv
         releaseDate: 2026-05
         url: https://arxiv.org/abs/2605.11199
-        summary: '<span class="en">Operator-spectroscopy framework that probes what neural samplers (flow / diffusion / autoregressive) actually learn about lattice field theories.</span><span class="zh">用算符谱学的框架去探测神经采样器（flow / diffusion / 自回归）究竟学到了什么样的格点场论结构。</span>'
+        summary: '<span class="en">Generative Boltzmann samplers still hit scaling, unbalanced mode weights, and mode collapse. Gauge fields make this worse: an equivariant architecture is almost required, so training becomes expensive. This work therefore reads off the analytic operator bases a trained network actually uses, and asks whether those bases can be built into a smaller architecture that trains more cheaply.</span><span class="zh">生成式玻尔兹曼采样器仍然会碰到标度问题、模态权重失衡和模态崩溃。规范场让这件事更糟：几乎必须用等变架构，训练因此非常贵。本文由此读出训练后网络实际用到的解析算符基，并问这些基能不能做进一个更小的架构，从而更便宜地训练。</span>'
 
       - title: Variational Autoregressive Networks Applied to $\phi^4$ Field Theory Systems
         authors:
