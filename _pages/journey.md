@@ -6,7 +6,7 @@ title_zh: 轨迹
 description: <span class="en">Conferences, schools, and research visits.</span><span class="zh">准备参加和已经参加的会议、学校与学术访问。</span>
 nav: true
 nav_order: 5
-background_class: page-bg-frieren
+background_class: page-bg-weizhuang
 ---
 
 <section class="journey-list" aria-labelledby="journey-upcoming">
