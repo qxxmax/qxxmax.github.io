@@ -223,9 +223,9 @@ html[data-theme="dark"] .violet-home::before {
   --page-background-opacity: 0.1;
 }
 
-.page-bg-frieren {
-  --page-background: url("/assets/img/page-backgrounds/frieren-journey.jpg");
-  --page-background-position: center center;
+.page-bg-weizhuang {
+  --page-background: url("/assets/img/page-backgrounds/qins-moon-weizhuang.jpg");
+  --page-background-position: 58% center;
   --page-background-opacity: 0.1;
 }
 
@@ -283,8 +283,8 @@ html[data-theme="dark"] .anime-page::before {
     background-size: auto 52vh;
   }
 
-  .page-bg-frieren::before {
-    background-position: center top;
+  .page-bg-weizhuang::before {
+    background-position: 62% 56px;
     background-size: auto 48vh;
   }
 
