@@ -345,8 +345,8 @@ display_categories: [] # categories shown at the top of /blog/
 # -----------------------------------------------------------------------------
 
 scholar:
-  last_name: [Einstein]
-  first_name: [Albert, A.]
+  last_name: [Qian]
+  first_name: [Moxian, M.]
 
   style: apa
   locale: en

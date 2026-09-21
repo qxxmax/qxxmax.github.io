@@ -10,7 +10,7 @@ background_class: page-bg-youzitsu
 ---
 
 <!-- _pages/publications.md -->
-<!-- Groups: samplers, Feynman, interpretability, fifth force (heading only), GR. -->
+<!-- Groups: samplers, Feynman, interpretability, GR. Fifth force stays hidden until it has a paper. -->
 
 {% include bib_search.liquid %}
 
@@ -38,11 +38,6 @@ background_class: page-bg-youzitsu
 {% bibliography -f papers -q @*[topic=network_analysis] %}
 
 <h2 class="year">
-  <span class="en">Fifth force</span>
-  <span class="zh">第五力</span>
-</h2>
-
-<h2 class="year">
   <span class="en">General relativity</span>
   <span class="zh">广义相对论</span>
 </h2>
@@ -53,6 +48,12 @@ background_class: page-bg-youzitsu
 
 <!--
   Hidden sections — un-comment a block when it has at least one paper:
+
+  <h2 class="year">
+    <span class="en">Fifth force</span>
+    <span class="zh">第五力</span>
+  </h2>
+  {% bibliography -f papers -q @*[topic=fifth_force] %}
 
   <h2 class="year">
     <span lang="en">Agent workflows</span>

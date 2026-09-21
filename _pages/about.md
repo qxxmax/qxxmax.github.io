@@ -26,7 +26,7 @@ announcements:
   limit: 5
 
 latest_posts:
-  enabled: true
+  enabled: false
   scrollable: true
   limit: 3
 ---
@@ -37,7 +37,7 @@ Hi, I'm **Moxian Qian** (钱莫闲) — a master's student in theoretical physic
 
 I work at the intersection of **machine learning** and **lattice field theory**. More broadly I'm drawn to the **structure and regularities** of physical systems; concretely, I'm interested in new sampling algorithms for physics — in particular ways to get around the **sign problem**, **critical slowing down**, and **topological freezing**. My broader research interests also include **mechanistic interpretability of large models**, **information-theoretic principles**, **Bayesian methods**, and their applications in physics. I also maintain a set of [research tools](/research-tools/) for auditable AI-assisted research.
 
-Outside physics I write a little, listen to a lot of music, and keep a private journal of notes and small experiments — some of which leak into the [blog](/blog/) here.
+Outside physics I write a little, listen to a lot of music, and keep a private journal of notes and small experiments.
 
 <div class="now" markdown="1">
 **Reading:** *Violet Evergarden*.
@@ -71,7 +71,7 @@ Meet the world with kindness and warmth, and you will arrive where you are meant
 
 研究方向在 **机器学习** 与 **格点场论** 的交界处。更宽泛一点说，比较关心 **事物的结构与规律**；具体到工作上，是新的物理抽样算法，尤其是如何克服采样里的 **符号问题**、**临界慢化** 和 **拓扑冻结**。此外，我也关注 **大模型的机制与可解释性**、**信息原理**、**贝叶斯方法**及其在物理学中的应用。我也在整理一套用于可审计 AI 科研协作的[研究工具](/research-tools/)。
 
-物理之外会写点字、听很多音乐，也写一些个人的小笔记和实验记录 —— 其中一些会出现在这里的 [博客](/blog/) 里。
+物理之外会写点字、听很多音乐，也写一些个人的小笔记和实验记录。
 
 <div class="now" markdown="1">
 **在读：**《紫罗兰永恒花园》。

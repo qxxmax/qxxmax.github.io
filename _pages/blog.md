@@ -3,8 +3,9 @@ layout: default
 permalink: /blog/
 title: blog
 title_zh: 博客
-nav: true
+nav: false
 nav_order: 8
+sitemap: false
 background_class: page-bg-aobuta
 pagination:
   enabled: true
@@ -190,6 +191,13 @@ pagination:
     {% endfor %}
 
   </ul>
+
+{% if site.posts.size == 0 %}
+<p>
+  <span class="en">Nothing here yet.</span>
+  <span class="zh">暂时还没有博客。</span>
+</p>
+{% endif %}
 
 {% if page.pagination.enabled %}
 {% include pagination.liquid %}

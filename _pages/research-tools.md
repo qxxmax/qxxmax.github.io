@@ -3,7 +3,7 @@ layout: page
 permalink: /research-tools/
 title: research tools
 title_zh: 研究工具
-description: <span class="en">Auditable AI-assisted workflows for research.</span><span class="zh">可审计的 AI 科研协作流程。</span>
+description: <span class="en">Auditable AI-assisted literature research.</span><span class="zh">可审计的 AI 文献调研流程。</span>
 nav: true
 nav_order: 3
 background_class: page-bg-kaoruhana
@@ -13,38 +13,26 @@ background_class: page-bg-kaoruhana
 
 ## play-the-toy-with-children
 
-**Uploaded:** 13 July 2026
-
-A six-part workflow for working with AI from literature research to project execution, proposal writing, publication, and presentations. **Part 1 is complete and public; Parts 2-6 are the development roadmap.**
-
-### Part 1: literature research
-
-The workflow turns a verbal clue into an auditable research package:
+A literature-research workflow. One verbal clue becomes an auditable package: paper identities, reading notes, citation lineage, claim boundaries, and a stop decision.
 
 `verbal clue -> candidate pool -> source-link audit -> C0-C4 -> lineage -> gap ledger -> report`
 
-It records source-linked paper identities, full-text reading notes, literature matrices, citation lineages, claim boundaries, open questions, and the stopping decision for each search round.
+[GitHub](https://github.com/qxxmax/skillforpaper) · [overview (PDF)](/assets/pdf/play-the-toy-part1-literature-research-en.pdf)
 
-[GitHub repository](https://github.com/qxxmax/skillforpaper) · [Part 1 overview (PDF)](/assets/pdf/play-the-toy-part1-literature-research-en.pdf) · [Six-part roadmap (PDF)](/assets/pdf/play-the-toy-six-part-roadmap-en.pdf)
-
-<p style="text-align: center;"><a href="/assets/pdf/play-the-toy-part1-literature-research-en.pdf"><img src="/assets/img/research-tools/part1-en.png" alt="English Part 1 literature-research overview" style="width: 100%; max-width: 520px;"></a></p>
-
-### Invoke
+<p style="text-align: center;"><a href="/assets/pdf/play-the-toy-part1-literature-research-en.pdf"><img src="/assets/img/research-tools/part1-en.png" alt="Part 1 literature-research overview" style="width: 100%; max-width: 520px;"></a></p>
 
 ```text
-Use $play-the-toy-with-children for Part 1 literature research.
+Use $play-the-toy-with-children for literature research.
 Topic: [paper, field, or verbal clue]
 intent_mode.primary=cover
 scan_level=full
 token_policy=balanced
 screenshot_policy=key-only
-Output: source matrix, paper-reading records, claim/evidence ledger,
-lineage, gap ledger, and report.
 ```
 
-For a family tree, citation graph, or search-strategy audit, also request `graph_mode=on` and `optimizer=dijkstra`. The Dijkstra path is navigation metadata, not scientific evidence.
+For a citation graph or search-strategy audit, add `graph_mode=on` and `optimizer=dijkstra`. The Dijkstra path is navigation, not evidence.
 
-Chinese versions: [Part 1 overview](/assets/pdf/play-the-toy-part1-literature-research.pdf) · [Six-part roadmap](/assets/pdf/play-the-toy-six-part-roadmap.pdf)
+[中文简介](/assets/pdf/play-the-toy-part1-literature-research.pdf)
 
 </div>
 
@@ -52,37 +40,25 @@ Chinese versions: [Part 1 overview](/assets/pdf/play-the-toy-part1-literature-re
 
 ## play-the-toy-with-children
 
-**上传日期：**2026 年 7 月 13 日
-
-一套从文献调研、研究执行、proposal、论文与代码交付，到 slides 的六部分 AI 科研协作流程。**Part 1 已完成并公开；Parts 2-6 是后续开发路线。**
-
-### Part 1：文献调研
-
-它把一句口头线索整理成可复查的调研包：
+一套文献调研流程。一句口头线索整理成可复查的包：论文身份、阅读记录、引用谱系、结论边界，以及何时停。
 
 `口头线索 -> 候选池 -> source-link audit -> C0-C4 -> 谱系 -> gap ledger -> report`
 
-过程中保留论文身份、全文阅读记录、文献表、引用谱系、结论边界、待确认问题，以及每轮搜索的停止判断。
-
-[GitHub 仓库](https://github.com/qxxmax/skillforpaper) · [Part 1 简介（PDF）](/assets/pdf/play-the-toy-part1-literature-research.pdf) · [六个 Part 路线图（PDF）](/assets/pdf/play-the-toy-six-part-roadmap.pdf)
+[GitHub](https://github.com/qxxmax/skillforpaper) · [简介（PDF）](/assets/pdf/play-the-toy-part1-literature-research.pdf)
 
 <p style="text-align: center;"><a href="/assets/pdf/play-the-toy-part1-literature-research.pdf"><img src="/assets/img/research-tools/part1-zh.png" alt="Part 1 文献调研简介" style="width: 100%; max-width: 520px;"></a></p>
 
-### 调用
-
 ```text
-Use $play-the-toy-with-children 做 Part 1 文献调研。
+Use $play-the-toy-with-children 做文献调研。
 口头线索：[论文、领域或一句问题]
 intent_mode.primary=cover
 scan_level=full
 token_policy=balanced
 screenshot_policy=key-only
-输出：source matrix、逐篇阅读记录、claim/evidence ledger、
-谱系图、gap ledger 和调研报告。
 ```
 
-需要家族谱系、引用图或搜索算法审计时，再加入 `graph_mode=on` 和 `optimizer=dijkstra`。Dijkstra 路径只是导航信息，不是科学证据。
+需要引用图或搜索策略审计时，加上 `graph_mode=on` 和 `optimizer=dijkstra`。Dijkstra 路径只是导航，不是证据。
 
-英文版本：[Part 1 overview](/assets/pdf/play-the-toy-part1-literature-research-en.pdf) · [Six-part roadmap](/assets/pdf/play-the-toy-six-part-roadmap-en.pdf)
+[English overview](/assets/pdf/play-the-toy-part1-literature-research-en.pdf)
 
 </div>

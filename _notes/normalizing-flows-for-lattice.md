@@ -10,6 +10,8 @@ description: <span class="en">A personal reading list / road map for normalizing
 
 This page is meant to grow over time — it tracks what I've actually read versus
 what I've only skimmed, and which papers I'd recommend to someone starting out.
+For the broader map (flows, autoregressive models, path-based samplers, and the
+gates that are still closed), see the [working map](/notes/generative-samplers-lattice/).
 
 ## Core papers
 
@@ -33,6 +35,7 @@ what I've only skimmed, and which papers I'd recommend to someone starting out.
 <div class="zh" markdown="1">
 
 这一页会慢慢长大。我用来记自己实际读过 vs. 只是扫过的论文，以及推荐给入门者的清单。
+更宽的地图（flow、自回归、路径采样器，以及还没过的几道关）写在[这篇工作笔记](/notes/generative-samplers-lattice/)里。
 
 ## 核心论文
 

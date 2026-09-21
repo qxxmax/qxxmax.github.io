@@ -16,6 +16,30 @@ background_class: page-bg-weizhuang
 
   <article class="journey-entry">
     <p class="journey-date">
+      <time datetime="2026-10-05">
+        <span class="en">5–9 Oct 2026</span><span class="zh">2026 年 10 月 5–9 日</span>
+      </time>
+    </p>
+    <div class="journey-details">
+      <h3>
+        <a href="https://ai4sciweek.org/" target="_blank" rel="external noopener">AI4Sci 2026</a>
+      </h3>
+      <p class="journey-event-type">AI for Science Week · 2nd International Conference on AI for Science</p>
+      <p>
+        <span class="en">Participant · Johannes Gutenberg University Mainz · Mainz, Germany</span>
+        <span class="zh">参会 · 美因茨大学 · 德国美因茨</span>
+      </p>
+    </div>
+  </article>
+</section>
+
+<section class="journey-list" aria-labelledby="journey-attended">
+  <h2 id="journey-attended" class="journey-group-title">
+    <span class="en">Attended</span><span class="zh">已经参加</span>
+  </h2>
+
+  <article class="journey-entry">
+    <p class="journey-date">
       <time datetime="2026-08-02">
         <span class="en">2–7 Aug 2026</span><span class="zh">2026 年 8 月 2–7 日</span>
       </time>
