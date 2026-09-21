@@ -26,8 +26,8 @@ background_class: page-bg-weizhuang
       </h3>
       <p class="journey-event-type">AI for Science Week · 2nd International Conference on AI for Science</p>
       <p>
-        <span class="en">Participant · Johannes Gutenberg University Mainz · Mainz, Germany</span>
-        <span class="zh">参会 · 美因茨大学 · 德国美因茨</span>
+        <span class="en">Poster · AI4Physics · <em>Reweighted Hamiltonian Transport for Fixed Wavefunction Sampling in Variational Monte Carlo</em> · Mainz, Germany</span>
+        <span class="zh">海报 · AI4Physics · <em>Reweighted Hamiltonian Transport for Fixed Wavefunction Sampling in Variational Monte Carlo</em> · 德国美因茨</span>
       </p>
     </div>
   </article>
