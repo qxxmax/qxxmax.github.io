@@ -4,8 +4,9 @@ permalink: /journey/
 title: journey
 title_zh: 轨迹
 description: <span class="en">Conferences, schools, and research visits.</span><span class="zh">准备参加和已经参加的会议、学校与学术访问。</span>
-nav: true
+nav: false
 nav_order: 5
+sitemap: false
 background_class: page-bg-weizhuang
 ---
 
