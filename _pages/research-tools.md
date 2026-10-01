@@ -4,8 +4,9 @@ permalink: /research-tools/
 title: research tools
 title_zh: 研究工具
 description: <span class="en">Auditable AI-assisted literature research.</span><span class="zh">可审计的 AI 文献调研流程。</span>
-nav: true
+nav: false
 nav_order: 3
+sitemap: false
 background_class: page-bg-kaoruhana
 ---
 
