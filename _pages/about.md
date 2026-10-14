@@ -36,7 +36,7 @@ latest_posts:
 
 Hi, I'm **Moxian Qian** (钱莫闲) — a master's student in theoretical physics at **Johannes Gutenberg University Mainz** (JGU), Germany, also with **IQCB** and **IMB**.
 
-I work at the intersection of **machine learning** and **lattice field theory**. More broadly I'm drawn to the **structure and regularities** of physical systems; concretely, I'm interested in new sampling algorithms for physics — in particular ways to get around the **sign problem**, **critical slowing down**, and **topological freezing**. My broader research interests also include **mechanistic interpretability of large models**, **information-theoretic principles**, **Bayesian methods**, and their applications in physics.
+I work at the intersection of **machine learning** and **lattice field theory**. More broadly I'm drawn to the **structure and regularities** of physical systems; concretely, I'm interested in new sampling algorithms for physics — in particular ways to get around the **sign problem**, **critical slowing down**, and **topological freezing**. My broader research interests also include **mechanistic interpretability of large models**, **new-physics searches through spin-spin interactions**, and **gravitational-wave physics**.
 
 Outside physics I write a little, listen to a lot of music, and keep a private journal of notes and small experiments.
 
@@ -70,7 +70,7 @@ Meet the world with kindness and warmth, and you will arrive where you are meant
 
 你好，我是 **钱莫闲**（Moxian Qian）——德国 **美因茨大学**（JGU）理论物理方向的硕士研究生，同时在 **IQCB** 与 **IMB**。
 
-研究方向在 **机器学习** 与 **格点场论** 的交界处。更宽泛一点说，比较关心 **事物的结构与规律**；具体到工作上，是新的物理抽样算法，尤其是如何克服采样里的 **符号问题**、**临界慢化** 和 **拓扑冻结**。此外，我也关注 **大模型的机制与可解释性**、**信息原理**、**贝叶斯方法**及其在物理学中的应用。
+研究方向在 **机器学习** 与 **格点场论** 的交界处。更宽泛一点说，比较关心 **事物的结构与规律**；具体到工作上，是新的物理抽样算法，尤其是如何克服采样里的 **符号问题**、**临界慢化** 和 **拓扑冻结**。此外，我也关注 **大模型的机制与可解释性**、**利用自旋-自旋相互作用寻找新物理**，以及 **引力波物理**。
 
 物理之外会写点字、听很多音乐，也写一些个人的小笔记和实验记录。
 
