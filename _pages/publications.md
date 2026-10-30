@@ -10,7 +10,7 @@ background_class: page-bg-youzitsu
 ---
 
 <!-- _pages/publications.md -->
-<!-- Groups: samplers, Feynman, interpretability, GR. Fifth force stays hidden until it has a paper. -->
+<!-- Groups: samplers, interpretability, GR. Fifth force stays hidden until it has a paper. -->
 
 {% include bib_search.liquid %}
 
@@ -22,13 +22,6 @@ background_class: page-bg-youzitsu
 </h2>
 
 {% bibliography -f papers -q @*[topic=ml_boltzmann] %}
-
-<h2 class="year">
-  <span class="en">ML and Feynman integrals</span>
-  <span class="zh">机器学习与费曼积分</span>
-</h2>
-
-{% bibliography -f papers -q @*[topic=ml_feynman] %}
 
 <h2 class="year">
   <span class="en">Mechanistic interpretability</span>
