@@ -2,6 +2,7 @@
 layout: post
 date: 2026-05-11
 inline: true
+homepage: false
 related_posts: false
 ---
 
