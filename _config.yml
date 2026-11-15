@@ -120,7 +120,7 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: '<span class="en">notebook</span><span class="zh">笔记</span>'
+blog_name: '<span class="en">blog</span><span class="zh">博客</span>'
 blog_description: '<span class="en">research notes, half-baked experiments, and reading log.</span><span class="zh">研究笔记、未完的实验、读书随感。</span>'
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts

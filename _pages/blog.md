@@ -3,9 +3,9 @@ layout: default
 permalink: /blog/
 title: blog
 title_zh: 博客
-nav: false
+nav: true
 nav_order: 8
-sitemap: false
+sitemap: true
 background_class: page-bg-aobuta
 pagination:
   enabled: true
@@ -144,7 +144,9 @@ pagination:
       </h3>
       <p>{{ post.description }}</p>
       <p class="post-meta">
+        {% if post.redirect == blank %}
         <span class="en">{{ read_time }} min read</span><span class="zh">{{ read_time }} 分钟阅读</span> &nbsp; &middot; &nbsp;
+        {% endif %}
         <span class="en">{{ post.date | date: '%B %d, %Y' }}</span><span class="zh">{{ post.date | date: '%Y 年 %-m 月 %-d 日' }}</span>
         {% if post.external_source %}
         &nbsp; &middot; &nbsp; {{ post.external_source }}
@@ -193,6 +195,7 @@ pagination:
   </ul>
 
 {% if site.posts.size == 0 %}
+
 <p>
   <span class="en">Nothing here yet.</span>
   <span class="zh">暂时还没有博客。</span>
