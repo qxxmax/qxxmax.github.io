@@ -44,7 +44,7 @@
       <p class="lede zh">
         学习型采样器在大体积上会遇到权重退化：学到的路径分布与目标分布的失配随体积增长，独立生成的路径权重越来越集中。非平衡热力学告诉我们，降低这种失配必须付出额外的代价，例如让训练好的
         Langevin
-        型采样器在采样时走更多、更细的步，以换取更小的权重方差。本文让马尔可夫链沿学习到的路径退回中间场再走回来，并给出控制它的标度律：模型迁移到更大尺寸时接受率随体积的标度律，条件功方差随体积、路径长度和耦合（在临界点附近最大）的标度律，以及
+        型采样器在采样时增加步数、细化步长，以降低权重方差。本文构造的马尔可夫链沿学习到的路径回退至中间场，再正向生成新构型。我们研究模型迁移到更大格点时接受率随体积的变化、条件功方差随体积和路径长度的标度及其耦合依赖（在临界点附近最大），以及
         Langevin 型采样器加密步数时权重方差的变化规律。这些结果分别回应了机器学习中的权重退化、格点场论中的临界慢化与拓扑冻结，以及 MCMC 中独立
         Metropolis 的停留。
       </p>
@@ -73,27 +73,27 @@
       <section id="problems">
         <h2><span class="zh">1 三个问题</span><span class="en">1 Three problems</span></h2>
         <div class="zh">
-          <p>学习型采样器、格点场论和 MCMC 理论各有一个老问题。三个问题看上去不相干，却在这项工作里碰到了一起。</p>
+          <p>这项工作涉及三个相互关联的问题：学习型采样器的权重退化、格点场论中的慢模，以及独立 Metropolis 链的长时间停留。</p>
           <p>
-            我们的试验场是二维 $\phi^4$ 理论：$L\times L$ 格点上的实标量场，体积 $V=L^2$。耦合 $\kappa$ 控制场的有序程度。$\kappa$
+            我们以二维 $\phi^4$ 理论为测试对象：$L\times L$ 格点上的实标量场，体积 $V=L^2$。耦合 $\kappa$ 控制场的有序程度。$\kappa$
             小时，场在零附近涨落；$\kappa$ 增大到 $0.265$–$0.27$ 附近时经过临界点；再往上进入破缺相，平均场 $m$
-            停在正的一边或负的一边。我们关心它的大小 $|m|$ 和符号 $\operatorname{sign}(m)$。作用量和参数放在附录。
+            通常在正值或负值附近涨落。我们关心它的大小 $|m|$ 和符号 $\operatorname{sign}(m)$。作用量和参数见附录。
           </p>
           <h3>机器学习：权重退化</h3>
           <p>
-            扩散模型、流模型和各种非平衡采样器，都在学习一条从简单分布通往目标分布的路。只要算得出路径的概率，每个样本就带着一个精确的权重
-            $w$，加权之后结果无偏。路学得越好，权重越整齐；权重的参差程度用 $\operatorname{Var}(\log w)$ 衡量，$N$ 个带权样本相当于多少个独立样本，由
-            Kish 有效样本比例（ESS）$(\sum_i w_i)^2/(N\sum_i w_i^2)$ 给出。
+            扩散模型、流模型和各种非平衡采样器，都在学习连接简单分布与目标分布的路径。只要能计算路径概率，就能为每个样本赋予精确的权重
+            $w$，加权之后结果无偏。学习路径与目标越匹配，权重差异越小；这种差异用 $\operatorname{Var}(\log w)$ 衡量，$N$
+            个带权样本相当于多少个独立样本，由 Kish 有效样本比例（ESS）$(\sum_i w_i)^2/(N\sum_i w_i^2)$ 给出。
           </p>
           <p>
-            麻烦出在大系统上。Yuanqi Du 在 2026 年 10 月的博客
+            随着系统增大，权重退化逐渐成为主要困难。Yuanqi Du 在 2026 年 10 月的博客
             <a href="https://yuanqidu.github.io/blog/pushing-probabilistic-ml-out-of-equilibrium/"
               >Pushing Probabilistic Machine Learning Out of Equilibrium</a
             >
             中，把"非常大的系统中的权重退化"列为这一领域的核心开放问题：耗散功和自由能一样随系统大小增长，而重要性采样大约需要 $e^{\mathrm{KL}}$
             个样本（<a href="https://arxiv.org/abs/1511.01437">Chatterjee &amp; Diaconis 2018</a>）。图 1 是 $\phi^4$ 上的情形：每格点的
             $\operatorname{Var}(\log w)$ 几乎不随 $L$ 变，总方差随体积线性增长，ESS
-            跟着塌缩。右图里另外两条线来自本文的往返更新，它们的接受率下降得慢得多，原因在第 5 节。
+            随之大幅下降。右图另外两条曲线对应本文的往返更新，其接受率下降得更慢，第 5 节将解释这一差异。
           </p>
         </div>
         <div class="en">
@@ -220,8 +220,8 @@
         <h2><span class="zh">2 非平衡采样的物理</span><span class="en">2 The physics of nonequilibrium sampling</span></h2>
         <div class="zh">
           <p>
-            把采样看成一次非平衡过程：从容易采样的分布 $q_0$ 出发，按一串随机转移把系统一步步推向目标 $\pi\propto
-            e^{-S}$。推得太快，系统跟不上，终点分布就偏离 $\pi$。热力学用"功"给这种偏离记账。
+            把采样看成一次非平衡过程：从容易采样的分布 $q_0$ 出发，通过一系列随机转移逐步接近目标 $\pi\propto
+            e^{-S}$。若过程变化过快，系统来不及弛豫，终点分布就会偏离 $\pi$。路径功用于量化这一过程的非平衡性质。
           </p>
           <p>
             记一条完整路径为 $\Gamma$，正向过程给出它的概率 $Q_\theta(\Gamma)$。再设想一个反过来的过程：从目标 $\pi$
@@ -232,12 +232,12 @@
             它满足非平衡统计物理里两条熟悉的关系。Jarzynski 等式（<a href="https://arxiv.org/abs/cond-mat/9610209">Jarzynski 1997</a>）说 $\mathbb
             E_Q[e^{-W}]=Z$，$Z$ 是 $\pi$ 的归一化常数；Crooks 关系（<a href="https://arxiv.org/abs/cond-mat/9901352">Crooks 1999</a
             >）说目标路径分布与正向路径分布之比正是 $e^{-W}/Z$。所以 $e^{-W}$ 就是把正向样本改写成目标样本所需的权重，也就是上一节的
-            $w$。平均功则把失配记成耗散：
+            $w$。平均功与自由能之差，给出了正反路径分布之间的失配：
           </p>
           <p class="eq">$$\mathbb E_Q[W]=F+D_{\rm KL}(Q_\theta\Vert P_\theta)\ \ge\ F,\qquad F=-\log Z.$$</p>
           <p>
             耗散 $D_{\rm KL}$ 和自由能一样是广延量：格点体积翻倍，正反路径的失配也大致翻倍。对近似高斯的功，耗散约等于 $\operatorname{Var}(W)/2$，图 1
-            中随体积线性增长的方差就是它的直接体现。第一个问题的根源在这里。降低耗散也有现成的办法，但要付出代价：推得慢一些，也就是用更多的段；对随机微分方程型的采样器，还可以在同样的时间里走更细的步。后文的标度律回答的正是"要慢多少"。
+            中随体积线性增长的方差体现了这一关系。降低耗散需要额外的计算：增加路径段数以减缓驱动；对于随机微分方程型采样器，还可以在固定时间区间内细化步长。后文用标度关系估计所需的路径长度。
           </p>
           <p>
             扩散、流和非平衡采样器在这个框架里的区别，只在于每一段转移怎么写。本文用到四种：NHMC（本文）每段先重抽动量再做哈密顿演化；CMCD 与 DBS
@@ -289,7 +289,7 @@
           <p>有了路径功，同一批学习路径可以用三种方式变成精确的采样。三者都不要求模型已经学得完美。</p>
           <p><b>重要性加权。</b>直接按权重求平均：</p>
           <p class="eq">$$\langle O\rangle_\pi=\frac{\mathbb E_Q[e^{-W}O]}{\mathbb E_Q[e^{-W}]}.$$</p>
-          <p>它简单、可以完全并行，但所有样本共享一份权重预算：权重越参差，ESS 越小，这正是图 1 中的灰线。</p>
+          <p>这种方法简单，且易于并行；但权重差异越大，少数样本对估计的贡献就越集中，ESS 越小，如图 1 中的灰线所示。</p>
           <p>
             <b>独立路径 Metropolis（path-IMH）。</b>把每条新路径 $\Gamma'$ 当作提议，以 $\min\{1,e^{W(\Gamma)-W(\Gamma')}\}$
             接受，组成一条马尔可夫链。链的平稳分布严格是
@@ -401,9 +401,9 @@
       <section id="qualitative">
         <h2><span class="zh">5 往返更新的定性图景</span><span class="en">5 Round trips: the qualitative picture</span></h2>
         <div class="zh">
-          <p>往返更新的行为，在跑链之前就能说清楚。关键只有一个量：固定中间场 $u_s$ 时，被重抽那段路的功有多大的涨落，</p>
+          <p>运行马尔可夫链之前，可以先估计往返更新的接受率。一个关键量是：固定中间场 $u_s$ 时，重新采样的路径片段所对应的功涨落，</p>
           <p class="eq">$$\sigma^2=\mathbb E_{u_s}\big[\operatorname{Var}(W_{\theta,s}\mid u_s)\big].$$</p>
-          <p>它用一批正向路径就能测出来：对每个 $u_s$ 多接几条续程，求组内方差再平均。</p>
+          <p>这个量可以从一批正向路径中估计：从每个 $u_s$ 出发生成多条后续路径，分别计算组内方差，再对各组取平均。</p>
           <p>
             <b>接受率。</b>新旧两条记录互换角色时 $\Delta$ 变号，于是 $\Delta$ 的分布满足 Crooks 型对称性 $p(\Delta)=e^{\Delta}p(-\Delta)$。如果
             $\Delta$ 近似高斯，平均接受率只剩一个参数：
@@ -416,29 +416,31 @@
             $\sigma^2$ 是能量误差的方差。和重要性加权对比：ESS 约为 $e^{-\operatorname{Var}(W)}$；完整往返的 $\sigma^2$ 与 $\operatorname{Var}(W)$
             接近，指数里的系数却是 $1/4$。图 1 中往返曲线远高于 ESS，原因就在这里。
           </p>
-          <p><b>自相关。</b>接受率再决定链忘掉过去的速度。如果每次接受都换来一个独立构型，相关函数按 $(1-\alpha)^j$ 衰减，于是</p>
+          <p>
+            <b>自相关。</b>接受率与每次更新的去相关程度共同影响链的自相关时间。如果每次接受都得到一个独立构型，相关函数按 $(1-\alpha)^j$ 衰减，于是
+          </p>
           <p class="eq">$$\tau_{\rm int}\approx C\Big(\frac1\alpha-\frac12\Big),$$</p>
           <p>
             $C=1$ 对应每次接受都完全去相关。path-IMH 不同：它的接受率 $\alpha(x)$ 依赖当前状态携带的权重，落在大权重尾部的状态要停留约 $1/\alpha(x)$
             步，粗略地 $\tau_{\rm int}\approx\mathbb E_\pi[1/\alpha(x)]-\tfrac12\ \ge\ 1/\mathbb
-            E_\pi[\alpha]-\tfrac12$。平均接受率相同时，往返更新去相关得更快。
+            E_\pi[\alpha]-\tfrac12$。在本文测试中，完整往返更新在相近平均接受率下去相关得更快。
           </p>
           <p>
-            $C$ 的大小取决于一次接受走了多远。完整往返每次被接受都回到简单分布，相当于换了一个独立构型，所以 $C$ 接近
-            1。截断往返只重抽最后几段，接受率更高；但在临界附近，被接受的更新只把 $|m|$ 挪动一小步，$C$ 就会变大（图 3）。
+            $C$ 的大小取决于一次被接受的更新能改变多少构型信息。完整往返的路径经过简单分布，在本文测试中，每次接受后的去相关程度接近独立构型，因此 $C$
+            接近 1。截断往返只重新采样最后几段，接受率更高；但在临界附近，每次被接受的更新对 $|m|$ 的改变很小，$C$ 因而增大（图 3）。
           </p>
           <p>
             <b>体积。</b>$\sigma^2$ 和耗散一样是广延量，并且只计入被重抽的 $d$ 段，路径越长每段的失配越小。所以路径长度固定时，体积越大，接受率按
-            $e^{-\sigma^2/4}$ 下降；要保持接受率，段数 $T$ 必须随体积增长；一个训练好的模型冻结后搬到更大的格点，可用的体积有一个上限。
+            $e^{-\sigma^2/4}$ 下降；要保持接受率，段数 $T$ 必须随体积增长；固定参数的模型迁移到更大格点时，满足目标接受率的体积存在上限。
           </p>
           <p>
-            <b>训练后加密步数。</b>CMCD、DBS、SPS 这类以随机微分方程离散化为基础的采样器，还多一个旋钮：训练后把每一步拆成更细的子步，有可能降低
-            $\sigma^2$。NHMC 每段完整重抽动量，没有这个旋钮。
+            <b>训练后细化步长。</b>CMCD、DBS、SPS 这类以随机微分方程离散化为基础的采样器，还可以在训练后将每一步拆成更细的子步，从而可能降低
+            $\sigma^2$。当前 NHMC 构造在每段完整重抽动量，不具备同样的步长细化方式。
           </p>
           <p>
             图 2 是一个可以在浏览器里运行的小例子：$d$ 个独立的双势阱 $S(x)=\sum_i b\,(x_i^2-1)^2$，路径为 $T$
             段线性退火的哈密顿蒙特卡洛（没有神经网络）。左边是 path-IMH，右边是完整往返，两者用同一种路径。增大 $d$ 或减小 $T$，可以看到 IMH
-            停在大权重状态上，而往返链的接受率贴着预测值。
+            在大权重状态上长时间停留，而往返链的接受率接近预测值。
           </p>
         </div>
         <div class="en">
@@ -465,19 +467,20 @@
             curves in Fig. 1 sit far above the ESS.
           </p>
           <p>
-            <b>Autocorrelation.</b> The acceptance in turn sets how fast the chain forgets its past. If every acceptance brought an independent
-            configuration, the correlation would decay as $(1-\alpha)^j$ and
+            <b>Autocorrelation.</b> Acceptance and the decorrelation achieved by each update jointly determine the autocorrelation time. If every
+            acceptance brought an independent configuration, the correlation would decay as $(1-\alpha)^j$ and
           </p>
           <p class="eq">$$\tau_{\rm int}\approx C\Big(\frac1\alpha-\frac12\Big),$$</p>
           <p>
             with $C=1$ meaning full decorrelation at every acceptance. Path-IMH is different: its acceptance $\alpha(x)$ depends on the weight the
             current state carries, a state in the large-weight tail stays for about $1/\alpha(x)$ steps, and roughly $\tau_{\rm int}\approx\mathbb
-            E_\pi[1/\alpha(x)]-\tfrac12\ \ge\ 1/\mathbb E_\pi[\alpha]-\tfrac12$. At equal mean acceptance, round trips decorrelate faster.
+            E_\pi[1/\alpha(x)]-\tfrac12\ \ge\ 1/\mathbb E_\pi[\alpha]-\tfrac12$. In the tests here, full round trips decorrelate faster at similar
+            mean acceptance rates.
           </p>
           <p>
-            The size of $C$ depends on how far an accepted update moves. A full round trip passes through the simple distribution at every acceptance,
-            which amounts to a fresh configuration, so $C$ is close to 1. A truncated round trip redraws only the last stages and is accepted more
-            often; but near criticality an accepted update moves $|m|$ only a little, and $C$ grows (Fig. 3).
+            The size of $C$ depends on how far an accepted update moves. A full round trip passes through the simple distribution; in the tests here,
+            accepted updates nearly decorrelate the configurations, so $C$ is close to 1. A truncated round trip redraws only the last stages and is
+            accepted more often; but near criticality an accepted update moves $|m|$ only a little, and $C$ grows (Fig. 3).
           </p>
           <p>
             <b>Volume.</b> $\sigma^2$ is extensive like the dissipation, counts only the $d$ redrawn stages, and the longer the path, the smaller the
@@ -537,13 +540,13 @@
           <p class="caption zh">
             各列依次为 $L=4$、8、12、16。上排：path-IMH（橙）、完整往返（蓝）与截断往返（绿，$s=12$）的接受率。下排：被接受的更新使 $|m|$
             平均改变多少，除以两个独立样本之间的平均差；比值为
-            1（虚线）表示一次接受就相当于换了一个独立构型。截断往返接受得多，但在临界附近每次只挪一小步。
+            1（虚线）表示平均变化幅度与两个独立构型之间的差异相当。截断往返的接受率较高，但在临界附近每次更新的变化幅度很小。
           </p>
           <p class="caption en">
             Columns are $L=4$, 8, 12, 16. Top: acceptance of path-IMH (orange), full round trips (blue) and truncated round trips (green, $s=12$).
             Bottom: how much an accepted update changes $|m|$ on average, divided by the mean difference between two independent samples; a ratio of 1
-            (dashed) means one acceptance is as good as a fresh configuration. Truncated round trips are accepted more often but move only a little
-            near criticality.
+            (dashed) means that the mean change matches the difference between two independent configurations. Truncated round trips are accepted more
+            often but move only a little near criticality.
           </p>
         </figure>
       </section>
@@ -587,22 +590,22 @@
         <div class="zh">
           <h3>体积与迁移</h3>
           <p>
-            先回到机器学习的问题：路径的失配随体积增长，往返更新还能走多远？第 5 节说 $\sigma^2$ 是广延量。在 $\phi^4$ 上，它在 $L=4$–$16$、11
-            个耦合上可以写成
+            先回到机器学习的问题：路径失配随体积增长时，往返更新的接受率如何变化？第 5 节讨论了 $\sigma^2$ 的广延性。在 $\phi^4$ 上，它在
+            $L=4$–$16$、11 个耦合上可以写成
           </p>
           <p class="eq">$$\sigma^2\simeq\bar\sigma^2(\kappa)\,\frac{d\,V}{T^{\zeta}},\qquad \zeta\approx0.8,$$</p>
           <p>系数 $\bar\sigma^2(\kappa)$ 在临界耦合 $\kappa\approx0.265$–$0.27$ 处最大。要保持接受率，段数需按 $T\propto(dV)^{1/\zeta}$ 增长。</p>
           <p>
-            把 $L=16$ 训练的模型冻结后搬到更大的格点，独立路径的权重已经不能用，往返链仍然精确。它的接受率由该模型在 $L=16$ 测得的每格点条件方差
-            $(\sigma^2/V)_{16}$ 决定：
+            将 $L=16$ 上训练的模型固定参数后迁移到更大格点，独立路径的重要性权重严重退化，往返更新仍保持目标分布。其接受率由该模型在 $L=16$
+            测得的每格点条件方差 $(\sigma^2/V)_{16}$ 决定：
           </p>
           <p class="eq">
             $$\alpha(V)=\operatorname{erfc}\!\Big(\tfrac12\sqrt{(\sigma^2/V)_{16}\,V}\Big),\qquad
             V_{\max}\approx\frac{4\,[\operatorname{erfc}^{-1}(\alpha_*)]^2}{(\sigma^2/V)_{16}},$$
           </p>
           <p>
-            $V_{\max}$ 是目标接受率 $\alpha_*$ 下冻结模型可用的体积。实测接受率沿这条曲线一直到
-            $\alpha\sim10^{-3}$，更小的接受率在链中只出现少数几次接受（图 5）。
+            $V_{\max}$ 是目标接受率 $\alpha_*$ 下冻结模型可用的体积。实测接受率与预测曲线一致，直至
+            $\alpha\sim10^{-3}$；接受率更低时，链中只记录到少数几次接受事件（图 5）。
           </p>
         </div>
         <div class="en">
@@ -663,12 +666,12 @@
         <div class="zh">
           <h3>和 HMC 比：自相关随耦合的变化</h3>
           <p>
-            再看格点场论的问题。图 6 是每个格点尺寸上 $\tau_{\rm int}$ 随耦合的变化。HMC 和 Wolff 团簇算法是不用学习的参考（附录给出设置）。临界附近
-            HMC 的 $\tau_{\rm int}$ 明显冲高，往返更新低得多，对 $\operatorname{sign}(m)$ 尤其明显。在破缺相，HMC 的 $\operatorname{sign}(m)$
-            在整条记录中一次也没有翻转，往返更新的曲线却很平。
+            再看格点场论的问题。图 6 给出各格点尺寸上 $\tau_{\rm int}$ 随耦合的变化。HMC 和 Wolff 团簇算法作为无需训练的参考（设置见附录）。临界附近，
+            HMC 的 $\tau_{\rm int}$ 明显增大，往返更新的自相关时间则较短，$\operatorname{sign}(m)$ 上的差异尤其明显。在破缺相，HMC 的
+            $\operatorname{sign}(m)$ 在整段记录中没有发生翻转，而往返更新的自相关时间随耦合变化较小。
           </p>
           <p>
-            这两种算法依赖的东西不同。HMC
+            两类算法的自相关时间受不同因素控制。HMC
             的自相关在关联长度固定时与体积无关，随关联长度按幂律增长；往返更新把对关联长度的依赖换成了对体积的依赖，代价体现在随体积增长的 $\sigma^2$
             上（上文"体积与迁移"）。
           </p>
@@ -727,9 +730,9 @@
         <div class="zh">
           <h3>path-IMH 与往返</h3>
           <p>
-            最后是 MCMC 的问题。图 7 把每组 $(L,\kappa)$ 的实测 $\tau_{\rm int}$ 画在"每次接受都独立"的尺子 $1/\alpha-1/2$
-            上。完整往返几乎都贴着这把尺子，只在刚过临界处略高。path-IMH
-            在临界附近的大格点上高出一个数量级以上：两者的平均接受率差不多，自相关却差了一个数量级。
+            最后看 MCMC 的更新效率。图 7 将每组 $(L,\kappa)$ 的实测 $\tau_{\rm int}$ 与每次接受都产生独立构型时的基准 $1/\alpha-1/2$
+            对照。完整往返的结果接近这一基准，在刚越过临界耦合的位置略高。path-IMH
+            在临界附近的大格点上则明显偏离基准：两者的平均接受率相近，自相关时间却相差一个数量级。
           </p>
         </div>
         <div class="en">
@@ -760,8 +763,9 @@
         </div>
         <div class="zh">
           <p>
-            从链本身也能看到这一点。用同一个模型、接受率相近时，往返的自相关函数几步之内就降到零，path-IMH 却拖着一条长尾（图
-            8）。把链越跑越长，往返的自相关估计很快稳定下来；path-IMH 的估计却一路上升，链在大权重状态上的停留，要很长的记录才能看全（图 9）。
+            自相关函数也显示出这一差异。使用同一个模型、平均接受率相近时，往返更新的自相关函数在数步内衰减至接近零，path-IMH 则存在衰减缓慢的长尾（图
+            8）。随着链长增加，往返更新的自相关时间估计很快趋于稳定；path-IMH
+            的估计仍持续增大，需要更长的记录才能充分反映链在大权重状态上的长时间停留（图 9）。
           </p>
         </div>
         <div class="en">
@@ -780,8 +784,8 @@
           <img src="figs/fig4_nhmc_acf.png" alt="" />
           <p class="caption zh">
             $L=8$，左 $\kappa=0.27$，右
-            $\kappa=0.30$（较早一版固定模型）。横轴是包含拒绝在内的更新次数。两者用同一个模型、接受率相近，往返的自相关几步之内就降到零，path-IMH
-            拖着一条长尾。
+            $\kappa=0.30$（较早一版固定模型）。横轴是包含拒绝在内的更新次数。两者使用同一个模型，平均接受率相近。往返更新的自相关在数步内衰减至接近零，path-IMH
+            则存在衰减缓慢的长尾。
           </p>
           <p class="caption en">
             $L=8$, left $\kappa=0.27$, right $\kappa=0.30$ (an earlier fixed model). The horizontal axis counts updates including rejections. Both use
@@ -791,14 +795,14 @@
         </figure>
         <figure class="paperfig">
           <div class="pane-title">
-            <span class="zh">图 9　链越长，估计越稳（论文附录 E）</span
-            ><span class="en">Fig. 9　Longer chains, steadier estimates (paper, Appendix E)</span>
+            <span class="zh">图 9　观测量与自相关时间的估计随链长的变化（论文附录 E）</span
+            ><span class="en">Fig. 9　Observable and autocorrelation-time estimates versus chain length (paper, Appendix E)</span>
           </div>
           <img src="figs/new_fig_convergence.png" alt="" />
           <p class="caption zh">
             $L=16$，左 $\kappa=0.26$，右 $\kappa=0.27$。上排为 $\langle|m|\rangle$ 的累计估计（阴影为标准误，点线为参考值）；下排为随链长估计的
             $\tau_{\rm
-            int}(|m|)$。往返（蓝、绿）的自相关很快稳定下来；path-IMH（橙）的估计随链长一路上升，说明链在大权重状态上的停留要很长的记录才能看全。灰、粉虚线为
+            int}(|m|)$。往返更新（蓝、绿）的自相关时间估计很快趋于稳定；path-IMH（橙）的估计随链长持续增大，说明需要更长的记录才能充分反映链在大权重状态上的停留。灰、粉虚线为
             HMC 与 Wolff。
           </p>
           <p class="caption en">
@@ -815,12 +819,12 @@
             在破缺相同样会停留，往返更新则不会。
           </p>
           <p>
-            三种采样器的单路径质量各有长处（图 10 左）。对称相和临界附近，用 80 段路径的 CMCD 与 DBS 方差更小；进入破缺相后，它们的方差迅速上升，16
-            段的 NHMC 反而稳定得多，格点越大差距越明显。截断往返的表现也取决于采样器：CMCD 和 DBS
+            三种采样器的路径权重方差随耦合的变化不同（图 10 左）。在对称相和临界附近，采用 80 段路径的 CMCD 与 DBS
+            方差更小；进入破缺相后，它们的方差迅速增大，而 16 段 NHMC 的方差变化较小，格点越大差异越明显。截断往返的表现也取决于采样器：CMCD 和 DBS
             的截断往返几乎总被接受，但临界附近被接受的更新几乎不改变 $|m|$，自相关并不短。
           </p>
           <p>
-            训练后加密步数的旋钮在两者身上表现也不同（图 10 右）。在这些测试中，CMCD 加密后方差下降并趋于一个下限；DBS
+            两者对训练后步长细化的响应也不同（图 10 右）。在这些测试中，CMCD 的方差随步长细化而下降，并逐渐趋于下限；DBS
             加密几乎没有帮助，在破缺相甚至变差。一种待验证的解释是：DBS
             单独训练的反向网络可能吸收了训练步长特有的离散修正，换成更细的步长后，这部分修正不再匹配。CMCD 的反向漂移受 Nelson
             关系约束，两者对加密的响应因此可能不同。已完成的训练步长减半实验中，DBS
@@ -868,7 +872,7 @@
           <svg id="smp-svg" viewBox="0 0 560 300" class="plot"></svg>
           <p class="caption zh">
             左：三种采样器的路径对数权重方差随耦合的变化（NHMC $T=16$，CMCD 与 DBS $T=80$）。右：训练后把每一步拆成 $m$
-            个子步（网络保持在训练时的步上）时的方差；虚线为同一耦合下 NHMC 的值，它没有这个旋钮。
+            个子步（网络仍按训练时的时间步取值）后的方差；虚线为同一耦合下 NHMC 的值，其当前构造不采用这种步长细化方式。
           </p>
           <p class="caption en">
             Left: variance of the path log weight versus coupling for the three samplers (NHMC $T=16$, CMCD and DBS $T=80$). Right: the variance when
@@ -884,14 +888,19 @@
           <p>回到开头的三个问题，每个问题都有一个简短的回答。</p>
           <p>
             <b>机器学习。</b>权重退化不等于采样失效。同一个模型，ESS
-            已经塌到千分之几时，往返更新仍然接受得很顺。决定往返接受率的是一个可以预先测量的条件功方差，它告诉你什么时候需要加长路径，什么时候冻结的模型还能用。
+            已降至千分之几时，往返更新仍保持一定的接受率。条件功方差可以预先测量，用于预测往返接受率，并判断何时需要延长路径，以及固定参数的模型适用于多大的格点。
           </p>
           <p>
             <b>格点场论。</b>完整往返每次被接受都经过简单分布，翻转 $m$
-            不必爬过界面势垒；在破缺相，截断往返的自相关几乎不随格点变大而增长。代价转移到了随 $dV/T^{\zeta}$
+            不必跨越界面势垒；在破缺相，截断往返的自相关几乎不随格点增大而增长。代价体现在随 $dV/T^{\zeta}$
             增长的条件功方差上，可以用更长的路径或更好的训练来控制。
           </p>
-          <p><b>MCMC。</b>平均接受率相同的两条链，自相关可以差一个数量级。区别在于每个状态的接受率是否依赖它携带的权重。</p>
+          <p>
+            <b>MCMC。</b>采样效率取决于更新能否有效改变慢模，以及为此付出的计算成本。
+            <a href="https://doi.org/10.1103/PhysRevLett.62.361">Wolff 团簇算法</a>展示了集体更新的重要性。对于学习到的非平衡路径，RT/pRT
+            提供了构造保持目标分布的 Metropolis 更新的方法。在本文测试的二维 $\phi^4$ 系统中，完整往返更新在相近平均接受率下，比 path-IMH
+            更快去相关；部分往返则需要权衡接受率、每次更新的移动幅度和计算成本。
+          </p>
           <p>
             <b>下一步。</b>更大的体积需要更长的路径，$T\propto(dV)^{1/\zeta}$；临界耦合附近，截断往返每次被接受的更新使 $|m|$
             改变得越来越少，这时完整往返更合适。
@@ -937,8 +946,11 @@
             moves to a conditional work variance growing as $dV/T^{\zeta}$, controlled by longer paths or better training.
           </p>
           <p>
-            <b>MCMC.</b> Two chains with the same mean acceptance can differ in autocorrelation by an order of magnitude. The difference is whether
-            the acceptance of a state depends on the weight it carries.
+            <b>MCMC.</b> Sampling efficiency depends on how effectively an update changes the slow modes and on its computational cost. The
+            <a href="https://doi.org/10.1103/PhysRevLett.62.361">Wolff cluster algorithm</a> illustrates the importance of collective updates. For
+            learned nonequilibrium paths, RT/pRT provide a way to construct Metropolis updates that preserve the target distribution. In the 2D
+            $\phi^4$ systems tested here, full round trips decorrelate faster than path-IMH at similar mean acceptance rates; partial round trips
+            require balancing acceptance, the size of each move, and computational cost.
           </p>
           <p>
             <b>Next steps.</b> Larger volumes need longer paths, $T\propto(dV)^{1/\zeta}$; near the critical coupling each accepted truncated round
@@ -1000,14 +1012,14 @@
             N\big(x_{k+1}+\eta_k[\nabla\log\pi_{t_{k+1}}(x_{k+1})-f_\theta(x_{k+1},t_{k+1})],\,2\eta_k\big).\end{aligned}$$
           </p>
           <p>
-            反向漂移里的控制项是正向的 $-f_\theta$（Nelson 关系），正反向由同一个网络配对。我们按 UDB 基准的官方配方（<a
+            反向漂移中的控制项为 $-f_\theta$（Nelson 关系），正反向由同一个网络配对。我们将 UDB 基准的官方训练方案（<a
               href="https://arxiv.org/abs/2503.01006"
               >Blessing 等 2025</a
-            >）移植到 PyTorch 训练，$T=80$；步长 $\eta_k$ 以 $0.1$ 为基准、按余弦调度并可学习，先验高斯的宽度也一起学习。
+            >）移植到 PyTorch，取 $T=80$；步长 $\eta_k$ 以 $0.1$ 为基准，采用余弦调度并参与训练，高斯先验的宽度也参与训练。
           </p>
           <p>
             <b>DBS</b>（<a href="https://arxiv.org/abs/2307.01198">Richter &amp; Berner 2024</a>）这里用的是 UDB 基准中带退火漂移的 DBS 配置：与 CMCD
-            用同样的 $F_k$ 与 $B_k$，只是反向漂移里的 $-f_\theta$ 换成单独训练的网络 $g_\phi$，正反向不要求配对。训练配方同上，$T=80$。
+            用同样的 $F_k$ 与 $B_k$，只是反向漂移中的 $-f_\theta$ 换成单独训练的网络 $g_\phi$，正反向不要求配对。训练方案同上，$T=80$。
           </p>
           <p>
             <b>SPS</b>（<a href="https://arxiv.org/abs/2606.13790">arXiv:2606.13790</a>）也是离散化的 Langevin
