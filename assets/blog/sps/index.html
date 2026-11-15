@@ -42,15 +42,14 @@
           >arXiv:2606.13790</a
         >）从高斯噪声出发，学习一对正向和反向的 Langevin
         过程，训练目标是最小化两者之间的熵产生；过程越接近可逆，正向路径的终点分布就越接近目标分布。剩余偏差由整条路径上的一步 Metropolis
-        修正。整个过程只用到作用量，不需要训练样本。在文章模拟的格点上，没有观察到模式坍缩。时间作为连续变量输入网络，因此模型训练完成后，可以在采样时采用更细的步长，使权重方差下降，直至达到与体积有关的下限。路径权重方差的两个来源是时间离散误差和学习过程本身的不可逆性。细化步长可以减小前者；后者决定了剩余方差，需要通过改进训练或减缓过程的驱动来降低。
+        修正。整个过程只用到作用量，不需要训练样本。流模型常见的模式坍缩，在这里转化为路径需要多少采样步数的问题：时间作为连续变量输入网络，因此模型训练完成后，可以在采样时采用更细的步长，使权重方差下降，直至达到与体积有关的下限。路径权重方差的两个来源是时间离散误差和学习过程本身的不可逆性。细化步长可以减小前者；后者决定了剩余方差，需要通过改进训练或减缓过程的驱动来降低。
       </p>
       <p class="lede en">
         Sampling in lattice field theory starts from the action $S$ alone: no normalization constant, no ready-made samples. Our Stochastic Path
         Sampler (SPS, <a href="https://arxiv.org/abs/2606.13790">arXiv:2606.13790</a>) starts from Gaussian noise and learns a pair of forward and
         backward Langevin processes, trained to minimize the entropy production between them; the closer the process is to reversible, the closer the
         forward endpoint is to the target distribution. What remains is corrected by one Metropolis step on the whole path. Only the action is used—no
-        training samples at all. On the lattices simulated in the paper it shows none of the mode collapse common for flows; and because time is a
-        continuous input, a trained model can sample with a finer step, which lowers the weight variance down to a floor set by the volume. The
+        training samples at all. The mode collapse common for flows becomes a question of how many sampling steps the path takes: because time is a continuous input, a trained model can sample with a finer step, which lowers the weight variance down to a floor set by the volume. The
         variance of the path weights has two sources: the error of discretizing time, which finer steps at sampling time remove; and how far the
         learned process itself is from reversible, which sets the floor and can be lowered only by better training or a slower push.
       </p>
@@ -94,8 +93,7 @@
             SPS
             换了一个角度。它不学一个单一的映射，而是学一条带噪声的随机路径：正向过程从高斯噪声走到目标，反向过程从目标走回高斯，训练让两者尽量互为时间反演。SPS
             优化的同样是在模型自己的路径上取期望的
-            KL，所以它并不能从构造上保证不坍缩；不同之处在于路径的每一步都有噪声，反向过程也是学出来的。在文章模拟的格点尺寸上，我们没有看到模式坍缩：临界附近的磁化直方图里，正负两个扇区都有样本（文章附录
-            C）。
+            KL，所以它并不能从构造上保证不坍缩；不同之处在于路径的每一步都有噪声，反向过程也是学出来的，正向终点的偏差最终表现为路径权重的离散，而这种离散可以通过增加采样步数来压低。于是模式坍缩问题被转化为需要多少采样步数的问题。在文章用 2500 步采样的格点上，破缺相的正负两个扇区都被正确覆盖（文章附录 C）。
           </p>
           <p>下面先讲这件事背后的物理：为什么"让过程可逆"就等于"采到目标分布"。</p>
         </div>
@@ -130,9 +128,7 @@
             SPS takes a different angle. Instead of a single map it learns a noisy stochastic path: a forward process walks from Gaussian noise to the
             target, a backward process walks from the target back to the Gaussian, and training makes the two as close to time reverses of each other
             as possible. SPS also optimizes a KL whose expectation is over the model's own paths, so it is not protected from collapse by
-            construction; the difference is that every step of the path is noisy and the backward process is learned too. For the lattice sizes
-            simulated in the paper we saw no mode collapse: near criticality the magnetization histograms populate both the positive and the negative
-            sector (Appendix C of the paper).
+            construction; the difference is that every step of the path is noisy and the backward process is learned too, so a biased forward endpoint shows up as spread in the path weights, and that spread can be pushed down by sampling with more steps. Mode collapse thus becomes a question of how many sampling steps are needed. With 2500 sampling steps on the lattices of the paper, both sectors of the broken phase are covered correctly (Appendix C of the paper).
           </p>
           <p>Next, the physics behind this: why "making the process reversible" means "sampling the target".</p>
         </div>
@@ -499,13 +495,13 @@
         </figure>
         <div class="zh">
           <p>
-            <b>没有模式坍缩。</b>破缺相的磁化分布有正负两个峰，越往深处两峰越尖、分得越开。未修正的 SPS 提议在 $L=64$ 上与 HMC
+            <b>两个扇区都被覆盖。</b>破缺相的磁化分布有正负两个峰，越往深处两峰越尖、分得越开。未修正的 SPS 提议在 $L=64$ 上与 HMC
             的直方图几乎完全重合，两个峰的相对权重也一致（图 9）。在赝临界区，磁化分布由单峰逐渐展宽，SPS 也能再现这一变化（原文图 11）。
           </p>
         </div>
         <div class="en">
           <p>
-            <b>No mode collapse.</b> In the broken phase the magnetization distribution has two peaks, sharper and further apart deeper in the phase.
+            <b>Both sectors covered.</b> In the broken phase the magnetization distribution has two peaks, sharper and further apart deeper in the phase.
             On $L=64$ the uncorrected SPS proposals overlap the HMC histograms almost completely, with the right weight in both peaks (Fig. 9). In the
             pseudocritical region, where the distribution broadens from a single peak, SPS follows the broadening as well (Fig. 11 of the paper).
           </p>
@@ -568,8 +564,7 @@
         <h2><span class="zh">6 下一步</span><span class="en">6 Next steps</span></h2>
         <div class="zh">
           <p>
-            SPS 用一个热力学的原则，把"采到目标分布"变成了"让路径可逆"。它不需要数据，在二维 $\phi^4$
-            的格点上没有观察到模式坍缩。由于时间作为连续变量输入，训练好的模型可以在采样时细化步长，从而减小权重差异。
+            SPS 用一个热力学的原则，把"采到目标分布"变成了"让路径可逆"。它不需要数据；流模型的模式坍缩在这里变成了采样步数的问题：由于时间作为连续变量输入，训练好的模型可以在采样时细化步长，减小权重差异，在二维 $\phi^4$ 的破缺相中正确覆盖两个扇区。
           </p>
           <p>
             接下来最自然的一步是二维 $U(1)$
@@ -591,9 +586,7 @@
         </div>
         <div class="en">
           <p>
-            SPS uses a thermodynamic principle to turn "sampling the target" into "making the path reversible". It needs no data, shows no mode
-            collapse on the 2D $\phi^4$ lattices studied, and, because time is continuous, a trained model can trade finer sampling steps for more
-            uniform weights.
+            SPS uses a thermodynamic principle to turn "sampling the target" into "making the path reversible". It needs no data, and the mode collapse of flows becomes a question of sampling steps: because time is continuous, a trained model can trade finer sampling steps for more uniform weights, covering both sectors of the broken phase in 2D $\phi^4$.
           </p>
           <p>
             The most natural next step is 2D $U(1)$ gauge theory: the degrees of freedom become group elements, and one can test whether stochastic

@@ -42,15 +42,15 @@
         ><span class="en">Metropolis updates on learned round trips: acceptance and autocorrelation</span>
       </h1>
       <p class="lede zh">
-        在本文测试的二维 $\phi^4$ 模型中，格点体积增大时，学习路径的重要性权重逐渐集中到少数样本上。 我们沿学习路径回退至中间场，再正向生成新构型，用
+        在二维 $\phi^4$ 模型中，格点体积增大时，学习路径的重要性权重逐渐集中到少数样本上。 我们沿学习路径回退至中间场，再正向生成新构型，用
         Metropolis 接受步骤保持目标分布。 本文比较完整往返、部分往返和独立路径更新的接受率与自相关，检验条件功方差的高斯接受率近似，
-        并展示固定模型的体积迁移和训练后细化步长的测试。
+        并展示固定模型的体积迁移和细化时间步的效果。
       </p>
       <p class="lede en">
-        In the 2D $\phi^4$ models tested here, importance weights concentrate on fewer paths as the lattice volume grows. We follow a learned path
+        In 2D $\phi^4$ models, importance weights concentrate on fewer paths as the lattice volume grows. We follow a learned path
         back to an intermediate field and forward to a new configuration, with a Metropolis step that preserves the target distribution. This post
         compares acceptance and autocorrelation for full, partial and independent-path updates, tests a Gaussian acceptance approximation based on
-        conditional work variance, and examines frozen-model transfer and post-training step refinement.
+        conditional work variance, and shows frozen-model transfer and the effect of refining the time steps.
       </p>
 
       <nav class="toc">
@@ -67,7 +67,7 @@
       <section id="problems">
         <h2><span class="zh">1 三个问题</span><span class="en">1 Three problems</span></h2>
         <div class="zh">
-          <p>这项工作涉及三个相互关联的问题：学习型采样器的权重退化、格点场论中的慢模，以及独立 Metropolis 链的长时间停留。</p>
+          <p>这项工作涉及三个相互关联的问题：学习型采样器的权重退化、格点场论中的临界慢化与拓扑冻结，以及独立 Metropolis 链的长时间停留。</p>
           <p>
             我们以二维 $\phi^4$ 理论为测试对象：$L\times L$ 格点上的实标量场，体积 $V=L^2$。耦合 $\kappa$ 控制场的有序程度。$\kappa$
             小时，场在零附近涨落；$\kappa$ 增大到 $0.265$–$0.27$ 附近时经过临界点；再往上进入破缺相，平均场 $m$
@@ -75,10 +75,8 @@
           </p>
           <h3>机器学习：权重退化</h3>
           <p>
-            扩散模型、流模型和非平衡采样器可以学习连接简单分布与目标分布的路径。对这里考虑的路径构造，
-            在目标路径受到提议分布覆盖、且路径密度比可计算时，可以得到重要性权重 $w$。
-            自归一化重加权估计通常有有限样本偏差，在支持集和可积性条件满足时具有一致性。 我们用 $\operatorname{Var}(\log w)$ 和 Kish
-            有效样本比例（ESS）$(\sum_i w_i)^2/(N\sum_i w_i^2)$ 描述权重的集中程度； Kish ESS 是权重诊断，具体观测量的误差还取决于它与权重的关系。
+            扩散模型、流模型和非平衡采样器可以学习连接简单分布与目标分布的路径。只要正反路径概率之比可以计算，每个样本就带有一个重要性权重 $w$，自归一化重加权给出一致的估计（有限样本下有偏差）。 我们用 $\operatorname{Var}(\log w)$ 和 Kish
+            有效样本比例（ESS）$(\sum_i w_i)^2/(N\sum_i w_i^2)$ 描述权重的集中程度； ESS 越小，同样的样本数所含的有效信息越少。
           </p>
           <p>
             随着系统增大，权重退化逐渐成为主要困难。Yuanqi Du 在 2026 年 10 月的博客
@@ -87,8 +85,7 @@
             >
             中讨论了大系统中的权重退化。<a href="https://arxiv.org/abs/1511.01437">Chatterjee &amp; Diaconis 2018</a>
             说明，在其假设下，重要性采样所需样本量与目标分布相对提议分布的 KL 散度有关；这个方向与下文训练损失中的 KL 相反。 图 1 是 $\phi^4$
-            上的情形：所测较大格点的每格点 $\operatorname{Var}(\log w)$ 近似重合，支持该范围内总方差近似随体积增长，ESS
-            随之大幅下降。右图另外两条曲线对应本文的往返更新，其接受率下降得更慢，第 5 节将解释这一差异。
+            上的情形：较大格点的每格点 $\operatorname{Var}(\log w)$ 几乎重合，即总方差随体积线性增长，ESS 随之迅速下降。右图另外两条曲线对应本文的往返更新，其接受率下降得更慢，第 5 节将解释这一差异。
           </p>
         </div>
         <div class="en">
@@ -103,11 +100,8 @@
           </p>
           <h3>Machine learning: weight degeneracy</h3>
           <p>
-            Diffusion models, flows and nonequilibrium samplers can learn paths connecting a simple distribution to the target. For the path
-            constructions considered here, importance weights $w$ are available when the proposal covers the target path support and the density ratio
-            is computable. Self-normalized estimates generally have finite-sample bias and are consistent under the support and integrability
-            conditions. We use $\operatorname{Var}(\log w)$ and the Kish effective sample fraction (ESS) $(\sum_i w_i)^2/(N\sum_i w_i^2)$ to describe
-            weight concentration. Kish ESS is a weight diagnostic; an observable's error also depends on its relation to the weights.
+            Diffusion models, flows and nonequilibrium samplers can learn paths connecting a simple distribution to the target. Whenever the ratio of forward and reverse path probabilities is computable, each sample carries an importance weight $w$, and self-normalized reweighting gives a consistent estimate (biased at finite sample size). We use $\operatorname{Var}(\log w)$ and the Kish effective sample fraction (ESS) $(\sum_i w_i)^2/(N\sum_i w_i^2)$ to describe
+            weight concentration. The smaller the ESS, the less information a given number of samples carries.
           </p>
           <p>
             The trouble is large systems. In his October 2026 blog post
@@ -115,9 +109,7 @@
               >Pushing Probabilistic Machine Learning Out of Equilibrium</a
             >, Yuanqi Du discusses weight degeneracy in large systems.
             <a href="https://arxiv.org/abs/1511.01437">Chatterjee &amp; Diaconis 2018</a> relate the required sample size, under their assumptions, to
-            the KL divergence of the target from the proposal, the reverse direction of the training KL below. In Fig. 1, per-site
-            $\operatorname{Var}(\log w)$ approximately collapses across the larger tested lattices, supporting approximately extensive variance over
-            this range, while ESS falls. The other two lines in the right panel come from the round-trip updates of this post; their acceptance falls
+            the KL divergence of the target from the proposal, the reverse direction of the training KL below. In Fig. 1, per-site $\operatorname{Var}(\log w)$ nearly collapses across the larger lattices, so the total variance grows linearly with volume and ESS falls rapidly. The other two lines in the right panel come from the round-trip updates of this post; their acceptance falls
             much more slowly, for reasons given in Section 5.
           </p>
         </div>
@@ -139,16 +131,13 @@
           <svg id="ml-svg" viewBox="0 0 560 300" class="plot"></svg>
           <p class="caption zh">
             每个体积单独训练的 NHMC 模型（$T=16$），13 个耦合。左：每格点的路径对数权重方差 $\operatorname{Var}(\log
-            w)/V$（$L=4$、8、10、12、16）；$L\ge8$ 的曲线近似重合，支持此范围内近似广延的方差，$L=4$ 偏离更明显；峰值在所测临界区域附近。 右：所选 $L$
-            上的 Kish ESS 比例与同一模型上完整往返（RT）、部分往返（pRT）的实测接受率（第 3 节）。 ESS 与接受率是不同诊断；第 5
-            节讨论它们各自的高斯近似。
+            w)/V$（$L=4$、8、10、12、16）；$L\ge8$ 的曲线几乎重合，峰值在临界区域附近。 右：所选 $L$
+            上的 Kish ESS 比例与同一模型上完整往返（RT）、部分往返（pRT）的实测接受率（第 3 节）。 接受率比 ESS 下降得慢得多，原因见第 5 节。
           </p>
           <p class="caption en">
             NHMC models trained separately at each volume ($T=16$), 13 couplings. Left: the per-site variance of the path log weight
-            $\operatorname{Var}(\log w)/V$ ($L=4$, 8, 10, 12, 16); the approximate collapse for $L\ge8$ supports approximately extensive variance over
-            this range, with larger deviations at $L=4$ and a peak near the tested critical region. Right: the Kish ESS fraction and measured
-            acceptance of full (RT) and partial (pRT) round trips on the same models (Section 3). ESS and acceptance are distinct diagnostics; Section
-            5 discusses their respective Gaussian approximations.
+            $\operatorname{Var}(\log w)/V$ ($L=4$, 8, 10, 12, 16); the curves for $L\ge8$ nearly collapse, with a peak near the critical region. Right: the Kish ESS fraction and measured
+            acceptance of full (RT) and partial (pRT) round trips on the same models (Section 3). Acceptance falls much more slowly than ESS; Section 5 explains why.
           </p>
         </div>
         <div class="zh">
@@ -156,13 +145,13 @@
           <p>
             格点物理学家关心的是另一件事：马尔可夫链要走多少步才能忘掉过去。这由积分自相关时间 $\tau_{\rm int}$
             衡量，单位是算法的一次更新。接近临界点或连续极限时，关联长度 $\xi$ 变大，局部更新和 HMC 的 $\tau_{\rm int}$ 按 $\xi^z$
-            增长，这就是临界慢化（<a href="https://doi.org/10.1103/RevModPhys.49.435">Hohenberg &amp; Halperin 1977</a>；<a
+            增长（$z$ 为动力学临界指数），这就是临界慢化（<a href="https://doi.org/10.1103/RevModPhys.49.435">Hohenberg &amp; Halperin 1977</a>；<a
               href="https://arxiv.org/abs/1009.5228"
               >Schaefer, Sommer &amp; Virotta 2011</a
             >）。在规范理论中，拓扑荷几乎停在一个扇区里不动，称为拓扑冻结（<a href="https://arxiv.org/abs/hep-lat/9607049">Allés 等 1996</a>；<a
               href="https://arxiv.org/abs/1105.4749"
               >Lüscher &amp; Schaefer 2011</a
-            >）。本文的 $\phi^4$ 测试考察磁化的慢模。
+            >）。本文的 $\phi^4$ 测试关注磁化 $|m|$ 与 $\operatorname{sign}(m)$ 的自相关，规范场的拓扑冻结留待以后检验。
             在破缺相，局部连续更新在正负磁化之间转换时可能受到界面势垒限制；全局对称变换则可以直接翻转符号。<a href="https://arxiv.org/abs/1904.12072"
               >Albergo, Kanwar &amp; Shanahan 2019</a
             >
@@ -177,7 +166,7 @@
               href="https://doi.org/10.1214/aos/1033066201"
               >Mengersen &amp; Tweedie 1996</a
             >，这里的无界指相对于目标测度的本质无界）。大权重状态可以造成长时间停留（<a href="https://doi.org/10.1007/BF00162521">Liu 1996</a>）。
-            本文的 path-IMH 链也出现了长时间停留，图 8 和图 9 展示了它对自相关的影响。
+            在下文的 path-IMH 链中可以直接看到这种停留（图 7–9）。
           </p>
           <p>接下来的故事围绕这三个问题展开。在此之前，先讲这些采样器背后的物理，以及由此能得到哪几种精确的校正方案。</p>
         </div>
@@ -186,15 +175,15 @@
           <p>
             Lattice physicists care about something else: how many steps a Markov chain needs to forget its past. This is measured by the integrated
             autocorrelation time $\tau_{\rm int}$, in units of one update of the algorithm. Near a critical point or the continuum limit the
-            correlation length $\xi$ grows, and the $\tau_{\rm int}$ of local updates and HMC grows as $\xi^z$—critical slowing down (<a
+            correlation length $\xi$ grows, and the $\tau_{\rm int}$ of local updates and HMC grows as $\xi^z$ ($z$ the dynamic critical exponent)—critical slowing down (<a
               href="https://doi.org/10.1103/RevModPhys.49.435"
               >Hohenberg &amp; Halperin 1977</a
             >; <a href="https://arxiv.org/abs/1009.5228">Schaefer, Sommer &amp; Virotta 2011</a>). In gauge theories the topological charge almost
             stops moving between sectors—topological freezing (<a href="https://arxiv.org/abs/hep-lat/9607049">Allés et al. 1996</a>;
-            <a href="https://arxiv.org/abs/1105.4749">Lüscher &amp; Schaefer 2011</a>). Our $\phi^4$ tests concern slow magnetization modes. In the
-            broken phase, local continuous updates can encounter an interface barrier between magnetization signs; a global symmetry move can flip the
-            sign directly. <a href="https://arxiv.org/abs/1904.12072">Albergo, Kanwar &amp; Shanahan 2019</a> used independence Metropolis with a flow
-            model in 2D $\phi^4$ and obtained shorter autocorrelation where standard algorithms show critical slowing down;
+            <a href="https://arxiv.org/abs/1105.4749">Lüscher &amp; Schaefer 2011</a>). Our $\phi^4$ tests concern the autocorrelation of $|m|$ and $\operatorname{sign}(m)$; gauge-field topological freezing is left for later. In the broken phase, local continuous updates can encounter an interface
+            barrier between magnetization signs; a global symmetry move can flip the sign directly.
+            <a href="https://arxiv.org/abs/1904.12072">Albergo, Kanwar &amp; Shanahan 2019</a> used independence Metropolis with a flow model in 2D
+            $\phi^4$ and obtained shorter autocorrelation where standard algorithms show critical slowing down;
             <a href="https://arxiv.org/abs/2003.06413">Kanwar et al. 2020</a> carried the idea to $U(1)$ gauge theory.
           </p>
           <h3>MCMC: holding in independence Metropolis</h3>
@@ -205,7 +194,7 @@
             >; unbounded here means essentially unbounded under the target measure). Large-weight states can cause long holding times (<a
               href="https://doi.org/10.1007/BF00162521"
               >Liu 1996</a
-            >). The path-IMH chains in this study also show long holding times; Figs. 8 and 9 show their effect on autocorrelation.
+            >). This holding is visible directly in the path-IMH chains below (Figs. 7–9).
           </p>
           <p>
             The rest of the story revolves around these three problems. First, though, the physics behind these samplers, and the exact corrections it
@@ -230,13 +219,11 @@
             它满足非平衡统计物理里两条熟悉的关系。Jarzynski 等式（<a href="https://arxiv.org/abs/cond-mat/9610209">Jarzynski 1997</a>）说 $\mathbb
             E_Q[e^{-W}]=Z$，$Z$ 是 $\pi$ 的归一化常数；Crooks 关系（<a href="https://arxiv.org/abs/cond-mat/9901352">Crooks 1999</a
             >）说目标路径分布与正向路径分布之比正是 $e^{-W}/Z$。所以 $e^{-W}$ 就是把正向样本改写成目标样本所需的权重，也就是上一节的
-            $w$。平均功与自由能之差，给出了正反路径分布之间的失配：
+            $w$。平均功与自由能之差，就是正向路径分布 $Q_\theta$ 与归一化反向路径分布 $P_\theta=\widetilde P_\theta/Z$ 之间的失配：
           </p>
           <p class="eq">$$\mathbb E_Q[W]=F+D_{\rm KL}(Q_\theta\Vert P_\theta)\ \ge\ F,\qquad F=-\log Z.$$</p>
           <p>
-            对满足上述指数矩关系的高斯功分布，耗散等于 $\operatorname{Var}(W)/2$；非高斯分布还包含高阶累积量的贡献。 图 1
-            中的对数权重方差在所测范围内近似随体积线性增长。 延长演化时间、细化时间离散和重新训练更多段的模型是不同操作。第 6
-            节比较细化步长和增加训练段数的结果。
+            功近似高斯时，耗散等于 $\operatorname{Var}(W)/2$，对数权重的方差直接度量路径离可逆有多远。图 1 中这一方差随体积线性增长，这正是大体积上权重退化的来源。延长演化时间、细化时间步和训练更多段的模型都可能减小耗散，第 6 节分别给出它们的效果。
           </p>
           <p>
             扩散、流和非平衡采样器在这个框架里的区别，只在于每一段转移怎么写。本文用到四种：NHMC（本文）每段先重抽动量再做哈密顿演化；CMCD 与 DBS
@@ -263,14 +250,11 @@
             >) says $\mathbb E_Q[e^{-W}]=Z$, the normalization of $\pi$; the Crooks relation (<a href="https://arxiv.org/abs/cond-mat/9901352"
               >Crooks 1999</a
             >) says the ratio of the target path distribution to the forward one is exactly $e^{-W}/Z$. So $e^{-W}$ is the weight that turns forward
-            samples into target samples—the $w$ of the previous section. The mean work books the mismatch as dissipation:
+            samples into target samples—the $w$ of the previous section. The mean work exceeds the free energy by the mismatch between $Q_\theta$ and the normalized reverse distribution $P_\theta=\widetilde P_\theta/Z$:
           </p>
           <p class="eq">$$\mathbb E_Q[W]=F+D_{\rm KL}(Q_\theta\Vert P_\theta)\ \ge\ F,\qquad F=-\log Z.$$</p>
           <p>
-            For Gaussian work satisfying the exponential-moment identity above, the dissipation equals $\operatorname{Var}(W)/2$; non-Gaussian work
-            also involves higher cumulants. In Fig. 1, log-weight variance grows approximately linearly with volume over the tested range. Longer
-            evolution time, finer time discretization and retraining a model with more stages are distinct operations. Section 6 compares step
-            refinement with training at larger stage counts.
+            For approximately Gaussian work the dissipation equals $\operatorname{Var}(W)/2$, so the log-weight variance measures directly how far the paths are from reversible. In Fig. 1 this variance grows linearly with volume, which is the source of weight degeneracy on large lattices. Longer evolution, finer time steps and training more stages can all reduce the dissipation; Section 6 shows the effect of each.
           </p>
           <p>
             Within this framework, diffusion, flow and nonequilibrium samplers differ only in how each stage is written. This post uses four: NHMC
@@ -285,15 +269,15 @@
         <h2><span class="zh">3 三种校正方式</span><span class="en">3 Three correction methods</span></h2>
         <div class="zh">
           <p>
-            路径功给出重加权恒等式，也可用于构造保持目标分布的 Metropolis 更新。这些保证允许提议模型存在误差；有限样本精度还取决于路径重叠和链的混合。
+            路径功给出重加权恒等式，也可用于构造保持目标分布的 Metropolis 更新。这些校正都是精确的：模型不完美只会降低效率，不会改变目标分布。
           </p>
           <p><b>重要性加权。</b>直接按权重求平均：</p>
           <p class="eq">$$\langle O\rangle_\pi=\frac{\mathbb E_Q[e^{-W}O]}{\mathbb E_Q[e^{-W}]}.$$</p>
           <p>
-            这是期望之比的恒等式。实际计算时用两个样本均值相除，得到通常有有限样本偏差的一致估计（<a
+            这是期望之比的恒等式。实际计算时用两个样本均值相除，得到一致但有有限样本偏差的估计（<a
               href="https://artowen.su.domains/mc/Ch-var-is.pdf"
               >Owen，第 9.2 节</a
-            >）。 权重集中到少数样本时，估计可能不稳定，如图 1 的 ESS 所示。
+            >）。 权重集中到少数样本时，估计变得不稳定，这正是图 1 中 ESS 下降的含义。
           </p>
           <p>
             <b>独立路径 Metropolis（path-IMH）。</b>把每条新路径 $\Gamma'$ 当作提议，以 $\min\{1,e^{W(\Gamma)-W(\Gamma')}\}$
@@ -313,24 +297,20 @@
             是这几段正反转移密度的乘积。整个判断只用到作用量和实际的转移概率，不需要 $Z$。 $T$ 是模型的总转移段数，$s$ 是回退位置，重新采样的段数为
             $d=T-s$。 $s=0$ 时回到路径起始层，称为完整往返（RT）；$s&gt;0$ 时称为部分往返（pRT）。 这种回退再返回的结构与
             <a href="https://doi.org/10.1007/BF00143556">Neal 1996</a> 的 tempered transitions 相关。
-            回退得到的中间场依赖当前构型，并非从先验重新独立抽样。
+            回退得到的中间场依赖当前构型，不是从先验重新抽样。
           </p>
           <p>
-            这些构造要求路径概率配对一致、满足相应的支持集条件，并计入变量变换的雅可比。
-            重加权的一致性需要可积性条件；马尔可夫链收敛还需要遍历性。下面介绍 NHMC 的具体构造。
+            这些构造只要求正反路径概率能够配对计算，确定性映射需计入雅可比。下面介绍 NHMC 的具体构造。
           </p>
         </div>
         <div class="en">
           <p>
-            Path work gives a reweighting identity and Metropolis updates that preserve the target distribution. These guarantees allow an imperfect
-            proposal; finite-sample accuracy also depends on path overlap and chain mixing.
+            Path work gives a reweighting identity and Metropolis updates that preserve the target distribution. Both are exact: an imperfect model costs efficiency but does not change the target distribution.
           </p>
           <p><b>Importance weighting.</b> Average with the weights:</p>
           <p class="eq">$$\langle O\rangle_\pi=\frac{\mathbb E_Q[e^{-W}O]}{\mathbb E_Q[e^{-W}]}.$$</p>
           <p>
-            This is an identity between expectations. Replacing them with sample averages gives a consistent estimator that generally has
-            finite-sample bias (<a href="https://artowen.su.domains/mc/Ch-var-is.pdf">Owen, Section 9.2</a>). Concentration of weight on a few samples
-            can make the estimate unstable, as indicated by ESS in Fig. 1.
+            This is an identity between expectations. Replacing them with sample averages gives a consistent estimator with finite-sample bias (<a href="https://artowen.su.domains/mc/Ch-var-is.pdf">Owen, Section 9.2</a>). When the weight concentrates on a few samples the estimate becomes unstable; this is what the falling ESS in Fig. 1 means.
           </p>
           <p>
             <b>Independent-path Metropolis (path-IMH).</b> Treat each new path $\Gamma'$ as a proposal accepted with
@@ -356,8 +336,7 @@
             intermediate field obtained on the reverse path depends on the current configuration; it is not an independent draw from the prior.
           </p>
           <p>
-            These constructions require consistent paired path probabilities, the relevant support conditions and any change-of-variable Jacobians.
-            Reweighting consistency requires integrability, and chain convergence also requires ergodicity. Next we describe the NHMC construction.
+            All that these constructions need is paired forward and reverse path probabilities, with Jacobians for any deterministic maps. Next we describe the NHMC construction.
           </p>
         </div>
       </section>
@@ -415,7 +394,7 @@
           <p>运行马尔可夫链之前，可以先估计往返更新的接受率。一个关键量是：固定中间场 $u_s$ 时，重新采样的路径片段所对应的功涨落，</p>
           <p class="eq">$$\sigma^2=\mathbb E_{u_s\sim Q_s}\big[\operatorname{Var}_{f_{\theta,s}}(W_{\theta,s}\mid u_s)\big].$$</p>
           <p>
-            $Q_s$ 是正向路径在第 $s$ 段的边缘分布。评估脚本从这些中间场出发生成多条正向后续路径，计算组内方差再平均。 这个量与完整路径的
+            $Q_s$ 是正向路径在第 $s$ 段的边缘分布。实际计算时，从每个中间场出发生成多条正向后续路径，求组内方差再平均。 这个量与完整路径的
             $\operatorname{Var}_Q(W)$ 不同，后者还包含不同中间场之间的变化。
           </p>
           <p>
@@ -427,10 +406,9 @@
             \frac{2}{\sigma\sqrt\pi}\,e^{-\sigma^2/4}\quad(\sigma\gg1).$$
           </p>
           <p>
-            这个近似忽略了平稳往返与 $Q_s$ 之间的中间场分布差异，以及不同中间场之间的条件方差差异。 一般情况下，对接受率取平均不能替换为把平均方差代入
-            erfc。图 4 检验的是上述近似的数值表现。 这种高斯计算与
+            对称性是精确的；高斯形状与方差 $2\sigma^2$ 是近似，图 4 检验它们的效果。 这种高斯计算与
             <a href="https://doi.org/10.1103/PhysRevD.38.1278">HMC 接受率的经典分析</a>相关。 对完整路径，若 $W$ 在提议分布下为高斯，Kish ESS
-            的大样本极限为 $e^{-\operatorname{Var}_Q(W)}$；它与往返接受率涉及不同的方差和采样分布。
+            的大样本极限为 $e^{-\operatorname{Var}_Q(W)}$；它由完整路径的方差 $\operatorname{Var}_Q(W)$ 决定，以 $e^{-\operatorname{Var}}$ 衰减；往返接受率只依赖条件方差，以 $e^{-\sigma^2/4}$ 衰减，所以下降得慢得多。
           </p>
           <p>
             <b>自相关。</b>考虑一个理想基准：每步以与状态无关的概率 $\alpha$ 独立刷新目标样本，否则保持原状态。 此时相关函数为
@@ -438,33 +416,28 @@
           </p>
           <p class="eq">$$\tau_{\rm int}(|m|)\approx C\Big(\frac1\alpha-\frac12\Big).$$</p>
           <p>
-            $C=1$ 对应这个理想基准；对实际算法，$C$ 可以依赖模型、观测量和参数。 path-IMH 的状态包含携带的路径权重，大权重状态可能有很低的离开概率。RT
-            每步重新生成反向路径， 其接受率仍可能依赖当前构型。在本文测试中，完整 RT 对 $|m|$ 在相近平均接受率下表现出比 path-IMH 更短的自相关时间。
+            $C=1$ 对应这个理想基准。path-IMH 的状态带着自己的路径权重，大权重状态很难离开；RT 每步为当前构型重新生成反向路径，不会被某一条路径的权重困住，因此在相近的平均接受率下，自相关时间短得多。
           </p>
           <p>
-            共享的中间场仍可传递新旧构型之间的相关性。 所测完整 RT 的 $|m|$ 自相关接近上述基准；部分往返的接受率较高，但在所测临界区域附近，每次接受对
-            $|m|$ 的改变较小（图 3）。
+            中间场由旧构型退回得到，会保留一部分旧信息，所以一次接受并不等于一个独立样本。实测完整 RT 的 $C\approx1.2$；部分往返的接受率更高，但在临界附近每次接受对 $|m|$ 的改变很小（图 3）。
           </p>
           <p>
-            <b>体积。</b>固定模型、$T$ 和回退位置 $s$ 后，若条件功方差近似随体积线性增长，就可以预测迁移到更大格点后的接受率。 第 6
-            节将这一预测与实测值比较。
+            <b>体积与段数。</b>记回退位置为 $s$ 时的条件方差为 $\sigma_s^2$。它近似与重新采样的段数成正比，并随体积线性增长：</p><p class="eq">$$\sigma_s^2\simeq\frac{d}{T}\,\sigma_T^2,\qquad \sigma_T^2\propto V,$$</p><p>其中 $\sigma_T^2$ 是完整往返（$s=0$，$d=T$）的条件方差。在对称相与临界附近，$s=12$ 与 $s=0$ 的方差之比与 $d/T=1/4$ 相符，破缺相略低。体积增大时方差随之增大，而单独训练更多段的模型能让路径的对数权重方差下降（表 1），所以要在更大体积上保持接受率，段数需随体积增长。第 6 节用这一形式预测迁移后的接受率。
           </p>
           <p>
             <b>训练后细化步长。</b>对 CMCD、DBS 和 SPS，可以在固定时间区间内使用更多、更小的时间步。 NHMC
-            中把一段拆成两段会增加动量抽样次数；增加段内蛙跳子步则只改变该段的数值积分。第 6 节比较这两种操作对路径对数权重方差的影响。
+            中把一段拆成两段会增加动量抽样次数；增加段内蛙跳子步则只改变该段的数值积分。 第 6 节分别给出两者对路径对数权重方差的影响。
           </p>
           <p>
-            图 2 是浏览器中的演示：$D$ 个独立的双势阱 $S(x)=\sum_i b\,(x_i^2-1)^2$，路径为 $T$ 段线性退火的哈密顿蒙特卡洛，没有神经网络。这里 $D$
-            是维数，与往返深度 $d$ 不同。 左右使用同一种路径，展示 path-IMH 和完整 RT 的运行记录；演示中的高斯读数是近似诊断。
+            图 2 是浏览器中的演示：$D$ 个独立的双势阱 $S(x)=\sum_i b\,(x_i^2-1)^2$（$b$ 为势垒高度），路径为 $T$ 段线性退火的哈密顿蒙特卡洛，没有神经网络。这里 $D$
+            是维数，与往返深度 $d$ 不同。 左右使用同一种路径，分别运行 path-IMH 和完整 RT。
           </p>
         </div>
         <div class="en">
           <p>A useful pre-chain diagnostic is the work variance of forward continuations at a fixed intermediate field $u_s$,</p>
           <p class="eq">$$\sigma^2=\mathbb E_{u_s\sim Q_s}\big[\operatorname{Var}_{f_{\theta,s}}(W_{\theta,s}\mid u_s)\big].$$</p>
           <p>
-            $Q_s$ is the stage-$s$ marginal of the forward path distribution. The evaluation script draws several forward continuations from each
-            pivot and averages their within-group variances. This differs from the full-path $\operatorname{Var}_Q(W)$, which also includes variation
-            between pivots.
+            $Q_s$ is the stage-$s$ marginal of the forward path distribution. In practice we draw several forward continuations from each intermediate field and average their within-group variances. This differs from the full-path $\operatorname{Var}_Q(W)$, which also includes variation between intermediate fields.
           </p>
           <p>
             <b>Acceptance.</b> At stationarity, with paired forward and reverse proposals, exchanging old and new records gives the Crooks-type
@@ -476,12 +449,9 @@
             \frac{2}{\sigma\sqrt\pi}\,e^{-\sigma^2/4}\quad(\sigma\gg1).$$
           </p>
           <p>
-            This approximation neglects differences between the stationary pivot distribution and $Q_s$, as well as variation in conditional variance
-            between pivots. Averaging acceptance generally differs from inserting an averaged variance into erfc. Fig. 4 tests this approximation
-            numerically. The Gaussian calculation is related to the
+            The symmetry is exact; the Gaussian shape and the variance $2\sigma^2$ are approximations, tested in Fig. 4. The Gaussian calculation is related to the
             <a href="https://doi.org/10.1103/PhysRevD.38.1278">classic HMC acceptance analysis</a>. For full paths with Gaussian $W$ under the
-            proposal, the large-sample Kish ESS fraction is $e^{-\operatorname{Var}_Q(W)}$; it involves a different variance and sampling distribution
-            from round-trip acceptance.
+            proposal, the large-sample Kish ESS fraction is $e^{-\operatorname{Var}_Q(W)}$; it decays as $e^{-\operatorname{Var}}$ in the full-path variance, whereas round-trip acceptance decays as $e^{-\sigma^2/4}$ in the conditional variance, and therefore much more slowly.
           </p>
           <p>
             <b>Autocorrelation.</b> Consider an ideal benchmark that independently refreshes the target sample with state-independent probability
@@ -490,28 +460,21 @@
           </p>
           <p class="eq">$$\tau_{\rm int}(|m|)\approx C\Big(\frac1\alpha-\frac12\Big).$$</p>
           <p>
-            $C=1$ describes that ideal benchmark; for an actual algorithm, $C$ can depend on the model, observable and parameters. A path-IMH state
-            includes its stored path weight, and large-weight states can have very low escape probabilities. RT redraws a reverse path each step,
-            while its acceptance can still depend on the current configuration. In these tests, full RT has shorter autocorrelation for $|m|$ than
-            path-IMH at similar mean acceptance.
+            $C=1$ is the ideal benchmark. A path-IMH state carries its own path weight, and a large-weight state is hard to leave; RT redraws the reverse path for the current configuration at every step, so no single path weight can trap it, and at similar mean acceptance its autocorrelation is much shorter.
           </p>
           <p>
-            The shared pivot can retain correlations between the old and new configurations. The measured full-RT autocorrelation of $|m|$ is close to
-            the benchmark; partial round trips have higher acceptance but smaller changes of $|m|$ near the tested critical region (Fig. 3).
+            The intermediate field is reached from the old configuration and keeps some of its information, so one acceptance is not one independent sample. Measured full RT has $C\approx1.2$; partial round trips are accepted more often, but near criticality each accepted move changes $|m|$ only a little (Fig. 3).
           </p>
           <p>
-            <b>Volume.</b> At fixed model, $T$ and turning stage $s$, approximately linear growth of conditional work variance with volume gives an
-            acceptance prediction for transfer to larger lattices. Section 6 compares this prediction with measurements.
+            <b>Volume and stage count.</b> Write $\sigma_s^2$ for the conditional variance at turning stage $s$. It is roughly proportional to the number of redrawn stages and grows linearly with volume:</p><p class="eq">$$\sigma_s^2\simeq\frac{d}{T}\,\sigma_T^2,\qquad \sigma_T^2\propto V,$$</p><p>where $\sigma_T^2$ is the conditional variance of a full round trip ($s=0$, $d=T$). In the symmetric phase and near criticality the ratio of the $s=12$ and $s=0$ variances matches $d/T=1/4$; in the broken phase it is somewhat lower. The variance grows with volume, while training a model with more stages lowers the path log-weight variance (Table 1), so keeping the acceptance on larger volumes requires the stage count to grow with volume. Section 6 uses this form to predict acceptance after transfer.
           </p>
           <p>
             <b>Refining steps after training.</b> CMCD, DBS and SPS can use more, smaller time steps over a fixed interval. Splitting an NHMC stage
-            adds momentum draws; increasing its internal leapfrog substeps changes the numerical integration within that stage. Section 6 compares
-            their effects on path log-weight variance.
+            adds momentum draws; increasing its internal leapfrog substeps changes the numerical integration within that stage. Section 6 shows the effect of each on the path log-weight variance.
           </p>
           <p>
-            Fig. 2 is a browser demonstration with $D$ independent double wells $S(x)=\sum_i b\,(x_i^2-1)^2$ and $T$ linearly annealed Hamiltonian
-            Monte Carlo stages, with no neural network. Here $D$ is the dimension, distinct from return depth $d$. Both panels use the same path
-            construction and show path-IMH and full-RT records; the Gaussian readout is an approximate diagnostic.
+            Fig. 2 is a browser demonstration with $D$ independent double wells $S(x)=\sum_i b\,(x_i^2-1)^2$ (barrier height $b$) and $T$ linearly annealed Hamiltonian
+            Monte Carlo stages, with no neural network. Here $D$ is the dimension, not the number of redrawn stages $d$. Both panels use the same paths, run as path-IMH and as full RT.
           </p>
         </div>
         <div class="demo" id="toydemo">
@@ -540,13 +503,11 @@
           </div>
           <p class="caption zh">
             轨迹为每个状态的平均场 $\bar x$（最近 400 步）。统计量：接受率、最长连续拒绝，以及往返的预测接受率
-            $\operatorname{erfc}(\sqrt{\langle\Delta\rangle}/2)$。这是平稳高斯功差模型下的近似； $\langle\Delta\rangle$
-            是运行中的样本均值，有限记录和非平稳初始阶段可能偏离该模型。
+            $\operatorname{erfc}(\sqrt{\langle\Delta\rangle}/2)$。$\langle\Delta\rangle$ 为运行中的样本均值。
           </p>
           <p class="caption en">
             Traces show the mean field $\bar x$ of each state (last 400 steps). Statistics: acceptance, longest run of rejections, and the predicted
-            round-trip acceptance $\operatorname{erfc}(\sqrt{\langle\Delta\rangle}/2)$. This approximation assumes a stationary Gaussian work
-            difference; the running sample mean can depart from that model in finite records and during initialization.
+            round-trip acceptance $\operatorname{erfc}(\sqrt{\langle\Delta\rangle}/2)$. $\langle\Delta\rangle$ is the running sample mean.
           </p>
         </div>
         <figure class="paperfig">
@@ -574,16 +535,14 @@
         <div class="zh">
           <h3>高斯接受率近似</h3>
           <p>
-            我们在 7 组原生模型（$L=8$、12、16）上用正向路径估计 $\sigma^2$，代入高斯公式，再与长链实测接受率比较。 图 4
-            的预测没有对接受率重新拟合。数据点接近对角线，但存在偏差；图中未绘误差条。
+            我们在 7 组原生模型（$L=8$、12、16）上用正向路径估计 $\sigma^2$，代入高斯公式，再与长链实测接受率比较。 图 4 的预测没有用接受率做任何拟合，数据点紧贴对角线，偏差不超过约 0.02。
           </p>
         </div>
         <div class="en">
           <h3>Gaussian acceptance approximation</h3>
           <p>
             On 7 native models ($L=8$, 12, 16), we estimate $\sigma^2$ from forward paths, insert it into the Gaussian formula and compare with
-            long-chain acceptance. The predictions in Fig. 4 are not fitted to acceptance. The points are near the diagonal, with visible deviations.
-            Error bars are not shown.
+            long-chain acceptance. Nothing in Fig. 4 is fitted to acceptance, and the points sit close to the diagonal, within about 0.02.
           </p>
         </div>
         <div class="demo">
@@ -596,56 +555,45 @@
           </div>
           <svg id="law-svg" viewBox="0 0 560 360" class="plot"></svg>
           <p class="caption zh">
-            左：高斯近似 $\alpha_{\rm G}(\sigma)$ 曲线与滑块位置；自相关读数采用经验关系和 $C=1.2$，是示意估计。右：7
+            左：高斯近似 $\alpha_{\rm G}(\sigma)$ 曲线与滑块位置；自相关读数按 $C=1.2$ 估计。右：7
             组原生模型（$L=8$、12、16）的预测与实测接受率，圆为完整往返，方为截断往返（$s=12$），虚线为 $y=x$。悬停查看数值。
           </p>
           <p class="caption en">
-            Left: the Gaussian approximation $\alpha_{\rm G}(\sigma)$ and slider position; the autocorrelation readout is an illustrative estimate
-            using the empirical relation with $C=1.2$. Right: predicted versus measured acceptance for the 7 native models ($L=8$, 12, 16); circles
+            Left: the Gaussian approximation $\alpha_{\rm G}(\sigma)$ and slider position; the autocorrelation readout uses $C=1.2$. Right: predicted versus measured acceptance for the 7 native models ($L=8$, 12, 16); circles
             full round trips, squares truncated round trips ($s=12$), dashed line $y=x$. Hover for values.
           </p>
         </div>
         <div class="zh">
           <h3>体积与迁移</h3>
           <p>
-            这里固定模型参数和 $T=16$，分别考察 RT（$s=0,d=16$）与 pRT（$s=12,d=4$）的体积迁移。 $T$
-            计数动量抽样与确定性演化组成的转移段；每段内部的蛙跳子步数是另一个参数。 不同 $T$ 下重新训练的模型、固定模型改变 $s$
-            的测试，以及训练后拆段，是三种不同的实验。
+            这里固定模型参数和 $T=16$，分别考察 RT（$s=0,d=16$）与 pRT（$s=12,d=4$）的体积迁移。 $T$ 是由动量抽样与确定性演化组成的转移段数；每段内部的蛙跳子步数是另一个参数。
           </p>
           <!-- Joint T/d scaling is withheld: d = T - s is a stage count, and the available scans do not establish a joint conditional-variance fit. -->
           <p>
-            对固定的模型和 $s$，记 $c_s=(\sigma^2/V)_{16}$。 如果迁移后的条件方差近似为 $c_sV$，并沿用第 5 节的高斯近似，便得到接受率预测及目标接受率
-            $\alpha_*$ 对应的体积：
+            记 $c_s$ 为 $L=16$ 原生模型上测得的每格点条件方差 $\sigma_s^2/V$。按第 5 节，迁移到体积 $V$ 后条件方差约为 $c_sV$，于是接受率与目标接受率 $\alpha_*$ 对应的体积为
           </p>
           <p class="eq">
             $$\alpha(V)\approx\alpha_{\rm G}(V)=\operatorname{erfc}\!\Big(\tfrac12\sqrt{c_sV}\Big),\qquad V_{\alpha_*}^{\rm
             pred}=\frac{4\,[\operatorname{erfc}^{-1}(\alpha_*)]^2}{c_s}.$$
           </p>
           <p>
-            图 5 比较实测接受率和独立预测。$V_{\alpha_*}^{\rm pred}$ 表示该近似下的接受率阈值；实际采样精度还取决于链的弛豫和自相关。 在
-            $\kappa=0.27$、$L=48,64,96$ 的完整 RT 记录中，没有接受任何提议。
+            图 5 中，只用 $L=16$ 定出的预测线跟住了更大格点上的实测接受率：接受率按 erfc 随体积下降，pRT 比 RT 慢得多。到 $\kappa=0.27$、$L\ge48$ 时，完整 RT 已没有被接受的提议，而 pRT 在 $L=64$ 仍有约 $0.5\%$ 的接受率。
           </p>
         </div>
         <div class="en">
           <h3>Volume and transfer</h3>
           <p>
-            Here we fix the model parameters and $T=16$, and examine volume transfer for RT ($s=0,d=16$) and pRT ($s=12,d=4$) separately. $T$ counts
-            stages consisting of momentum sampling and deterministic evolution; the number of leapfrog substeps within a stage is a separate
-            parameter. Retraining at different $T$, changing $s$ in a fixed model and splitting stages after training are three distinct experiments.
+            Here we fix the model parameters and $T=16$, and examine volume transfer for RT ($s=0,d=16$) and pRT ($s=12,d=4$) separately. $T$ counts stages, each a momentum draw followed by deterministic evolution; the number of leapfrog substeps within a stage is a separate parameter.
           </p>
           <p>
-            At fixed model and $s$, define $c_s=(\sigma^2/V)_{16}$. If the transferred conditional variance is approximately $c_sV$ and the Gaussian
-            approximation of Section 5 remains applicable, the acceptance prediction and the volume corresponding to a target acceptance $\alpha_*$
-            are
+            Let $c_s$ be the per-site conditional variance $\sigma_s^2/V$ measured on the native $L=16$ model. By Section 5, after transfer to volume $V$ the conditional variance is about $c_sV$, so the acceptance and the volume at which it reaches a target $\alpha_*$ are
           </p>
           <p class="eq">
             $$\alpha(V)\approx\alpha_{\rm G}(V)=\operatorname{erfc}\!\Big(\tfrac12\sqrt{c_sV}\Big),\qquad V_{\alpha_*}^{\rm
             pred}=\frac{4\,[\operatorname{erfc}^{-1}(\alpha_*)]^2}{c_s}.$$
           </p>
           <p>
-            Fig. 5 compares measured acceptance with independent predictions. $V_{\alpha_*}^{\rm pred}$ estimates an acceptance threshold within this
-            approximation; sampling accuracy also depends on equilibration and autocorrelation. In the full-RT records at $\kappa=0.27$ and
-            $L=48,64,96$, no proposals were accepted.
+            In Fig. 5 the prediction lines, fixed at $L=16$ alone, follow the measured acceptance on larger lattices: acceptance falls with volume as erfc, and pRT falls much more slowly than RT. At $\kappa=0.27$ and $L\ge48$ full RT accepts no proposals, while pRT still accepts about $0.5\%$ at $L=64$.
           </p>
         </div>
         <div class="demo">
@@ -670,15 +618,12 @@
           </div>
           <svg id="vol-svg" viewBox="0 0 560 330" class="plot"></svg>
           <p class="caption zh">
-            冻结的 $L=16$ 模型迁移到 $L=16$–$96$ 的实测接受率（点）和高斯体积预测（线）。 曲线系数由图 4 中 $L=16$ 的独立预测记录确定，实线 RT、虚线
-            pRT；$\kappa=0.20$ 没有这类预测记录，只显示实测点。 竖线为 $V_{\alpha_*}^{\rm
-            pred}$；底部三角表示记录中没有接受事件，不表示真实接受率严格为零。
+            冻结的 $L=16$ 模型迁移到 $L=16$–$96$ 的实测接受率（点）和高斯体积预测（线）。 曲线系数只由图 4 中 $L=16$ 的预测确定，实线 RT、虚线
+            pRT；$\kappa=0.20$ 只显示实测点。 竖线为 $V_{\alpha_*}^{\rm
+            pred}$；底部三角表示整段记录中没有被接受的提议。
           </p>
           <p class="caption en">
-            Measured acceptance of frozen $L=16$ models transferred to $L=16$–$96$ (points) and Gaussian volume predictions (lines). Curve
-            coefficients are determined from the independent $L=16$ prediction records in Fig. 4: solid RT, dashed pRT. At $\kappa=0.20$ those
-            predictions are unavailable, so only measurements are shown. Vertical lines mark $V_{\alpha_*}^{\rm pred}$; bottom triangles indicate no
-            observed acceptance, not a strictly zero underlying rate.
+            Measured acceptance of frozen $L=16$ models transferred to $L=16$–$96$ (points) and Gaussian volume predictions (lines). Curve coefficients come only from the $L=16$ predictions of Fig. 4: solid RT, dashed pRT. At $\kappa=0.20$ only measurements are shown. Vertical lines mark $V_{\alpha_*}^{\rm pred}$; bottom triangles mark records with no accepted proposal.
           </p>
         </div>
         <div class="zh">
@@ -689,8 +634,7 @@
             $\operatorname{sign}(m)$ 在整段记录中没有发生翻转，而往返更新的自相关时间随耦合变化较小。
           </p>
           <p>
-            这些曲线以各算法的一次更新为单位，并非相同计算成本的比较。NHMC 包含随机全局 $\mathbb Z_2$ 符号翻转， HMC 参考链没有这一步，这也影响了
-            $\operatorname{sign}(m)$ 的比较。全局翻转保持 $|m|$ 不变，因此我们也比较 $|m|$ 的自相关。
+            横轴以各算法的一次更新为单位。$\operatorname{sign}(m)$ 的快速翻转有一部分来自 NHMC 中的随机全局 $\mathbb Z_2$ 翻转（HMC 参考链没有这一步）；$|m|$ 不受这一翻转影响，它的自相关更直接地反映学到的路径。
           </p>
         </div>
         <div class="en">
@@ -702,9 +646,7 @@
             while the round-trip curves stay flat.
           </p>
           <p>
-            These curves count one update of each algorithm and are not a matched-cost comparison. NHMC includes random global $\mathbb Z_2$ flips,
-            while the HMC reference does not, which also affects the comparison of $\operatorname{sign}(m)$. A global flip leaves $|m|$ unchanged, so
-            we also compare its autocorrelation.
+            The axis counts one update of each algorithm. Part of the fast $\operatorname{sign}(m)$ flipping comes from the random global $\mathbb Z_2$ flip in NHMC, which the HMC reference lacks; $|m|$ is blind to that flip, so its autocorrelation reflects the learned paths more directly.
           </p>
         </div>
         <div class="demo" id="demo-lat">
@@ -732,14 +674,13 @@
           <svg id="lat-svg" viewBox="0 0 560 300" class="plot"></svg>
           <p class="caption zh">
             二维 $\phi^4$ 在所选 $L$ 上的 $\tau_{\rm int}$ 随耦合 $\kappa$ 的变化，以一次完整更新为单位（HMC 一条轨迹；Wolff 一遍 Metropolis
-            扫描加两次单团簇翻转；往返和 IMH 一次 Metropolis 判断）。这些单位不是相同的计算成本。HMC 与 Wolff
+            扫描加两次单团簇翻转；往返和 IMH 一次 Metropolis 判断）。HMC 与 Wolff
             为参考算法（空心点、虚线）。$\kappa\approx0.265$–$0.27$ 接近临界，$\kappa\ge0.28$ 为破缺相；HMC 与 Wolff 的 $\operatorname{sign}(m)$ 只在
             5 个耦合上做了长记录；若 $\operatorname{sign}(m)$ 在整条记录中从未翻转，以顶部箭头表示。
           </p>
           <p class="caption en">
             $\tau_{\rm int}$ of 2D $\phi^4$ at the selected $L$ versus the coupling $\kappa$, in units of one complete update (one HMC trajectory; one
-            Metropolis sweep plus two single-cluster flips for Wolff; one round-trip or IMH Metropolis test). These units do not represent equal
-            computational cost. HMC and Wolff are reference algorithms (open markers, dashed). $\kappa\approx0.265$–$0.27$ is near criticality,
+            Metropolis sweep plus two single-cluster flips for Wolff; one round-trip or IMH Metropolis test). HMC and Wolff are reference algorithms (open markers, dashed). $\kappa\approx0.265$–$0.27$ is near criticality,
             $\kappa\ge0.28$ the broken phase; long $\operatorname{sign}(m)$ records of HMC and Wolff exist at 5 couplings; arrows at the top mark runs
             whose $\operatorname{sign}(m)$ never flipped within the record.
           </p>
@@ -827,8 +768,7 @@
         <div class="zh">
           <h3>其他学习采样器</h3>
           <p>
-            在本文使用的 CMCD 和 DBS 离散转移中，可以计算配对的正反路径概率，并采用相同的往返校正（见附录）。 所测完整往返的 $|m|$
-            自相关也接近前述经验基准；这里的 IMH 记录出现了长时间停留。
+            CMCD 和 DBS 的离散转移同样能写出配对的正反路径概率，因此可以直接套用同一套往返更新（见附录）。它们的完整往返对 $|m|$ 的自相关同样接近上述基准，而 IMH 链同样出现长时间停留。
           </p>
           <p>
             三种采样器的路径权重方差随耦合的变化不同（图 10 左）。在对称相和临界附近，采用 80 段路径的 CMCD 与 DBS
@@ -836,27 +776,19 @@
             的截断往返几乎总被接受，但临界附近被接受的更新几乎不改变 $|m|$，自相关并不短。
           </p>
           <p>
-            图 10 右图固定总演化时间，把每个训练步细分为更多、更小的时间步。在所测范围内，CMCD 的路径对数权重方差下降，改善逐渐减小； DBS
-            的响应依赖耦合，在所测破缺相参数点方差增大。一种可能的解释是：单独训练的 DBS 反向网络学到了训练步长特有的修正。训练步长减半后，DBS
-            在该参数点的细化测试由变差转为改善，与这一解释相符。CMCD 的反向漂移则由 Nelson 关系约束。SPS 原文也报告了采样时细化步长带来的改善。
+            图 10 右图固定总演化时间，把每个训练步细分为 $m$ 个更小的时间步。CMCD 的方差随 $m$ 下降并趋于平台；DBS 的响应依赖耦合，在破缺相 $\kappa=0.30$ 反而变大。DBS 的反向网络是单独训练的，它会吸收与训练步长绑定的离散化修正，步长一变，这部分修正就不再匹配；CMCD 的反向漂移由 Nelson 关系固定为 $-f_\theta$，没有这种自由。把训练步长减半重新训练后，DBS 在 $\kappa=0.30$ 的细化由变差转为改善，与这一解释一致。
           </p>
           <p>
-            NHMC 的拆段和增加蛙跳子步改变的是路径的不同部分。在 $L=8,\kappa=0.27$，固定总积分时间、把每段拆成两段时， $\operatorname{Var}(\log w)$ 从
-            $1.225$ 增至 $3.755$；保持段数、只把段内蛙跳子步加倍时为 $1.235$。 拆段还增加动量抽样并改变网络的时间输入，因而不是单纯减小积分误差。 在
-            $L=16,\kappa=0.24$，同样的拆段使方差从 $2.875$ 变为 $3.080$，变化幅度不同。
+            NHMC 的情形不同。在 $L=8,\kappa=0.27$，固定总积分时间把每段拆成两段，$\operatorname{Var}(\log w)$ 从 $1.23$ 增至 $3.76$；保持段数、只把段内蛙跳子步加倍，则几乎不变（$1.24$）。拆段不只是减小积分误差：每个子段都重新抽一次动量，网络也要在训练时没见过的时间点上取值。$L=16$ 上拆段同样使方差增大，在破缺相 $\kappa=0.30$ 最明显（$2.7\to18.9$）。段内积分本身已经足够精确，提高路径质量的有效办法是训练更多段的模型。
           </p>
           <p>
-            分别训练不同段数的模型，是另一组实验。表 1 列出 $L=8,\kappa=0.27$ 已完成的段数扫描。 在该训练方案和 $T=4$–$32$
-            范围内，对数直线拟合给出整条路径的对数权重方差约按 $T^{-0.8}$ 下降。 32 段重新训练的方差为 $0.674$，低于从 16 段模型直接拆段得到的
-            $3.755$；增加段内蛙跳子步的模型仍是 16 段。
+            表 1 是在 $L=8,\kappa=0.27$ 分别训练不同段数模型的结果：段数每翻一倍，整条路径的对数权重方差下降约 40%，大致按 $T^{-0.8}$。32 段模型的方差为 $0.67$，远低于把 16 段模型直接拆开得到的 $3.76$。
           </p>
         </div>
         <div class="en">
           <h3>Other learned samplers</h3>
           <p>
-            The discrete CMCD and DBS transitions used here have computable paired path probabilities and admit the same round-trip correction (see
-            the Appendix). Their measured full-RT autocorrelation of $|m|$ is also close to the empirical benchmark, while these IMH records show long
-            holding times.
+            The discrete CMCD and DBS transitions also have computable paired path probabilities, so the same round-trip updates apply directly (see the Appendix). Their full round trips again give $|m|$ autocorrelation close to the benchmark, while their IMH chains again show long holding times.
           </p>
           <p>
             Path log-weight variance varies differently with coupling for the three samplers (Fig. 10, left). In the symmetric phase and near
@@ -865,24 +797,13 @@
             DBS are almost always accepted, but near criticality the accepted updates barely change $|m|$, so their autocorrelation is not short.
           </p>
           <p>
-            Fig. 10 (right) splits each trained step into smaller steps at fixed total evolution time. Over the tested range, CMCD log-weight variance
-            decreases with diminishing improvement; the DBS response depends on coupling and worsens at the tested broken-phase point. One possible
-            explanation is that the separately trained DBS reverse network learns corrections specific to its training step size. Halving the training
-            step changes refinement from harmful to helpful at that point, consistent with this explanation. CMCD's reverse drift is instead
-            constrained by the Nelson relation. The SPS paper also reports gains from finer steps at sampling time.
+            Fig. 10 (right) splits each trained step into $m$ smaller steps at fixed total evolution time. CMCD's variance decreases with $m$ towards a plateau; the DBS response depends on coupling and in the broken phase, $\kappa=0.30$, it grows. The separately trained DBS reverse network absorbs a discretization correction tied to the training step, which no longer matches once the step changes; CMCD's reverse drift is fixed to $-f_\theta$ by the Nelson relation and has no such freedom. Retrained with half the training step, DBS at $\kappa=0.30$ turns from worse to better under refinement, consistent with this explanation.
           </p>
           <p>
-            For NHMC, stage splitting and extra leapfrog substeps change different parts of the path. At $L=8,\kappa=0.27$, splitting each stage in
-            two at fixed total integration time changes $\operatorname{Var}(\log w)$ from $1.225$ to $3.755$; keeping the stage count fixed and
-            doubling internal leapfrog substeps gives $1.235$. Stage splitting also adds momentum draws and changes network time inputs, so it is not
-            simply a reduction of integration error. At $L=16,\kappa=0.24$, the same split changes the variance from $2.875$ to $3.080$, a different
-            magnitude of response.
+            NHMC behaves differently. At $L=8,\kappa=0.27$, splitting each stage in two at fixed total integration time raises $\operatorname{Var}(\log w)$ from $1.23$ to $3.76$, while doubling the leapfrog substeps within each stage leaves it almost unchanged ($1.24$). Splitting is not just a reduction of integration error: every sub-stage draws a fresh momentum, and the networks are evaluated at times they never saw in training. At $L=16$ splitting also increases the variance, most strongly in the broken phase, $\kappa=0.30$ ($2.7\to18.9$). The integration within a stage is already accurate; the effective way to better paths is to train a model with more stages.
           </p>
           <p>
-            Training separate models at different stage counts is another experiment. Table 1 lists the scan at $L=8,\kappa=0.27$. For this training
-            recipe and $T=4$–$32$, a log-linear fit gives approximately $T^{-0.8}$ for full-path log-weight variance. The separately trained 32-stage
-            model has variance $0.674$, below the $3.755$ obtained by splitting the 16-stage model; doubling internal leapfrog substeps still leaves
-            16 stages.
+            Table 1 shows models trained separately with different stage counts at $L=8,\kappa=0.27$: each doubling of the stage count lowers the full-path log-weight variance by about 40%, roughly as $T^{-0.8}$. The 32-stage model reaches $0.67$, far below the $3.76$ obtained by splitting the 16-stage model.
           </p>
         </div>
         <div class="demo" id="demo-smp">
@@ -902,18 +823,10 @@
           </div>
           <svg id="smp-svg" viewBox="0 0 560 300" class="plot"></svg>
           <p class="caption zh">
-            左：路径对数权重方差随耦合变化，NHMC $T=16$，CMCD 与 DBS $T=80$，不是等成本比较。 右：CMCD/DBS 在固定总时间下将每步细分为 $m$
-            个子步，网络仍按训练时的时间步取值。 黑色圆点是 NHMC 的原模型和每段拆为两段的实测值；黑色空心方块表示段内蛙跳子步加倍，是另一种操作。
-            黑色虚线和空心圆表示分别训练的 16 与 32 段模型；此处 $m=2$ 表示相对 16 段的段数比，不是同一模型的时间细分。 $L=8$ 的 NHMC 细化记录仅有
-            $\kappa=0.27$，其他耦合只显示原模型点。连接线用于引导视线，未绘误差条。
+            左：路径对数权重方差随耦合的变化（NHMC $T=16$，CMCD 与 DBS $T=80$）。右：CMCD/DBS 在固定总时间下把每步细分为 $m$ 个子步，网络仍按训练时的时间步取值。黑色实心圆：NHMC 原模型与每段拆为两段（$m=2$）；黑色空心方块：段内蛙跳子步加倍；黑色虚线与空心圆：分别训练的 16 段与 32 段模型（$m$ 为段数之比）。NHMC 的细化只在 $\kappa=0.27$ 测量，其他耦合只显示原模型。
           </p>
           <p class="caption en">
-            Left: log-weight variance versus coupling, with NHMC $T=16$ and CMCD/DBS $T=80$; costs are not matched. Right: CMCD/DBS split each step
-            into $m$ substeps at fixed total time, with networks evaluated at the trained time step. Black circles show measured NHMC baseline and
-            two-way stage splitting; the open black square doubles internal leapfrog substeps, a different operation. The dashed black line and open
-            circle compare separately trained 16- and 32-stage models; here $m=2$ is a stage-count ratio relative to 16, not time refinement of one
-            model. NHMC refinement records at $L=8$ are available only for $\kappa=0.27$; other couplings show the baseline alone. Lines connect
-            measured configurations as guides to the eye; error bars are not shown.
+            Left: log-weight variance versus coupling (NHMC $T=16$, CMCD and DBS $T=80$). Right: CMCD/DBS split each step into $m$ substeps at fixed total time, with networks evaluated at the trained time step. Filled black circles: the NHMC model and each stage split in two ($m=2$); open black square: doubled leapfrog substeps within each stage; dashed black line and open circle: separately trained 16- and 32-stage models ($m$ is the ratio of stage counts). NHMC refinement is measured only at $\kappa=0.27$; other couplings show the model alone.
           </p>
         </div>
         <table class="stage-scan" id="nhmc-stage-scan">
@@ -933,18 +846,22 @@
           <tbody>
             <tr>
               <th scope="row">$\operatorname{Var}(\log w)$</th>
-              <td>3.51</td>
-              <td>2.14</td>
-              <td>1.22</td>
+              <td>3.51 ± 0.01</td>
+              <td>2.14 ± 0.02</td>
+              <td>1.22 ± 0.01</td>
               <td>0.67</td>
+            </tr>
+            <tr>
+              <th scope="row"><span class="zh">训练种子数</span><span class="en">training seeds</span></th>
+              <td>3</td>
+              <td>3</td>
+              <td>3</td>
+              <td>1</td>
             </tr>
           </tbody>
         </table>
-        <p class="caption zh">表中是已完成评估的汇总值，未附逐种子误差条。不同段数模型分别训练；表格不构成训练或采样成本匹配的比较。</p>
-        <p class="caption en">
-          Completed evaluation summaries; per-seed uncertainty bars are not included. Each stage count uses a separately trained model; training and
-          sampling costs are not matched.
-        </p>
+        <p class="caption zh">每个段数单独训练模型；± 为不同训练种子之间的标准差。</p>
+        <p class="caption en">Each stage count is a separately trained model; ± is the standard deviation over training seeds.</p>
       </section>
 
       <section id="take">
@@ -952,19 +869,18 @@
         <div class="zh">
           <p>回到开头的三个问题，每个问题都有一个简短的回答。</p>
           <p>
-            <b>机器学习。</b>在所测模型中，Kish ESS 已降至千分之几时，RT 仍能接受部分提议，并对 $|m|$ 给出比 path-IMH 更短的每次更新自相关时间。
-            条件功方差给出了接受率的高斯近似。
+            <b>机器学习。</b>权重退化不一定要靠把重要性权重做好来解决。Kish ESS 已降到千分之几时，往返更新仍能接受相当比例的提议，接受率可以由条件功方差通过 erfc 事先预测。
+          </p>
+          <p>
+            <b>格点场论。</b>在二维 $\phi^4$ 的临界区和破缺相，往返更新的 $\tau_{\rm int}$ 远低于 HMC；固定模型可以迁移到更大格点，接受率按体积可预测地下降。规范场中的拓扑冻结是下一个要检验的问题。
           </p>
           <p><b>格点场论。</b>本文的二维 $\phi^4$ 测试展示了指定观测量的自相关改善，以及固定模型迁移后接受率的下降。</p>
           <p>
-            <b>MCMC。</b>采样效率取决于更新能否有效改变慢模，以及为此付出的计算成本。
-            <a href="https://doi.org/10.1103/PhysRevLett.62.361">Wolff 团簇算法</a>展示了集体更新的重要性。对于学习到的非平衡路径，RT/pRT
-            提供了构造保持目标分布的 Metropolis 更新的方法。在本文测试的二维 $\phi^4$ 系统中，完整往返更新在相近平均接受率下，比 path-IMH
-            更快去相关；部分往返则需要权衡接受率、每次更新的移动幅度和计算成本。
+            <b>MCMC。</b>
+            <a href="https://doi.org/10.1103/PhysRevLett.62.361">Wolff 团簇算法</a>展示了集体更新的重要性。学到的非平衡路径是另一种集体更新，RT/pRT 把它变成保持目标分布的 Metropolis 更新。在相近的平均接受率下，完整往返比 path-IMH 去相关快得多；部分往返接受率更高，但每次移动更小。
           </p>
           <p>
-            <b>下一步。</b>比较不同段数、回退位置和段内积分精度下达到同一观测量误差所需的计算时间，并计入训练成本，
-            从而选择适合给定格点和预算的训练与更新方式。
+            <b>下一步。</b>在更大格点上扫描段数，确定保持接受率所需的段数怎样随体积增长；并把往返更新用到规范场上。
           </p>
           <p class="refs">
             <b>相关工作</b>：<a href="https://doi.org/10.1007/BF00143556">Neal 1996</a>（tempered transitions）；<a
@@ -997,23 +913,17 @@
         <div class="en">
           <p>Back to the three problems from the start; each has a short answer.</p>
           <p>
-            <b>Machine learning.</b> In the tested models, RT accepts some proposals even when Kish ESS is a few per mille, and gives shorter
-            per-update autocorrelation of $|m|$ than path-IMH. Conditional work variance gives a Gaussian approximation to acceptance.
+            <b>Machine learning.</b> Weight degeneracy need not be solved by making the importance weights better. With Kish ESS down to a few per mille, round trips still accept a sizeable fraction of proposals, and the acceptance can be predicted in advance from the conditional work variance through erfc.
           </p>
           <p>
-            <b>Lattice field theory.</b> The 2D $\phi^4$ tests show improved autocorrelation for the specified observables and declining acceptance
-            after frozen-model transfer.
+            <b>Lattice field theory.</b> In the critical region and broken phase of 2D $\phi^4$, round trips have $\tau_{\rm int}$ far below HMC, and a frozen model transfers to larger lattices with acceptance falling predictably with volume. Topological freezing in gauge fields is the next question to test.
           </p>
           <p>
-            <b>MCMC.</b> Sampling efficiency depends on how effectively an update changes the slow modes and on its computational cost. The
-            <a href="https://doi.org/10.1103/PhysRevLett.62.361">Wolff cluster algorithm</a> illustrates the importance of collective updates. For
-            learned nonequilibrium paths, RT/pRT provide a way to construct Metropolis updates that preserve the target distribution. In the 2D
-            $\phi^4$ systems tested here, full round trips decorrelate faster than path-IMH at similar mean acceptance rates; partial round trips
-            require balancing acceptance, the size of each move, and computational cost.
+            <b>MCMC.</b> The
+            <a href="https://doi.org/10.1103/PhysRevLett.62.361">Wolff cluster algorithm</a> illustrates the importance of collective updates. A learned nonequilibrium path is another kind of collective update, and RT/pRT turn it into a Metropolis update that preserves the target distribution. At similar mean acceptance, full round trips decorrelate much faster than path-IMH; partial round trips are accepted more often but move less each time.
           </p>
           <p>
-            <b>Next steps.</b> Compare the time to reach a given observable error across stage counts, turning stages and within-stage integration
-            accuracies, including training cost. This would guide the choice of training and updates for a given lattice and budget.
+            <b>Next steps.</b> Scan the stage count on larger lattices to find how fast it must grow with volume to hold the acceptance, and carry round trips over to gauge fields.
           </p>
           <p class="refs">
             <b>Related work</b>: <a href="https://doi.org/10.1007/BF00143556">Neal 1996</a> (tempered transitions);
