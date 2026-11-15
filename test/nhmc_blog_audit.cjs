@@ -27,6 +27,21 @@ async function main() {
     const errors = [];
     page.on("pageerror", (e) => errors.push(e.message));
     const url = `http://127.0.0.1:${server.address().port}/assets/blog/nhmc/`;
+    for (const blog of ["nhmc", "sps"]) {
+      await page.goto(url.replace("/nhmc/", `/${blog}/`), { waitUntil: "networkidle" });
+      assert.equal(await page.locator("body").getAttribute("class"), "lang-en");
+      assert.equal(await page.locator("html").getAttribute("lang"), "en");
+      assert.equal(await page.locator(".switch button").first().getAttribute("data-lang"), "en");
+      await page.evaluate(() => localStorage.setItem("site-lang", "zh"));
+      await page.reload({ waitUntil: "networkidle" });
+      assert.equal(await page.locator("body").getAttribute("class"), "lang-en");
+      await page.locator('button[data-lang="zh"]').click();
+      await page.reload({ waitUntil: "networkidle" });
+      assert.equal(await page.locator("body").getAttribute("class"), "lang-zh");
+      await page.locator('button[data-lang="en"]').click();
+      await page.reload({ waitUntil: "networkidle" });
+      assert.equal(await page.locator("body").getAttribute("class"), "lang-en");
+    }
     await page.goto(url, { waitUntil: "networkidle" });
     assert.equal(await page.locator(".katex-error").count(), 0);
     assert.equal(await page.locator(".katex-display").count(), 28);
