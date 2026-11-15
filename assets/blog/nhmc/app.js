@@ -20,7 +20,7 @@
   }
   document.querySelectorAll(".switch button").forEach((b) => b.addEventListener("click", () => setLang(b.dataset.lang)));
   try {
-    const l = localStorage.getItem("nhmc-blog-lang") || localStorage.getItem("site-lang");
+    const l = localStorage.getItem("nhmc-blog-lang");
     if (l) setLang(l);
   } catch (e) {}
 

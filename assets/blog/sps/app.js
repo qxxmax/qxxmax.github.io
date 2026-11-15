@@ -21,7 +21,7 @@
     })
   );
   try {
-    const l = localStorage.getItem("sps-blog-lang") || localStorage.getItem("site-lang");
+    const l = localStorage.getItem("sps-blog-lang");
     if (l) setLang(l);
   } catch (e) {}
   const isZh = () => !document.body.classList.contains("lang-en");
