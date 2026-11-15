@@ -27,6 +27,10 @@
     </header>
     <main>
       <p class="byline">Moxian Qian · <time datetime="2026-11-15">2026-11-15</time></p>
+      <p class="byline">
+        <a href="https://arxiv.org/abs/2606.13790"><span class="zh">SPS 论文</span><span class="en">SPS paper</span></a> ·
+        <a href="/assets/blog/nhmc/"><span class="zh">NHMC 博客</span><span class="en">NHMC blog</span></a>
+      </p>
       <h1>
         <span class="zh">训练 250 步，采样 2500 步：权重方差随采样步数下降的随机路径采样器</span
         ><span class="en"
@@ -569,7 +573,10 @@
           </p>
           <p>
             另一个方向是换掉 IMH。IMH
-            的当前状态带着自己的权重，体积再大时会在大权重状态上停留；改用让当前构型沿反向过程退回中间某一步再走回来的往返更新，可以绕开这个问题。这是我们另一篇博客的主题。
+            的当前状态带着自己的权重，体积再大时会在大权重状态上停留；改用让当前构型沿反向过程退回中间某一步再走回来的往返更新，可以绕开这个问题。这是我们<a
+              href="/assets/blog/nhmc/"
+              >NHMC 博客</a
+            >的主题。
           </p>
           <p class="refs">
             <b>论文与代码</b>：S. Chen, M. Qian, G. Aarts, B. Lucini, K. Zhou，Stochastic Path Sampler For Lattice Field Theory，<a
@@ -593,7 +600,7 @@
           <p>
             A third direction is to replace IMH. In IMH the current state carries its own weight, and at larger volumes the chain holds on
             large-weight states; a round-trip update that walks the current configuration back along the backward process to an intermediate step and
-            forward again avoids this. That is the subject of our other post.
+            forward again avoids this. That is the subject of our <a href="/assets/blog/nhmc/">NHMC post</a>.
           </p>
           <p class="refs">
             <b>Paper and code</b>: S. Chen, M. Qian, G. Aarts, B. Lucini, K. Zhou, Stochastic Path Sampler For Lattice Field Theory,
