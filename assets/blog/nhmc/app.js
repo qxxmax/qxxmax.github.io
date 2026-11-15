@@ -1,7 +1,7 @@
 // NHMC round-trip blog: language switch, KaTeX, and interactive figures.
 // 1) toy double-well chains (path-IMH vs full round trip, exact tempered-transition construction),
-// 2) erfc law: alpha(sigma) curve + predicted vs measured acceptance in 2D phi^4 (data.js: accept),
-// 3) volume/transfer: acceptance of the frozen L=16 model vs V with erfc(sqrt(sbar2 V)/2) (data.js: transfer, g).
+// 2) Gaussian acceptance approximation versus measurements (data.js: accept).
+// 3) Volume transfer uses independent L=16 prediction records, not fitted coefficients.
 (function () {
   "use strict";
   const D = window.BLOG_DATA || {};
@@ -254,14 +254,14 @@
     trace($("c-rt"), cR, COL.rt);
     const zh = !document.body.classList.contains("lang-en");
     const L = zh
-      ? ["步数", "接受率", "最长连续拒绝", "当前连续拒绝", "高斯平均接受率 erfc(σ/2)", "预测接受率 erfc(√⟨Δ⟩/2)"]
-      : ["steps", "acceptance", "longest rejection run", "current run", "Gaussian mean acceptance erfc(σ/2)", "predicted erfc(√⟨Δ⟩/2)"];
+      ? ["步数", "接受率", "最长连续拒绝", "当前连续拒绝", "高斯近似 erfc(σ/2)", "高斯近似 erfc(√⟨Δ⟩/2)"]
+      : ["steps", "acceptance", "longest rejection run", "current run", "Gaussian approximation erfc(σ/2)", "Gaussian approximation erfc(√⟨Δ⟩/2)"];
     const a = (c) => (c.n ? c.acc / c.n : 0);
     const vI = cI.n > 1 ? cI.sW2 / cI.n - (cI.sW / cI.n) ** 2 : NaN;
     $("s-imh").innerHTML = `${L[0]} ${cI.n} · ${L[1]} ${fmt(a(cI))}<br>${L[2]} ${cI.maxrun} · ${L[3]} ${cI.run}`;
     const mD = cR.nD ? cR.sD / cR.nD : NaN;
     $("s-rt").innerHTML =
-      `${L[0]} ${cR.n} · ${L[1]} ${fmt(a(cR))}<br>${L[2]} ${cR.maxrun} · ${L[3]} ${cR.run}<br>${L[5]} ${isFinite(mD) ? fmt(erfc(Math.sqrt(Math.max(mD, 0)) / 2)) : "–"}`;
+      `${L[0]} ${cR.n} · ${L[1]} ${fmt(a(cR))}<br>${L[2]} ${cR.maxrun} · ${L[3]} ${cR.run}<br>${L[5]} ${isFinite(mD) && mD >= 0 ? fmt(erfc(Math.sqrt(mD) / 2)) : "–"}`;
   }
   function loop() {
     if (!toy.run) return;
@@ -305,7 +305,7 @@
       C = 1.2,
       tau = C * (1 / a - 0.5);
     const zh = !document.body.classList.contains("lang-en");
-    $("l-out").textContent = `α = ${fmt(a)}   ·   τ_int ≈ C(1/α − 1/2) = ${fmt(tau, 1)}  (C = 1.2)` + (zh ? "" : "");
+    $("l-out").textContent = (zh ? "高斯近似 " : "Gaussian approximation ") + `α ≈ ${fmt(a)} · τ_int ≈ ${fmt(tau, 1)} (C = 1.2)`;
     svg.innerHTML = "";
     // left: alpha(sigma)
     const X0 = 64,
@@ -379,7 +379,6 @@
     const k = +$("v-k").value,
       ast = +$("v-a").value;
     $("v-av").textContent = ast.toFixed(2);
-    const key = (m) => ("00" + Math.round(k * 100)).slice(-3) + "_" + m;
     const zh = !document.body.classList.contains("lang-en");
     svg.innerHTML = "";
     const X0 = 60,
@@ -408,23 +407,26 @@
       ["rt", COL.rt, "c", ""],
       ["rtp12", COL.prt, "sq", "5 4"],
     ].forEach(([m, col, sh, dash]) => {
-      const g = D.g && D.g[key(m)];
-      if (!g) return;
-      let d = "",
-        first = true;
-      for (let i = 0; i <= 200; i++) {
-        const V = vlo * Math.pow(vhi / vlo, i / 200),
-          a = erfc(Math.sqrt(g * V) / 2);
-        if (a < alo) break;
-        d += (first ? "M" : "L") + xs(V).toFixed(1) + "," + ys(a).toFixed(1);
-        first = false;
+      const native = (D.accept || []).find((r) => r.kind === "native" && r.L === 16 && r.m === m && Math.abs(r.kappa - k) < 1e-9);
+      // Invert the stored independent prediction, never the measured acceptance.
+      const g = native && native.pred > 0 && native.pred < 1 ? (4 * erfcinv(native.pred) ** 2) / 256 : null;
+      if (g !== null) {
+        let d = "",
+          first = true;
+        for (let i = 0; i <= 200; i++) {
+          const V = vlo * Math.pow(vhi / vlo, i / 200),
+            a = erfc(Math.sqrt(g * V) / 2);
+          if (a < alo) break;
+          d += (first ? "M" : "L") + xs(V).toFixed(1) + "," + ys(a).toFixed(1);
+          first = false;
+        }
+        el(svg, "path", { d, fill: "none", stroke: col, "stroke-width": 2, "stroke-dasharray": dash, "data-series": "volume-prediction" });
+        const Vm = (4 * erfcinv(ast) ** 2) / g;
+        if (Vm > vlo && Vm < vhi) {
+          el(svg, "line", { x1: xs(Vm), x2: xs(Vm), y1: Y0, y2: Y1, stroke: col, "stroke-width": 1, "stroke-dasharray": "2 3" });
+        }
+        out.push(`${m === "rt" ? "RT" : "pRT"}: ${zh ? "预测阈值" : "predicted threshold"} V ≈ ${Vm.toFixed(0)} (L ≈ ${Math.sqrt(Vm).toFixed(0)})`);
       }
-      el(svg, "path", { d, fill: "none", stroke: col, "stroke-width": 2, "stroke-dasharray": dash });
-      const Vm = (4 * erfcinv(ast) ** 2) / g;
-      if (Vm > vlo && Vm < vhi) {
-        el(svg, "line", { x1: xs(Vm), x2: xs(Vm), y1: Y0, y2: Y1, stroke: col, "stroke-width": 1, "stroke-dasharray": "2 3" });
-      }
-      out.push(`${m === "rt" ? "RT" : "pRT"}: V_max ≈ ${Vm.toFixed(0)} (L ≈ ${Math.sqrt(Vm).toFixed(0)})`);
       (D.transfer || [])
         .filter((r) => Math.abs(r.kappa - k) < 1e-9 && r.m === m)
         .forEach((r) => {
@@ -433,7 +435,11 @@
             const mk = marker(svg, sh, xs(V), ys(Math.max(r.acc, alo)), col, true);
             mk.style.cursor = "pointer";
             mk.addEventListener("mousemove", (e) =>
-              showTip(e, `${m === "rt" ? "RT" : "pRT"} · L=${r.L} · κ=${r.kappa}<br>measured ${fmt(r.acc)} · erfc ${fmt(erfc(Math.sqrt(g * V) / 2))}`)
+              showTip(
+                e,
+                `${m === "rt" ? "RT" : "pRT"} · L=${r.L} · κ=${r.kappa}<br>measured ${fmt(r.acc)}` +
+                  (g !== null ? ` · Gaussian ${fmt(erfc(Math.sqrt(g * V) / 2))}` : "")
+              )
             );
             mk.addEventListener("mouseleave", hideTip);
           } else {
@@ -446,7 +452,11 @@
     el(svg, "text", { x: X1 - 90, y: Y0 + 14 }, "RT");
     el(svg, "line", { x1: X1 - 120, x2: X1 - 96, y1: Y0 + 28, y2: Y0 + 28, stroke: COL.prt, "stroke-width": 2, "stroke-dasharray": "5 4" });
     el(svg, "text", { x: X1 - 90, y: Y0 + 32 }, "pRT (s = 12)");
-    $("v-out").textContent = out.join("   ·   ");
+    $("v-out").textContent = out.length
+      ? out.join("   ·   ")
+      : zh
+        ? "该耦合仅有实测点，未提供独立预测记录。"
+        : "Measurements only: no independent prediction records at this coupling.";
   }
 
   // ======================================================================
@@ -748,7 +758,10 @@
         .sort((p, q) => p[0] - q[0]);
     const all = [...pts("CMCD"), ...pts("DBS")].map((p) => p[1]);
     const nh = S.find((r) => r.sampler === "NHMC" && Math.abs(r.kappa - k) < 1e-9);
+    const nr = (D.nhmcRefine || []).find((r) => r.L === 8 && Math.abs(r.kappa - k) < 1e-9);
     if (nh) all.push(nh.var);
+    if (nr) all.push(nr.base, nr.split2, nr.lf2);
+    if (nr?.retrain) all.push(...Object.values(nr.retrain));
     const lo = Math.pow(10, Math.floor(lg10(Math.min(...all)) * 2) / 2),
       hi = Math.pow(10, Math.ceil(lg10(Math.max(...all)) * 2) / 2);
     ys = sc(lo, hi, Y1, Y0, true);
@@ -760,7 +773,7 @@
     [0.2, 0.3, 0.5, 2, 3, 5].forEach((v) => {
       if (v > lo && v < hi) el(svg, "text", { x: X0 - 6, y: ys(v) + 4, "text-anchor": "end", class: "tick" }, v);
     });
-    frame(svg, X0, X1, Y0, Y1, zh ? "每个训练步的子步数 m" : "substeps per trained step m", "Var(log w)");
+    frame(svg, X0, X1, Y0, Y1, zh ? "细分倍数 m" : "subdivision factor m", "Var(log w)");
     ["CMCD", "DBS"].forEach((a) => {
       const p = pts(a);
       poly(
@@ -770,9 +783,39 @@
       );
       p.forEach((q) => hover(marker(svg, "c", xs(q[0]), ys(q[1]), SCOL[a], true, 3.4), `${a} · κ=${k} · m=${q[0]}<br>Var(log w) = ${fmt(q[1], 3)}`));
     });
-    if (nh) {
-      el(svg, "line", { x1: X0, x2: X1, y1: ys(nh.var), y2: ys(nh.var), stroke: SCOL.NHMC, "stroke-dasharray": "5 4", "stroke-width": 1.6 });
-      el(svg, "text", { x: X1 - 4, y: ys(nh.var) - 5, "text-anchor": "end", class: "tick" }, "NHMC");
+    if (nr) {
+      poly(
+        svg,
+        [
+          [xs(1), ys(nr.base)],
+          [xs(2), ys(nr.split2)],
+        ],
+        SCOL.NHMC
+      );
+      [
+        [1, nr.base, "c", true, zh ? "原模型" : "baseline"],
+        [2, nr.split2, "c", true, zh ? "每段拆成两段" : "two-way stage splitting"],
+        [2, nr.lf2, "sq", false, zh ? "段内蛙跳子步加倍" : "doubled leapfrog substeps"],
+      ].forEach(([m, variance, shape, filled, label]) => {
+        const point = marker(svg, shape, xs(m), ys(variance), SCOL.NHMC, filled, 3.6);
+        point.setAttribute("data-nhmc-operation", shape === "sq" ? "leapfrog" : m === 1 ? "baseline" : "split");
+        hover(point, `NHMC · L=8 · κ=${k} · ${label}<br>Var(log w) = ${fmt(variance, 3)}`);
+      });
+      if (nr.retrain) {
+        const trained = Object.entries(nr.retrain)
+          .map(([m, variance]) => [Number(m), variance])
+          .sort((a, b) => a[0] - b[0]);
+        poly(svg, [[xs(1), ys(nr.base)], ...trained.map(([m, variance]) => [xs(m), ys(variance)])], SCOL.NHMC, "4 3");
+        trained.forEach(([m, variance]) => {
+          const point = marker(svg, "c", xs(m), ys(variance), SCOL.NHMC, false, 3.8);
+          point.setAttribute("data-nhmc-operation", "retrain");
+          hover(point, `NHMC · L=8 · κ=${k} · T=${16 * m}<br>${zh ? "分别重新训练" : "separately retrained"}<br>Var(log w) = ${fmt(variance, 3)}`);
+        });
+      }
+    } else if (nh) {
+      const point = marker(svg, "c", xs(1), ys(nh.var), SCOL.NHMC, true, 3.4);
+      point.setAttribute("data-nhmc-operation", "baseline");
+      hover(point, `NHMC · κ=${k} · m=1<br>Var(log w) = ${fmt(nh.var, 3)}`);
     }
   }
   document.addEventListener("DOMContentLoaded", () => {
@@ -810,6 +853,7 @@
     }
     document.querySelectorAll(".switch button").forEach((b) =>
       b.addEventListener("click", () => {
+        hideTip();
         if (cI) draw();
         lawPlot();
         volPlot();

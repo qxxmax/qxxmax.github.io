@@ -287,6 +287,27 @@ h3 {
   font-size: 17px;
   margin: 26px 0 6px;
 }
+.stage-scan {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-top: 24px;
+  font-size: 14px;
+}
+.stage-scan caption {
+  text-align: left;
+  margin-bottom: 10px;
+}
+.stage-scan th,
+.stage-scan td {
+  padding: 8px 3px;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
+.stage-scan th:first-child {
+  width: 30%;
+  text-align: left;
+}
 table.symbols {
   border-collapse: collapse;
   font-size: 15px;

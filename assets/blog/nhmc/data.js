@@ -1030,4 +1030,19 @@ window.BLOG_DATA = {
       prt: [0.7405625, 8.812017974998966],
     },
   ],
+  // Evaluation summary supplied with the 2026-11-15 NHMC blog revision.
+  // split2: twice the stages; lf2: twice the leapfrog substeps, with total integration time fixed.
+  nhmcRefine: [
+    { L: 8, kappa: 0.27, base: 1.225, split2: 3.755, lf2: 1.235, retrain: { 2: 0.674 } },
+    { L: 16, kappa: 0.27, base: 4.336, split2: 12.72, lf2: 4.368 },
+    { L: 16, kappa: 0.24, base: 2.875, split2: 3.08, lf2: 2.893 },
+    { L: 16, kappa: 0.3, base: 2.65, split2: 18.92, lf2: 2.738 },
+  ],
+  // Completed stage-count summary; each T uses a separately trained model.
+  nhmcStageScan: [
+    { L: 8, kappa: 0.27, T: 4, variance: 3.51 },
+    { L: 8, kappa: 0.27, T: 8, variance: 2.14 },
+    { L: 8, kappa: 0.27, T: 16, variance: 1.22 },
+    { L: 8, kappa: 0.27, T: 32, variance: 0.67 },
+  ],
 };
