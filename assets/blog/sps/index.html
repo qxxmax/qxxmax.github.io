@@ -249,7 +249,7 @@
             s_i&=s_{i+1}+\sigma_\theta^2(t_i)K_{\theta,B}(s_{i+1},t_i)\Delta t+\sigma_\theta(t_i)\sqrt{\Delta t}\,\eta_{i+1} .\end{aligned}$$
           </p>
           <p>
-            如果把正向漂移 $K_{\theta,F}$ 换成 $-\nabla S$，这就是随机量子化里的 Langevin 方程；SPS 让一个网络去学它，另一个网络学反向漂移
+            如果把正向漂移 $K_{\theta,F}$ 换成作用量的负梯度（按这里的噪声归一化为 $-\tfrac12\nabla S$），这就是随机量子化里的 Langevin 方程；SPS 让一个网络去学它，另一个网络学反向漂移
             $K_{\theta,B}$，第三个小网络学扩散系数 $\sigma_\theta(t)$。时间通过傅里叶特征作为连续变量输入网络，网络主体是带周期边界的卷积（图
             3）。中间各步的分布没有事先指定，由学到的动力学自己决定。
           </p>
@@ -275,7 +275,7 @@
             s_i&=s_{i+1}+\sigma_\theta^2(t_i)K_{\theta,B}(s_{i+1},t_i)\Delta t+\sigma_\theta(t_i)\sqrt{\Delta t}\,\eta_{i+1} .\end{aligned}$$
           </p>
           <p>
-            With the forward drift $K_{\theta,F}$ replaced by $-\nabla S$, this is the Langevin equation of stochastic quantization; SPS lets one
+            With the forward drift $K_{\theta,F}$ replaced by the negative action gradient ($-\tfrac12\nabla S$ with this noise normalization), this is the Langevin equation of stochastic quantization; SPS lets one
             network learn it, another the backward drift $K_{\theta,B}$, and a third small network the diffusion coefficient $\sigma_\theta(t)$. Time
             enters as a continuous variable through Fourier features, and the body of the network is a set of periodic convolutions (Fig. 3). The
             intermediate distributions are not prescribed; the learned dynamics decides them.
@@ -572,7 +572,7 @@
           </p>
           <p>
             另一个方向是换掉 IMH。IMH
-            的当前状态带着自己的权重，体积再大时会在大权重状态上停留；改用让当前构型沿反向过程退回中间某一步再走回来的往返更新，可以绕开这个问题。这是我们<a
+            的当前状态带着自己的权重，体积再大时会在大权重状态上停留；改用让当前构型沿反向过程退回中间某一步再走回来的往返更新，可以绕开这个问题。这是我们的 <a
               href="/assets/blog/nhmc/"
               >NHMC 博客</a
             >的主题。

@@ -773,7 +773,7 @@
     [0.2, 0.3, 0.5, 2, 3, 5].forEach((v) => {
       if (v > lo && v < hi) el(svg, "text", { x: X0 - 6, y: ys(v) + 4, "text-anchor": "end", class: "tick" }, v);
     });
-    frame(svg, X0, X1, Y0, Y1, zh ? "细分倍数 m" : "subdivision factor m", "Var(log w)");
+    frame(svg, X0, X1, Y0, Y1, zh ? "细分倍数 n" : "subdivision factor n", "Var(log w)");
     ["CMCD", "DBS"].forEach((a) => {
       const p = pts(a);
       poly(
@@ -781,7 +781,7 @@
         p.map((q) => [xs(q[0]), ys(q[1])]),
         SCOL[a]
       );
-      p.forEach((q) => hover(marker(svg, "c", xs(q[0]), ys(q[1]), SCOL[a], true, 3.4), `${a} · κ=${k} · m=${q[0]}<br>Var(log w) = ${fmt(q[1], 3)}`));
+      p.forEach((q) => hover(marker(svg, "c", xs(q[0]), ys(q[1]), SCOL[a], true, 3.4), `${a} · κ=${k} · n=${q[0]}<br>Var(log w) = ${fmt(q[1], 3)}`));
     });
     if (nr) {
       poly(
@@ -815,7 +815,7 @@
     } else if (nh) {
       const point = marker(svg, "c", xs(1), ys(nh.var), SCOL.NHMC, true, 3.4);
       point.setAttribute("data-nhmc-operation", "baseline");
-      hover(point, `NHMC · κ=${k} · m=1<br>Var(log w) = ${fmt(nh.var, 3)}`);
+      hover(point, `NHMC · κ=${k} · n=1<br>Var(log w) = ${fmt(nh.var, 3)}`);
     }
   }
   document.addEventListener("DOMContentLoaded", () => {
