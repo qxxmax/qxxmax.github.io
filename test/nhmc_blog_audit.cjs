@@ -58,7 +58,7 @@ async function main() {
     assert.ok(leapfrog.includes("\\mathcal F_{\\theta,t}\\!\\left(x^{(j+1)}\\right)"));
     assert.equal(
       (await page.locator("#eq-leapfrog-reverse-en annotation").textContent()).trim(),
-      "\\Phi_{\\theta,t}(x_{t+1},-\\bar p_{t+1})=(x_t,-p_t).",
+      "\\Phi_{\\theta,t}(x_{t+1},-\\bar p_{t+1})=(x_t,-p_t)."
     );
     assert.equal(await page.locator('a[href="https://artowen.su.domains/mc/Ch-var-is.pdf"]').count(), 2);
     const html = fs.readFileSync(path.join(root, "assets/blog/nhmc/index.html"), "utf8");
@@ -112,7 +112,7 @@ async function main() {
     const stageData = await page.evaluate(() => window.BLOG_DATA.nhmcStageScan.map((r) => r.variance));
     assert.deepEqual(
       stageTable.map((value) => Number.parseFloat(value)),
-      stageData,
+      stageData
     );
     assert.deepEqual(await page.evaluate(() => window.BLOG_DATA.nhmcStageScan.map((r) => r.T)), [4, 8, 16, 32]);
 
@@ -136,7 +136,7 @@ async function main() {
               const formula = block.querySelector(".katex-html").getBoundingClientRect();
               return formula.left < outer.left - 1 || formula.right > outer.right + 1;
             })
-            .map((block) => block.id || block.textContent),
+            .map((block) => block.id || block.textContent)
         );
         assert.deepEqual(clippedEquations, [], `Clipped NHMC formula at ${width}/${lang}`);
         if (output && lang !== "both" && width !== 320) {
@@ -165,7 +165,7 @@ async function main() {
     assert.match(await page.locator("#s-rt").innerText(), /steps 0/);
     assert.deepEqual(errors, []);
     console.log(
-      `PASS: bilingual claims, ${equationCount} equations, leapfrog updates, prediction provenance, measured refinement points, 9 viewport/language combinations, and toy controls.`,
+      `PASS: bilingual claims, ${equationCount} equations, leapfrog updates, prediction provenance, measured refinement points, 9 viewport/language combinations, and toy controls.`
     );
   } finally {
     if (browser) await browser.close();
