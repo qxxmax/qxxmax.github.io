@@ -44,7 +44,22 @@ async function main() {
     }
     await page.goto(url, { waitUntil: "networkidle" });
     assert.equal(await page.locator(".katex-error").count(), 0);
-    assert.equal(await page.locator(".katex-display").count(), 28);
+    const equationCount = await page.locator("p.eq").count();
+    assert.equal(await page.locator(".katex-display").count(), equationCount);
+    assert.equal(await page.locator("#nhmc .katex-display").count(), 8);
+    for (const id of ["eq-leapfrog", "eq-leapfrog-reverse"]) {
+      const english = await page.locator(`#${id}-en annotation`).textContent();
+      const chinese = await page.locator(`#${id}-zh annotation`).textContent();
+      assert.equal(english, chinese, `Bilingual equation mismatch: ${id}`);
+    }
+    const leapfrog = await page.locator("#eq-leapfrog-en annotation").textContent();
+    assert.equal(leapfrog.match(/\\frac\{h_t\}\{2\}/g).length, 2);
+    assert.ok(leapfrog.includes("x^{(j+1)}&=x^{(j)}+h_t\\,p^{(j+\\frac12)}"));
+    assert.ok(leapfrog.includes("\\mathcal F_{\\theta,t}\\!\\left(x^{(j+1)}\\right)"));
+    assert.equal(
+      (await page.locator("#eq-leapfrog-reverse-en annotation").textContent()).trim(),
+      "\\Phi_{\\theta,t}(x_{t+1},-\\bar p_{t+1})=(x_t,-p_t).",
+    );
     assert.equal(await page.locator('a[href="https://artowen.su.domains/mc/Ch-var-is.pdf"]').count(), 2);
     const html = fs.readFileSync(path.join(root, "assets/blog/nhmc/index.html"), "utf8");
     for (const removed of ["\\zeta", "加权之后结果无偏", "weighted result is unbiased", "V_{max}", "加密", "fall on the diagonal"]) {
@@ -93,9 +108,12 @@ async function main() {
       }
     }
 
-    const stageTable = await page.locator("#nhmc-stage-scan td").allTextContents();
+    const stageTable = await page.locator("#nhmc-stage-scan tbody tr").first().locator("td").allTextContents();
     const stageData = await page.evaluate(() => window.BLOG_DATA.nhmcStageScan.map((r) => r.variance));
-    assert.deepEqual(stageTable.map(Number), stageData);
+    assert.deepEqual(
+      stageTable.map((value) => Number.parseFloat(value)),
+      stageData,
+    );
     assert.deepEqual(await page.evaluate(() => window.BLOG_DATA.nhmcStageScan.map((r) => r.T)), [4, 8, 16, 32]);
 
     await page.selectOption("#v-k", "0.27");
@@ -111,11 +129,25 @@ async function main() {
           badPaths: [...document.querySelectorAll(".plot path")].filter((p) => /NaN|Infinity/.test(p.getAttribute("d"))).length,
         }));
         assert.deepEqual(state, { overflow: false, failedImages: [], badPaths: 0 }, `${width}/${lang}`);
+        const clippedEquations = await page.locator("#nhmc .eq:visible").evaluateAll((blocks) =>
+          blocks
+            .filter((block) => {
+              const outer = block.getBoundingClientRect();
+              const formula = block.querySelector(".katex-html").getBoundingClientRect();
+              return formula.left < outer.left - 1 || formula.right > outer.right + 1;
+            })
+            .map((block) => block.id || block.textContent),
+        );
+        assert.deepEqual(clippedEquations, [], `Clipped NHMC formula at ${width}/${lang}`);
         if (output && lang !== "both" && width !== 320) {
           await page.screenshot({ path: path.join(output, `nhmc-${width}-${lang}.png`), fullPage: true });
-          for (const id of ["vol-svg", "smp-svg", "nhmc-stage-scan"]) {
-            await page.locator(`#${id}`).screenshot({ path: path.join(output, `${id}-${width}-${lang}.png`) });
+          for (const id of ["vol-svg", "smp-svg", "nhmc-stage-scan", "nhmc", `eq-leapfrog-${lang}`, `eq-leapfrog-reverse-${lang}`]) {
+            await page.locator(`#${id}`).screenshot({ path: path.join(output, `${id}-section-${width}-${lang}.png`) });
           }
+          await page
+            .locator(`#eq-leapfrog-${lang}`)
+            .evaluate((equation) => window.scrollTo(0, window.scrollY + equation.getBoundingClientRect().top - 280));
+          await page.screenshot({ path: path.join(output, `leapfrog-viewport-${width}-${lang}.png`) });
         }
       }
     }
@@ -133,7 +165,7 @@ async function main() {
     assert.match(await page.locator("#s-rt").innerText(), /steps 0/);
     assert.deepEqual(errors, []);
     console.log(
-      "PASS: bilingual claims, 28 equations, prediction provenance, measured refinement points, 9 viewport/language combinations, and toy controls."
+      `PASS: bilingual claims, ${equationCount} equations, leapfrog updates, prediction provenance, measured refinement points, 9 viewport/language combinations, and toy controls.`,
     );
   } finally {
     if (browser) await browser.close();
