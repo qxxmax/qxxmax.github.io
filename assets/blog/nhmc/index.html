@@ -346,13 +346,34 @@
         <div class="zh">
           <p>
             我们的采样器 NHMC 把哈密顿蒙特卡洛的结构搬进了学习路径。标准 HMC 给每个场自由度配一个高斯动量，再按哈密顿量 $H=S+\tfrac12p^2$
-            做确定性演化。NHMC 把这两步都交给网络：每一段先从依赖当前场的条件高斯里抽动量，再用蛙跳积分器演化，
+            做确定性演化。NHMC 用网络学习条件动量分布、演化中的力和步长，确定性演化采用固定的蛙跳更新结构。每一段 $t=0,\dots,T-1$
+            先从依赖当前场的条件高斯里抽一次动量，再演化到下一段，
           </p>
-          <p class="eq">$$p_t\sim q^F_{\theta,t}(\cdot\mid x_t),\qquad (x_{t+1},\bar p_{t+1})=\Phi_{\theta,t}(x_t,p_t),\qquad t=0,\dots,T-1.$$</p>
+          <p class="eq">$$\begin{aligned}p_t&\sim q^F_{\theta,t}(\cdot\mid x_t),\\ (x_{t+1},\bar p_{t+1})&=\Phi_{\theta,t}(x_t,p_t).\end{aligned}$$</p>
           <p>
-            演化中的力由目标作用量的解析力、高斯参考分布的力和一个学习的残差组成，组合系数和步长也参与训练。蛙跳的每一小步都是剪切变换，所以
-            $\Phi_{\theta,t}$ 保持相空间体积、可以精确反演，路径概率里没有雅可比因子。反向过程用另一个条件高斯 $q^R_{\theta,t}$
-            描述回退时的动量。$\phi^4$ 有 $\mathbb Z_2$ 对称，我们还允许在演化前随机翻转场的符号。
+            记演化中的力为 $\mathcal F_{\theta,t}(x)$，它由目标作用量的解析力、高斯参考分布的力和一个学习的残差组成，组合系数也参与训练。
+            每段包含 $n_{\rm lf}$ 次蛙跳更新，步长 $h_t$ 在该段内固定，并且与当前场无关。从 $x^{(0)}=x_t$、$p^{(0)}=p_t$ 出发，
+            对 $j=0,\dots,n_{\rm lf}-1$ 依次更新：动量走半步，位置走一步，再用新位置上的力让动量走半步，
+          </p>
+          <p class="eq leapfrog-update" id="eq-leapfrog-zh">
+            $$\begin{aligned}
+            p^{(j+\frac12)}&=p^{(j)}+\frac{h_t}{2}\,\mathcal F_{\theta,t}\!\left(x^{(j)}\right),\\
+            x^{(j+1)}&=x^{(j)}+h_t\,p^{(j+\frac12)},\\
+            p^{(j+1)}&=p^{(j+\frac12)}+\frac{h_t}{2}\,\mathcal F_{\theta,t}\!\left(x^{(j+1)}\right).
+            \end{aligned}$$
+          </p>
+          <p>
+            完成这些更新后，得到下一段的场 $x_{t+1}$ 和末端动量 $\bar p_{t+1}$。每段内部连续演化，到下一段才重新抽取动量。
+            因此，增加段内蛙跳子步与增加动量刷新次数，是两种不同的操作。
+          </p>
+          <p>
+            动量更新时固定位置，位置更新时固定动量，每一步都是雅可比行列式为 1 的剪切变换。因此 $\Phi_{\theta,t}$ 保持相空间体积，
+            路径概率里的雅可比因子为 1。对称的更新顺序还保证，把末端动量反号，再走同一段，就能沿原路径返回，
+          </p>
+          <p class="eq" id="eq-leapfrog-reverse-zh">$$\Phi_{\theta,t}(x_{t+1},-\bar p_{t+1})=(x_t,-p_t).$$</p>
+          <p>
+            这是精确算术下的可逆性，数值实现受浮点舍入误差影响；有限步长下能量仍可发生变化。反向过程用另一个条件高斯 $q^R_{\theta,t}$
+            描述回退时的动量，其配对取值为 $-\bar p_{t+1}$。$\phi^4$ 有 $\mathbb Z_2$ 对称，我们还允许在演化前随机翻转场的符号。
           </p>
           <p>训练目标就是上一节的平均功。$F$ 与参数无关，所以最小化 $\mathbb E_Q[W]$ 等价于减小正反路径分布之间的 KL；再加上对功涨落的惩罚，得到</p>
           <p class="eq">$$\mathcal L=\mathbb E_{Q_\theta}[W]+\lambda_{\rm var}\operatorname{Var}_{Q_\theta}(W),\qquad \lambda_{\rm var}\ge0 .$$</p>
@@ -364,16 +385,41 @@
         <div class="en">
           <p>
             Our sampler NHMC carries the structure of Hamiltonian Monte Carlo into learned paths. Standard HMC gives each field degree of freedom a
-            Gaussian momentum and evolves deterministically under $H=S+\tfrac12p^2$. NHMC hands both steps to networks: each stage draws a momentum
-            from a conditional Gaussian that depends on the current field, then evolves with a leapfrog integrator,
+            Gaussian momentum and evolves deterministically under $H=S+\tfrac12p^2$. In NHMC, networks learn the conditional momentum distributions,
+            the force and the step sizes; the deterministic evolution follows a fixed leapfrog update structure. Each stage $t=0,\dots,T-1$
+            draws one momentum from a conditional Gaussian that depends on the current field, then evolves to the next stage,
           </p>
-          <p class="eq">$$p_t\sim q^F_{\theta,t}(\cdot\mid x_t),\qquad (x_{t+1},\bar p_{t+1})=\Phi_{\theta,t}(x_t,p_t),\qquad t=0,\dots,T-1.$$</p>
+          <p class="eq">$$\begin{aligned}p_t&\sim q^F_{\theta,t}(\cdot\mid x_t),\\ (x_{t+1},\bar p_{t+1})&=\Phi_{\theta,t}(x_t,p_t).\end{aligned}$$</p>
           <p>
-            The force combines the analytic force of the target action, the force of a Gaussian reference and a learned residual; the mixing
-            coefficients and step sizes are trained too. Every leapfrog substep is a shear, so $\Phi_{\theta,t}$ preserves phase-space volume and is
-            exactly invertible, and the path probability has no Jacobian factor. The reverse process uses another conditional Gaussian
-            $q^R_{\theta,t}$ for the momentum on the way back. $\phi^4$ has a $\mathbb Z_2$ symmetry, and we also allow a random sign flip of the
-            field before the evolution.
+            Write the force as $\mathcal F_{\theta,t}(x)$. It combines the analytic force of the target action, the force of a Gaussian reference
+            and a learned residual, with learned mixing coefficients. Each stage contains $n_{\rm lf}$ leapfrog updates. Its learned step size
+            $h_t$ is fixed within the stage and independent of the current field. Starting from $x^{(0)}=x_t$ and $p^{(0)}=p_t$, each update
+            $j=0,\dots,n_{\rm lf}-1$ takes a half-step in momentum, a full step in position, and a second half-step in momentum using the force
+            at the new position:
+          </p>
+          <p class="eq leapfrog-update" id="eq-leapfrog-en">
+            $$\begin{aligned}
+            p^{(j+\frac12)}&=p^{(j)}+\frac{h_t}{2}\,\mathcal F_{\theta,t}\!\left(x^{(j)}\right),\\
+            x^{(j+1)}&=x^{(j)}+h_t\,p^{(j+\frac12)},\\
+            p^{(j+1)}&=p^{(j+\frac12)}+\frac{h_t}{2}\,\mathcal F_{\theta,t}\!\left(x^{(j+1)}\right).
+            \end{aligned}$$
+          </p>
+          <p>
+            These updates produce the next field $x_{t+1}$ and the final momentum $\bar p_{t+1}$. Evolution within a stage is deterministic;
+            a fresh momentum is drawn at the next stage. Increasing the number of leapfrog substeps within a stage and increasing the number
+            of momentum refreshes are therefore different operations.
+          </p>
+          <p>
+            Each momentum update holds position fixed, and each position update holds momentum fixed. Both are shears with unit Jacobian
+            determinant, so $\Phi_{\theta,t}$ preserves phase-space volume and contributes a Jacobian factor of 1 to the path probability.
+            The symmetric update order also makes the map reversible: flipping the final momentum and applying the same stage retraces the path,
+          </p>
+          <p class="eq" id="eq-leapfrog-reverse-en">$$\Phi_{\theta,t}(x_{t+1},-\bar p_{t+1})=(x_t,-p_t).$$</p>
+          <p>
+            This reversibility holds in exact arithmetic, with floating-point roundoff in numerical implementations; energy can still change
+            at finite step size. The reverse process uses another conditional Gaussian $q^R_{\theta,t}$ for its input momentum, whose paired
+            value is $-\bar p_{t+1}$. The $\phi^4$ theory has a $\mathbb Z_2$ symmetry, and we also allow a random sign flip of the field before
+            the evolution.
           </p>
           <p>
             The training objective is the mean work of Section 2. Since $F$ does not depend on the parameters, minimizing $\mathbb E_Q[W]$ is the same
