@@ -61,6 +61,12 @@ async function main() {
       "\\Phi_{\\theta,t}(x_{t+1},-\\bar p_{t+1})=(x_t,-p_t)."
     );
     assert.equal(await page.locator('a[href="https://artowen.su.domains/mc/Ch-var-is.pdf"]').count(), 2);
+    for (const lang of ["en", "zh"]) {
+      for (const doi of ["10.1214/aos/1033066201", "10.1007/BF00162521", "10.1103/PhysRevLett.62.361"]) {
+        assert.equal(await page.locator(`#problems .${lang} a[href="https://doi.org/${doi}"]`).count(), 1);
+      }
+      assert.equal(await page.locator(`#mcmc-${lang}`).count(), 1);
+    }
     const html = fs.readFileSync(path.join(root, "assets/blog/nhmc/index.html"), "utf8");
     for (const removed of ["\\zeta", "加权之后结果无偏", "weighted result is unbiased", "V_{max}", "加密", "fall on the diagonal"]) {
       assert.ok(!html.includes(removed), `Stale claim: ${removed}`);
@@ -148,6 +154,8 @@ async function main() {
             .locator(`#eq-leapfrog-${lang}`)
             .evaluate((equation) => window.scrollTo(0, window.scrollY + equation.getBoundingClientRect().top - 280));
           await page.screenshot({ path: path.join(output, `leapfrog-viewport-${width}-${lang}.png`) });
+          await page.locator(`#mcmc-${lang}`).evaluate((heading) => window.scrollTo(0, window.scrollY + heading.getBoundingClientRect().top - 80));
+          await page.screenshot({ path: path.join(output, `mcmc-viewport-${width}-${lang}.png`) });
         }
       }
     }

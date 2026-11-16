@@ -160,13 +160,19 @@
             >
             把这一思路推广到 $U(1)$ 规范理论。
           </p>
-          <h3>MCMC：独立 Metropolis 的停留</h3>
+          <h3 id="mcmc-zh">MCMC：独立 Metropolis 的停留</h3>
           <p>
-            使用学习路径最直接的办法，是把它当作独立提议，组成独立 Metropolis 链。MCMC 理论早就指出，权重无界时这种链不是几何遍历的（<a
-              href="https://doi.org/10.1214/aos/1033066201"
-              >Mengersen &amp; Tweedie 1996</a
-            >，这里的无界指相对于目标测度的本质无界）。大权重状态可以造成长时间停留（<a href="https://doi.org/10.1007/BF00162521">Liu 1996</a>）。
-            在下文的 path-IMH 链中可以直接看到这种停留（图 7–9）。
+            把学习路径作为独立提议，就得到 path-IMH 链。它通过新旧路径的权重比决定是否接受，当前路径的权重很大时，链可能长时间停留（<a
+              href="https://doi.org/10.1214/aos/1033066201">Mengersen &amp; Tweedie 1996</a>；<a
+              href="https://doi.org/10.1007/BF00162521">Liu 1996</a>）。下文的图 7–9 展示了这种停留。
+          </p>
+          <p>
+            <a href="https://doi.org/10.1103/PhysRevLett.62.361">Wolff 簇算法（1989）</a>说明了更新方式的重要性：集体翻转自旋簇满足详细平衡，
+            并在所测试的自旋系统中明显减轻了临界慢化。详细平衡保持目标分布不变，去相关速度则取决于更新如何构造。
+          </p>
+          <p>
+            对同一套学习路径，我们也可以构造不同的更新。完整往返（RT）和部分往返（pRT）从当前构型生成反向路径，再从共享的中间构型向前生成提议，
+            用配对路径片段的功决定是否接受。后面的实验检验：完整路径的重要性采样效率很低时，这种更新能否仍然有效地降低自相关。
           </p>
           <p>接下来的故事围绕这三个问题展开。在此之前，先讲这些采样器背后的物理，以及由此能得到哪几种精确的校正方案。</p>
         </div>
@@ -186,15 +192,22 @@
             $\phi^4$ and obtained shorter autocorrelation where standard algorithms show critical slowing down;
             <a href="https://arxiv.org/abs/2003.06413">Kanwar et al. 2020</a> carried the idea to $U(1)$ gauge theory.
           </p>
-          <h3>MCMC: holding in independence Metropolis</h3>
+          <h3 id="mcmc-en">MCMC: holding in independence Metropolis</h3>
           <p>
-            The most direct way to use learned paths is to treat them as independent proposals in an independence Metropolis chain. MCMC theory showed
-            long ago that such a chain is not geometrically ergodic when the weights are unbounded (<a href="https://doi.org/10.1214/aos/1033066201"
-              >Mengersen &amp; Tweedie 1996</a
-            >; unbounded here means essentially unbounded under the target measure). Large-weight states can cause long holding times (<a
-              href="https://doi.org/10.1007/BF00162521"
-              >Liu 1996</a
-            >). This holding is visible directly in the path-IMH chains below (Figs. 7–9).
+            Using learned paths as independent proposals gives a path-IMH chain. Acceptance depends on the ratio of the new and current path weights,
+            so a large current weight can cause long holding times (<a href="https://doi.org/10.1214/aos/1033066201">Mengersen &amp; Tweedie 1996</a>;
+            <a href="https://doi.org/10.1007/BF00162521">Liu 1996</a>). This holding is visible in Figs. 7–9.
+          </p>
+          <p>
+            The <a href="https://doi.org/10.1103/PhysRevLett.62.361">Wolff cluster algorithm (1989)</a> illustrates why the update matters:
+            collective spin flips satisfy detailed balance and strongly reduce critical slowing down in the tested spin systems. Detailed balance
+            preserves the target distribution; the update design controls how quickly the chain decorrelates.
+          </p>
+          <p>
+            The same learned paths can also support different updates. Round-trip (RT) and partial round-trip (pRT) updates draw a reverse path
+            from the current configuration, then generate a forward proposal from a shared intermediate configuration. Acceptance compares the work
+            on the paired path segments. The experiments below test whether these updates can still decorrelate effectively when full-path
+            importance sampling is inefficient.
           </p>
           <p>
             The rest of the story revolves around these three problems. First, though, the physics behind these samplers, and the exact corrections it
