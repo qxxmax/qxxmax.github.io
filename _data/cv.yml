@@ -87,17 +87,17 @@ cv:
         url: https://arxiv.org/abs/2607.15682
         summary: '<span class="en">Learned stochastic Hamiltonian paths with recorded-work correction: path-SNIS/path-IMH plus a proved shared-bridge round-trip Metropolis kernel. Tested on analytic many-well and finite-volume 2D phi^4 targets; molecular and compact U(1) results retain explicit feasibility boundaries.</span><span class="zh">用记录功修正可学习的随机 Hamiltonian 路径：包括 path-SNIS / path-IMH，以及经过证明的共享桥接点 round-trip Metropolis 核。已在解析多阱与有限体积二维 phi^4 上测试；分子和紧致 U(1) 结果保留明确的可行性边界。</span>'
 
-      - title: Stochastic Path Sampler For Lattice Field Theory
+      - title: Stochastic path sampler for lattice field theory
         authors:
           - Shiyang Chen
           - Moxian Qian
           - Gert Aarts
           - Biagio Lucini
           - Kai Zhou
-        publisher: arXiv
-        releaseDate: 2026-06
-        url: https://arxiv.org/abs/2606.13790
-        summary: '<span class="en">Data-free neural sampler based on nonequilibrium thermodynamics and stochastic quantization; matches HMC quality with much shorter autocorrelation in the pseudocritical region of 2D phi^4. Co-first author with S. Chen.</span><span class="zh">基于非平衡热力学与随机量子化的数据无关神经采样器；在 2D φ⁴ 伪临界区，质量与 HMC 相当，自相关时间显著更短。与 S. Chen 共同一作。</span>'
+        publisher: JHEP 11 (2026) 164
+        releaseDate: "2026-11-16"
+        url: https://doi.org/10.1007/JHEP11(2026)164
+        summary: '<span class="en">Data-free neural sampler based on nonequilibrium thermodynamics and stochastic quantization; matches HMC quality with much shorter autocorrelation in the pseudocritical region of 2D phi^4. Co-first author with S. Chen. <a href="https://arxiv.org/abs/2606.13790">arXiv:2606.13790</a>.</span><span class="zh">基于非平衡热力学与随机量子化的数据无关神经采样器；在 2D φ⁴ 伪临界区，质量与 HMC 相当，自相关时间显著更短。与 S. Chen 共同一作。<a href="https://arxiv.org/abs/2606.13790">arXiv:2606.13790</a>。</span>'
 
       - title: Operator Spectroscopy of Trained Lattice Samplers
         authors:
