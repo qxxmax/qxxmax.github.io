@@ -117,6 +117,17 @@
       : el(svg, "circle", Object.assign({ cx: x, cy: y, r: r + 0.3 }, a));
   }
 
+  function ulMarker(svg, x, y, color) {
+    // upper-limit marker: open circle with grey centre and a downward arrow
+    const g = document.createElementNS(NS, "g");
+    svg.appendChild(g);
+    el(g, "line", { x1: x, x2: x, y1: y, y2: y + 13, stroke: color, "stroke-width": 1.6 });
+    el(g, "path", { d: `M${x - 3.5},${y + 10}L${x + 3.5},${y + 10}L${x},${y + 16}Z`, fill: color });
+    el(g, "circle", { cx: x, cy: y, r: 4.3, fill: "#fff", stroke: color, "stroke-width": 1.6 });
+    el(g, "circle", { cx: x, cy: y, r: 1.6, fill: "#737373" });
+    return g;
+  }
+
   // ======================================================================
   // 1) toy: d independent double wells, path of T annealed HMC stages
   //    U_k(x) = sum_i (1-b_k) x_i^2/2 + b_k b (x_i^2-1)^2, b_k = k/T; U_0 = N(0,1) sampled exactly.
@@ -302,10 +313,10 @@
     const s = +$("l-s").value;
     $("l-sv").textContent = s.toFixed(2);
     const a = erfc(s / 2),
-      C = 1.2,
+      C = 1.18,
       tau = C * (1 / a - 0.5);
     const zh = !document.body.classList.contains("lang-en");
-    $("l-out").textContent = (zh ? "高斯近似 " : "Gaussian approximation ") + `α ≈ ${fmt(a)} · τ_int ≈ ${fmt(tau, 1)} (C = 1.2)`;
+    $("l-out").textContent = (zh ? "高斯近似 " : "Gaussian approximation ") + `α ≈ ${fmt(a)} · τ_int ≈ ${fmt(tau, 1)} (C = 1.18)`;
     svg.innerHTML = "";
     // left: alpha(sigma)
     const X0 = 64,
@@ -354,7 +365,7 @@
         const isRT = r.m === "rt";
         hover(
           marker(svg, isRT ? "c" : "sq", lx(r.pred), ly(r.meas), isRT ? COL.rt : COL.prt, true),
-          `${isRT ? "RT" : "pRT"} · L=${r.L} · κ=${r.kappa}<br>predicted ${fmt(r.pred)} · measured ${fmt(r.meas)}`
+          `${isRT ? "RT" : "pRT"} · L=${r.L} · κ=${r.kappa}<br>${zh ? "预测" : "predicted"} ${fmt(r.pred)} · ${zh ? "实测" : "measured"} ${fmt(r.meas)}`
         );
       });
     el(svg, "text", { x: (P0 + P1) / 2, y: Y1 + 36, "text-anchor": "middle" }, zh ? "预测 erfc(σ/2)" : "predicted erfc(σ/2)");
@@ -431,20 +442,22 @@
         .filter((r) => Math.abs(r.kappa - k) < 1e-9 && r.m === m)
         .forEach((r) => {
           const V = r.L * r.L;
-          if (r.acc > 0) {
-            const mk = marker(svg, sh, xs(V), ys(Math.max(r.acc, alo)), col, true);
-            mk.style.cursor = "pointer";
-            mk.addEventListener("mousemove", (e) =>
-              showTip(
-                e,
-                `${m === "rt" ? "RT" : "pRT"} · L=${r.L} · κ=${r.kappa}<br>measured ${fmt(r.acc)}` +
-                  (g !== null ? ` · Gaussian ${fmt(erfc(Math.sqrt(g * V) / 2))}` : "")
-              )
+          const lab = m === "rt" ? "RT" : "pRT";
+          const gtxt = g !== null ? ` · ${zh ? "高斯预测" : "Gaussian"} ${fmt(erfc(Math.sqrt(g * V) / 2))}` : "";
+          if (r.pilot) {
+            // 1000-step pilot chains: drawn only as upper limits; zero acceptances at the 95% limit 3/n (n = 3600 transitions)
+            const ul = r.acc > 0 ? r.acc : 3 / 3600;
+            const mk = ulMarker(svg, xs(V), ys(Math.max(ul, alo)), col);
+            hover(
+              mk,
+              `${lab} · L=${r.L} · κ=${r.kappa}<br>` +
+                (zh
+                  ? `试跑链（每链 1000 步），只作上限：${r.acc > 0 ? fmt(r.acc) : "无接受，95% 上限 " + fmt(ul)}`
+                  : `1000-step pilot chains, upper limit only: ${r.acc > 0 ? fmt(r.acc) : "no acceptance, 95% limit " + fmt(ul)}`) +
+                gtxt
             );
-            mk.addEventListener("mouseleave", hideTip);
-          } else {
-            // no acceptance in the run: mark at the bottom edge
-            el(svg, "path", { d: `M${xs(V) - 5},${Y1 - 10}L${xs(V) + 5},${Y1 - 10}L${xs(V)},${Y1 - 2}Z`, fill: col, opacity: 0.6 });
+          } else if (r.acc > 0) {
+            hover(marker(svg, sh, xs(V), ys(Math.max(r.acc, alo)), col, true), `${lab} · L=${r.L} · κ=${r.kappa}<br>${zh ? "实测" : "measured"} ${fmt(r.acc)}` + gtxt);
           }
         });
     });
@@ -452,6 +465,8 @@
     el(svg, "text", { x: X1 - 90, y: Y0 + 14 }, "RT");
     el(svg, "line", { x1: X1 - 120, x2: X1 - 96, y1: Y0 + 28, y2: Y0 + 28, stroke: COL.prt, "stroke-width": 2, "stroke-dasharray": "5 4" });
     el(svg, "text", { x: X1 - 90, y: Y0 + 32 }, "pRT (s = 12)");
+    ulMarker(svg, X1 - 108, Y0 + 46, "#6b7280");
+    el(svg, "text", { x: X1 - 90, y: Y0 + 50 }, zh ? "试跑链，上限" : "pilot, upper limit");
     $("v-out").textContent = out.length
       ? out.join("   ·   ")
       : zh
@@ -460,7 +475,7 @@
   }
 
   // ======================================================================
-  // section 1 figures: (a) Var(log w) and ESS vs V, (b) tau vs L (Table J1), (c) tau vs 1/alpha - 1/2
+  // section 1 figures: (a) Var(log w) and ESS vs V, (b) tau vs L, (c) tau vs 1/alpha - 1/2
   // ======================================================================
   const K3 = { HMC: "#3b3f4a", Wolff: "#CC79A7", RT: COL.rt, pRT: COL.prt, IMH: COL.imh };
   const isZh = () => !document.body.classList.contains("lang-en");
@@ -684,13 +699,13 @@
     poly(
       svg,
       [
-        [xs(0.25), ys(0.3)],
-        [xs(100), ys(120)],
+        [xs(0.25), ys(0.295)],
+        [xs(100), ys(118)],
       ],
       "#9aa1ad",
       "4 3"
     );
-    el(svg, "text", { x: xs(95), y: ys(12), "text-anchor": "end", class: "tick" }, "τ = 1.2(1/α − 1/2)");
+    el(svg, "text", { x: xs(95), y: ys(12), "text-anchor": "end", class: "tick" }, "τ = 1.18(1/α − 1/2)");
     const name = { RT: "RT", IMH: "path-IMH" };
     ["RT", "IMH"].forEach((m) =>
       (D.chains || [])
@@ -709,7 +724,7 @@
     ]);
   }
 
-  // Fig. 7: three samplers at L = 8 (left: Var(log w) vs kappa; right: refinement m at fixed kappa)
+  // Fig. 10: three samplers at L = 8 (left: Var(log w) vs kappa; right: CMCD/DBS refinement n at fixed kappa)
   const SCOL = { NHMC: "#2b2f3a", CMCD: "#E69F00", DBS: "#56B4E9" };
   function smpPlot() {
     const svg = $("smp-svg");
@@ -717,8 +732,7 @@
     const k = +$("smp-k").value,
       zh = isZh();
     svg.innerHTML = "";
-    const S = D.smp || [],
-      R = D.refine || [];
+    const S = D.smp || [];
     let X0 = 62,
       X1 = 250,
       Y0 = 20,
@@ -747,25 +761,21 @@
       ["CMCD (T=80)", SCOL.CMCD],
       ["DBS (T=80)", SCOL.DBS],
     ]);
-    // right: Var(log w) vs m (substeps per trained step), nets held at the trained step
+    // right: Var(log w) vs n (substeps per trained step), networks held at the trained step, T = 80, 160, 320
     X0 = 360;
     X1 = 545;
-    xs = sc(0.8, 10, X0, X1, true);
-    const mOf = (c) => +c.replace("h", "").split("x")[0];
-    const pts = (a) =>
-      R.filter((r) => r.alg === a.toLowerCase() && Math.abs(r.kappa - k) < 1e-9 && (r.config === "1x1" || r.config.endsWith("x1h")))
-        .map((r) => [mOf(r.config), r.var])
-        .sort((p, q) => p[0] - q[0]);
-    const all = [...pts("CMCD"), ...pts("DBS")].map((p) => p[1]);
-    const nh = S.find((r) => r.sampler === "NHMC" && Math.abs(r.kappa - k) < 1e-9);
-    const nr = (D.nhmcRefine || []).find((r) => r.L === 8 && Math.abs(r.kappa - k) < 1e-9);
-    if (nh) all.push(nh.var);
-    if (nr) all.push(nr.base, nr.split2, nr.lf2);
-    if (nr?.retrain) all.push(...Object.values(nr.retrain));
+    xs = sc(0.8, 20, X0, X1, true);
+    const NS_ = [1, 2, 4, 8, 16];
+    const SH = {
+      CMCD: { 80: "#F2CA7A", 160: "#E69F00", 320: "#8A5E00" },
+      DBS: { 80: "#A8D8F5", 160: "#56B4E9", 320: "#1F6F9E" },
+    };
+    const R = (D.refineK || []).filter((r) => Math.abs(r.kappa - k) < 1e-9);
+    const all = R.flatMap((r) => r.v);
     const lo = Math.pow(10, Math.floor(lg10(Math.min(...all)) * 2) / 2),
       hi = Math.pow(10, Math.ceil(lg10(Math.max(...all)) * 2) / 2);
     ys = sc(lo, hi, Y1, Y0, true);
-    [1, 2, 4, 8].forEach((m) => {
+    NS_.forEach((m) => {
       el(svg, "line", { x1: xs(m), x2: xs(m), y1: Y0, y2: Y1, class: "grid" });
       el(svg, "text", { x: xs(m), y: Y1 + 16, "text-anchor": "middle", class: "tick" }, m);
     });
@@ -774,49 +784,30 @@
       if (v > lo && v < hi) el(svg, "text", { x: X0 - 6, y: ys(v) + 4, "text-anchor": "end", class: "tick" }, v);
     });
     frame(svg, X0, X1, Y0, Y1, zh ? "细分倍数 n" : "subdivision factor n", "Var(log w)");
-    ["CMCD", "DBS"].forEach((a) => {
-      const p = pts(a);
+    R.forEach((r) => {
+      const col = SH[r.alg][r.T],
+        dash = r.alg === "DBS" ? "5 3" : "";
       poly(
         svg,
-        p.map((q) => [xs(q[0]), ys(q[1])]),
-        SCOL[a]
+        r.v.map((v, i) => [xs(NS_[i]), ys(v)]),
+        col,
+        dash
       );
-      p.forEach((q) => hover(marker(svg, "c", xs(q[0]), ys(q[1]), SCOL[a], true, 3.4), `${a} · κ=${k} · n=${q[0]}<br>Var(log w) = ${fmt(q[1], 3)}`));
+      r.v.forEach((v, i) =>
+        hover(
+          marker(svg, r.alg === "DBS" ? "sq" : "c", xs(NS_[i]), ys(v), col, r.alg !== "DBS", 3.2),
+          `${r.alg} · L=8 · κ=${k} · ${zh ? "训练步数" : "training steps"} T=${r.T} · n=${NS_[i]}<br>Var(log w) = ${fmt(v, 2)}`
+        )
+      );
     });
-    if (nr) {
-      poly(
-        svg,
-        [
-          [xs(1), ys(nr.base)],
-          [xs(2), ys(nr.split2)],
-        ],
-        SCOL.NHMC
-      );
-      [
-        [1, nr.base, "c", true, zh ? "原模型" : "baseline"],
-        [2, nr.split2, "c", true, zh ? "每段拆成两段" : "two-way stage splitting"],
-        [2, nr.lf2, "sq", false, zh ? "段内蛙跳子步加倍" : "doubled leapfrog substeps"],
-      ].forEach(([m, variance, shape, filled, label]) => {
-        const point = marker(svg, shape, xs(m), ys(variance), SCOL.NHMC, filled, 3.6);
-        point.setAttribute("data-nhmc-operation", shape === "sq" ? "leapfrog" : m === 1 ? "baseline" : "split");
-        hover(point, `NHMC · L=8 · κ=${k} · ${label}<br>Var(log w) = ${fmt(variance, 3)}`);
-      });
-      if (nr.retrain) {
-        const trained = Object.entries(nr.retrain)
-          .map(([m, variance]) => [Number(m), variance])
-          .sort((a, b) => a[0] - b[0]);
-        poly(svg, [[xs(1), ys(nr.base)], ...trained.map(([m, variance]) => [xs(m), ys(variance)])], SCOL.NHMC, "4 3");
-        trained.forEach(([m, variance]) => {
-          const point = marker(svg, "c", xs(m), ys(variance), SCOL.NHMC, false, 3.8);
-          point.setAttribute("data-nhmc-operation", "retrain");
-          hover(point, `NHMC · L=8 · κ=${k} · T=${16 * m}<br>${zh ? "分别重新训练" : "separately retrained"}<br>Var(log w) = ${fmt(variance, 3)}`);
-        });
-      }
-    } else if (nh) {
-      const point = marker(svg, "c", xs(1), ys(nh.var), SCOL.NHMC, true, 3.4);
-      point.setAttribute("data-nhmc-operation", "baseline");
-      hover(point, `NHMC · κ=${k} · n=1<br>Var(log w) = ${fmt(nh.var, 3)}`);
-    }
+    ["CMCD", "DBS"].forEach((a, ai) =>
+      [80, 160, 320].forEach((T, ti) => {
+        const x = X0 + 10 + ai * 92,
+          y = (k > 0.285 ? Y0 + 8 : Y1 - 52) + ti * 15;
+        el(svg, "line", { x1: x, x2: x + 16, y1: y, y2: y, stroke: SH[a][T], "stroke-width": 2.2, "stroke-dasharray": a === "DBS" ? "5 3" : "" });
+        el(svg, "text", { x: x + 20, y: y + 4, class: "tick", "text-anchor": "start" }, `${a} T=${T}`);
+      })
+    );
   }
   document.addEventListener("DOMContentLoaded", () => {
     if (window.renderMathInElement)
