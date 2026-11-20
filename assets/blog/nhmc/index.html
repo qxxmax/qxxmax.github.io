@@ -27,7 +27,7 @@
       </div>
     </header>
     <main>
-      <p class="byline">Moxian Qian · <time datetime="2026-11-15">2026-11-15</time></p>
+      <p class="byline">Moxian Qian · <span class="zh">首发</span><span class="en">first posted</span> <time datetime="2026-11-15">2026-11-15</time> · <span class="zh">更新</span><span class="en">updated</span> <time datetime="2026-11-20">2026-11-20</time></p>
       <p class="article-links">
         <a href="https://arxiv.org/abs/2607.15682"><span class="zh">NHMC 预印本</span><span class="en">NHMC preprint</span></a> ·
         <a href="/assets/blog/sps/"><span class="zh">SPS 博客</span><span class="en">SPS blog</span></a>
@@ -1021,7 +1021,13 @@
             <a href="https://doi.org/10.1103/PhysRevLett.62.361">Wolff 团簇算法</a>展示了集体更新的重要性。学到的非平衡路径是另一种集体更新，RT/pRT 把它变成保持目标分布的 Metropolis 更新。在相近的平均接受率下，完整往返比 path-IMH 去相关快得多；截断往返接受率更高，但每次移动更小。
           </p>
           <p>
-            <b>下一步。</b>保持接受率所需的段数约按 $T\propto V^{1.25}$ 增长；这一指数由 $L\le16$ 外推，其中体积斜率与有限尺寸常数强相关。规范场上，学习部分只作为参考分布上的小残差修正，后续工作放在参考分布本身。
+            <b>下一步：参考分布与迁移。</b>规范场上的结果表明，重叠主要来自参考分布，学习部分只是小残差修正。因此我们把工作放在参考分布本身：从小体积或相邻耦合出发，沿体积或耦合逐步迁移参考分布与路径，或构造解析的参考分布。往返更新的接受率关系可以在每一步迁移之前预测冻结模型还能用多远。
+          </p>
+          <p>
+            <b>下一步：拓扑冻结。</b>二维 $U(1)$ 中，path-IMH 不借助显式拓扑更新也能在扇区之间移动；往返和截断往返能多快改变拓扑荷，还需要直接测量。真正的检验在四维 $\mathrm{SU}(3)$ 的细格距：格点盒子要大到拓扑荷能取非零值，然后按每次更新比较 $\tau_{\rm int}(Q)$ 与 HMC、边界条件并行回火（PTBC）以及随机归一化流（SNF）。
+          </p>
+          <p>
+            <b>下一步：与序贯蒙特卡洛结合。</b>往返更新本身是保持目标分布的 Metropolis 转移，可以作为序贯蒙特卡洛（SMC）各阶段之间的再平衡步，取代或补充 HMC 再平衡。这一做法属于“SMC 采样器 + MCMC 移动”的已有框架（<a href="https://doi.org/10.1111/j.1467-9868.2006.00553.x">Del Moral 等 2006</a>；NCMC）；我们关心的是学习路径上的接受率关系能否用来事先安排各阶段。
           </p>
           <p class="refs">
             <b>相关工作</b>：<a href="https://doi.org/10.1007/BF00143556">Neal 1996</a>（tempered transitions）；<a
@@ -1064,7 +1070,13 @@
             <a href="https://doi.org/10.1103/PhysRevLett.62.361">Wolff cluster algorithm</a> illustrates the importance of collective updates. A learned nonequilibrium path is another kind of collective update, and RT/pRT turn it into a Metropolis update that preserves the target distribution. At similar mean acceptance, full round trips decorrelate much faster than path-IMH; truncated round trips are accepted more often but move less each time.
           </p>
           <p>
-            <b>Next steps.</b> Keeping the acceptance requires the number of stages to grow roughly as $T\propto V^{1.25}$; this exponent is extrapolated from $L\le16$, where the volume slope and the finite-size constant are strongly correlated. In gauge fields the learned part is kept as a small residual correction on the reference distribution, and further work is directed at the reference distribution itself.
+            <b>Next: reference distributions and transfer.</b> In gauge fields the overlap comes mainly from the reference distribution, and the learned part is a small residual correction. We therefore focus on the reference itself: moving reference distributions and paths step by step from small volumes or neighbouring couplings, or constructing analytic references. The acceptance relation predicts, before each step, how far a frozen model can be carried.
+          </p>
+          <p>
+            <b>Next: topological freezing.</b> In 2D $U(1)$, path-IMH moves between sectors without explicit topological updates; how fast round trips and truncated round trips change the charge remains to be measured. The decisive test is 4D $\mathrm{SU}(3)$ at fine lattice spacing, in boxes large enough for a nonzero topological charge, comparing $\tau_{\rm int}(Q)$ per update with HMC, parallel tempering on boundary conditions (PTBC) and stochastic normalizing flows (SNF).
+          </p>
+          <p>
+            <b>Next: combination with SMC.</b> A round trip is a Metropolis move that preserves the target distribution, so it can serve as the rejuvenation step between the stages of sequential Monte Carlo (SMC), replacing or complementing HMC moves. This belongs to the established framework of SMC samplers with MCMC moves (<a href="https://doi.org/10.1111/j.1467-9868.2006.00553.x">Del Moral et al. 2006</a>; NCMC); our interest is whether the acceptance relation on learned paths can schedule the stages in advance.
           </p>
           <p class="refs">
             <b>Related work</b>: <a href="https://doi.org/10.1007/BF00143556">Neal 1996</a> (tempered transitions);
