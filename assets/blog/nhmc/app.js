@@ -112,6 +112,8 @@
   }
   function marker(svg, shape, x, y, color, filled, r = 4.5) {
     const a = { fill: filled ? color : "#fff", stroke: filled ? "#fff" : color, "stroke-width": filled ? 1.5 : 1.8 };
+    if (shape === "d")
+      return el(svg, "path", Object.assign({ d: `M${x},${y - r - 1}L${x + r + 1},${y}L${x},${y + r + 1}L${x - r - 1},${y}Z` }, a));
     return shape === "sq"
       ? el(svg, "rect", Object.assign({ x: x - r, y: y - r, width: 2 * r, height: 2 * r, rx: 1.5 }, a))
       : el(svg, "circle", Object.assign({ cx: x, cy: y, r: r + 0.3 }, a));
@@ -571,20 +573,23 @@
       ["ESS/N", "#3b3f4a", "c", E.filter((r) => r.L === Lsel).map((r) => [r.kappa, r.ess])],
       ["RT", COL.rt, "c", C.filter((r) => r.L === Lsel && r.m === "RT").map((r) => [r.kappa, r.acc])],
       ["pRT", COL.prt, "sq", C.filter((r) => r.L === Lsel && r.m === "pRT").map((r) => [r.kappa, r.acc])],
+      ["path-IMH", COL.imh, "d", C.filter((r) => r.L === Lsel && r.m === "IMH").map((r) => [r.kappa, r.acc])],
     ];
     ser.forEach(([n, col, sh, pts]) => {
       pts = pts.filter((p) => p[1] > 0).sort((a, b) => a[0] - b[0]);
       poly(
         svg,
         pts.map((p) => [xs(p[0]), ys(Math.max(p[1], 1e-3))]),
-        col
+        col,
+        sh === "d" ? "4 3" : ""
       );
       pts.forEach((p) => hover(marker(svg, sh, xs(p[0]), ys(Math.max(p[1], 1e-3)), col, true, 3.2), `${n} · L=${Lsel} · κ=${p[0]}<br>${fmt(p[1])}`));
     });
-    legend(svg, X0 + 12, Y1 - 52, [
+    legend(svg, X0 + 12, Y1 - 69, [
       ["ESS/N", "#3b3f4a"],
       ["RT", COL.rt],
       ["pRT", COL.prt, "sq"],
+      ["path-IMH", COL.imh, "d"],
     ]);
     const e = E.find((r) => r.L === Lsel && Math.abs(r.kappa - 0.27) < 1e-9),
       a = C.find((r) => r.L === Lsel && r.m === "RT" && Math.abs(r.kappa - 0.27) < 1e-9);
