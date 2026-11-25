@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "不抽样的格点场论：用分部积分精确计算 / Lattice field theory without sampling"
-date: 2026-11-25 12:00:00 +0100
+date: 2026-11-25 09:00:00 +0100
 description: "分部积分、主积分与微分方程：有限密度、实时间和 SU(3) 重夸克有效理论的精确结果。Integration by parts, master integrals and differential equations for exact lattice results."
 redirect: /assets/blog/ibp/
 related_posts: false
