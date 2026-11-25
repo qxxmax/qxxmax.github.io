@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>不抽样的格点场论：用分部积分精确计算</title>
+    <title>不抽样的格点场论：用分部积分精确计算（草稿）</title>
     <meta name="author" content="Moxian Qian" />
     <link rel="stylesheet" href="katex/katex.min.css" />
     <script defer src="katex/katex.min.js"></script>
@@ -22,7 +22,7 @@
   </head>
   <body class="lang-zh">
     <main>
-      <p class="byline">Moxian Qian · <time datetime="2026-11-25">2026-11-25</time></p>
+      <p class="byline">Moxian Qian</p>
       <h1>不抽样的格点场论：用分部积分精确计算</h1>
       <p class="lede">
         格点 Monte Carlo 在三个地方会失灵：临界点附近链走得太慢，规范场的拓扑扇区之间走不过去，复作用量下权重不是概率。
@@ -39,7 +39,6 @@
         <a href="#ch6">6　边界在哪里，为什么</a>
         <a href="#ch7">7　和已有方法的关系</a>
         <a href="#ch8">8　下一步</a>
-        <a href="#appA">附录　验证</a>
       </nav>
 
       <section id="ch0">
@@ -93,21 +92,9 @@
           分母随体积 $V$ 指数地变小，所需样本数按 $1/\langle e^{i\varphi}\rangle^2$ 增长。
         </p>
         <p>
-          QCD 在重夸克极限下有一个只含 Polyakov 圈的有效理论（Fromm–Langelage–Lottini–Philipsen 2012），常被用来研究有限密度的符号问题。
-          下图取自 Bühlmann 与 Wenger 的工作：平均相位的对数随体积线性下降，即指数衰减；衰减速率依赖化学势，在半填充（$\mu_B\approx m_B$）附近出现凹陷，
-          两侧最严重。
+          这不只是玩具模型的问题。QCD 在重夸克极限下的有效理论（Fromm–Langelage–Lottini–Philipsen 2012）是研究有限密度的常用模型，
+          在三维格子上它的平均相位随体积指数衰减，衰减最快的地方在半填充两侧（Bühlmann–Wenger 2021）。第 5 章我们用精确结果看到同样的图像。
         </p>
-        <figure>
-          <div style="display:flex;gap:1em;align-items:center;justify-content:center;flex-wrap:wrap">
-            <img src="figs/lit/bw2021_avSign_vs_V_T0.png" alt="平均相位的对数随体积" style="width:52%;min-width:300px" />
-            <img src="figs/lit/bw2021_severity_of_sign_problem_grandcanonical_2.png" alt="符号问题严重程度随化学势和温度" style="width:38%;min-width:240px" />
-          </div>
-          <figcaption>
-            <b>图 0.2</b>　重夸克高密度 QCD 有效理论（三维空间格子）的符号问题。左：零温下平均符号的对数随格点数 $V$ 线性下降（不同重子密度 $\rho_B$）。
-            右：符号问题的严重程度 $\sigma$（平均相位 $\sim e^{-\sigma V}$）随 $\mu_B/m_B$ 和温度的变化，巨正则系综。
-            图片原样取自 P. Bühlmann, U. Wenger, <i>Heavy-dense QCD at fixed baryon number without a sign problem</i>, PoS LATTICE2021, arXiv:2110.15021，图 2 与图 3，版权归原作者。
-          </figcaption>
-        </figure>
         <p>
           绕开符号问题的另一条路是复 Langevin：把场复化，让随机过程在复平面上走。它不需要正的权重，但不保证收敛到对的答案（5.1 节有一个例子）。
         </p>
@@ -148,8 +135,7 @@
           $$\frac{d}{d\eta}\begin{pmatrix}I_0\\ I_1\end{pmatrix}=\begin{pmatrix}0&-1\\[2pt] -\frac{1}{2\lambda}&\frac{\eta}{2\lambda}\end{pmatrix}\begin{pmatrix}I_0\\ I_1\end{pmatrix}.$$
         </p>
         <div class="num">
-          一维格子 $\eta=3$、$\lambda=1$：$I_0=\tfrac12\sqrt{\pi}\,e^{9/4}\,{\rm erfc}(3/2)=0.284997654894754577$，$I_1=(1-3I_0)/2=0.072503517657868134$。
-          由关系得到的 $I_2=(I_0-3I_1)/2=0.033743550960575088$，和直接数值积分的 40 位相同。
+          一维格子 $\eta=3$、$\lambda=1$ 时，$I_0=\tfrac12\sqrt{\pi}\,e^{9/4}\,{\rm erfc}(3/2)=0.28499765$，$I_1=(1-3I_0)/2=0.07250352$，由关系得到 $I_2=(I_0-3I_1)/2=0.03374355$，和直接积分相同。
         </div>
         <p>整个方法就是这两件事在格点上的推广：用分部积分找出主积分，再对一个参数解微分方程。</p>
 
@@ -219,13 +205,12 @@
           只靠前一种不够，因为初值错了时两档精度照样一致，快增长的解把误差"吞掉"了。
         </p>
         <div class="num">
-          两格点：$\langle|\phi|^2\rangle=\langle z_0w_0\rangle/\langle1\rangle=0.31772666307226419785027994674\ldots$，与独立的转移矩阵计算一致到 $10^{-90}$，整个计算不到一秒。
+          两格点的结果是 $\langle|\phi|^2\rangle=\langle z_0w_0\rangle/\langle1\rangle=0.3177266631\ldots$，可以要多少位给多少位。
         </div>
         <h3>3.5　精确的 $A(t)$ 怎么得到</h3>
         <p>
           在有理数上消元，中间结果的位数会爆炸，$\mu=0.5$ 时 $A(t)$ 的系数就有上百位。所以消元在大素数 $p$ 的有限域上做，在若干个 $t$ 值和若干个素数上重复，
-          再用插值恢复 $t$ 的依赖，用中国剩余定理和有理数重建恢复系数。这一部分是从 Feynman 积分程序借来的成熟技术；再借用其中的方程筛选、Newton 插值和自适应步长，
-          $3\times2$ 格子从约 9.5 小时降到约 21 分钟（图 6.1 左）。
+          再用插值恢复 $t$ 的依赖，用中国剩余定理和有理数重建恢复系数。这一部分以及方程筛选、插值和自适应步长等加速手段，都是从 Feynman 积分程序借来的成熟技术。
         </p>
       </section>
 
@@ -233,8 +218,8 @@
         <h2>4　Bose 气体的结果</h2>
         <p>
           三格点、$\mu=\ln(61/37)\approx0.5$：作用量是复数，8 个主积分，$A(t)$ 在 $t=0$ 有二阶极点，一次平衡变换化成 Fuchs 形式。
-          结果 $\langle|\phi|^2\rangle=0.30628715611762152364665\ldots$，$n=0.08364122223565378481344\ldots$，与转移矩阵一致到 $10^{-91}$。
-          二维 $3\times2$、$\mu=0.5$ 有 110 个主积分（$\mu=0$ 时也是 110），$\langle|\phi|^2\rangle=0.23484485152447177987\ldots$，$n=0.05641185012763665496\ldots$。
+          结果是 $\langle|\phi|^2\rangle=0.3062871561\ldots$，$n=0.0836412222\ldots$。本文所有 $\phi^4$ 的数值都和一条不用 IBP 的独立路线（对偶表示的转移矩阵）对过。
+          二维 $3\times2$、$\mu=0.5$ 有 110 个主积分（$\mu=0$ 时也是 110），$\langle|\phi|^2\rangle=0.2348448515\ldots$，$n=0.0564118501\ldots$。
         </p>
         <figure>
           <img src="figs/fig_scan.png" alt="三格点 Bose 气体：精确值与各种采样方法" />
@@ -255,8 +240,7 @@
         <p>
           实时间演化的权重是 $e^{iS_M}$，纯振荡。Schwinger–Keldysh 做法把时间放在复平面的围道上：先沿实时间向前、再向后，最后沿虚时间（温度）闭合。
           我们把实时间段倾斜一个角度 $\theta$，链上的时间步长是 $\Delta t\,e^{\pm i\theta}$。$\theta=0$ 是普通的虚时间，$\theta\to90^\circ$ 是真正的实时间，权重越来越振荡。
-          模型是 0+1 维的 O(2) 振子加四次势，三个格点，观测量是等时关联 $\langle\Phi_0\Phi_0^*\rangle$。IBP 对 $\theta$ 一视同仁，倾角只改变方程的系数；
-          在所有角度上它都和另外两条独立的精确路线一致到 $10^{-11}$ 以上。
+          模型是 0+1 维的 O(2) 振子加四次势，三个格点，观测量是等时关联 $\langle\Phi_0\Phi_0^*\rangle$。IBP 对 $\theta$ 一视同仁，倾角只改变方程的系数。
         </p>
         <figure>
           <img src="figs/fig_sk.png" alt="复 Langevin 在 Schwinger–Keldysh 围道上的偏差" />
@@ -276,7 +260,7 @@
           例子是一维复 $\phi^4$ 加一个 staggered 费米子，质量 $m_t=m_F+g|\phi_t|^2$，费米子化学势 $\mu_F$。行列式是
           $$\det D=A(m_0,\dots,m_{N-1})+2^{1-N}\cosh(N\mu_F),\qquad A={\rm tr}\prod_t\begin{pmatrix}m_t&1/4\\1&0\end{pmatrix},$$
           $\mu_F$ 只出现在第二项，对应费米子世界线绕时间一圈。所以只要算出 $\langle A\rangle$ 和 $\langle\partial A/\partial m_F\rangle$ 两个数，所有 $\mu_F$ 下的结果都解析给出。
-          六格点时这两个数和独立的转移矩阵一致到 $10^{-90}$，费米子密度随 $\mu_F$ 从 0 升到 0.995。
+          六格点时费米子密度随 $\mu_F$ 从 0 升到 0.995，格子逐渐被填满。
         </p>
 
         <h3>5.3　U(1) 规范场</h3>
@@ -285,7 +269,7 @@
           积分族是链变量 $e^{i\theta}$ 的 Laurent 单项式。$L=2$ 有 8 个主积分；$L=3$ 有 630 个，正好等于孤立鞍点的个数。物理的配分函数用不到全部，$L=2$ 时
           $$Z=\sum_n I_n(\beta)^4={}_2F_3\big(\tfrac12,\tfrac12;1,1,1;4\beta^2\big),$$
           满足一个 4 阶方程 $\beta^3Z^{(4)}+6\beta^2Z^{(3)}+(7\beta-16\beta^3)Z^{(2)}+(1-48\beta^2)Z^{(1)}-16\beta Z=0$。4 正好是 8 个鞍点在格子对称和电荷共轭下的轨道数。
-          $L=3$ 时 $Z$ 的最小方程是 15 阶，同样等于 630 个鞍点的轨道数；用这个方程，$\langle{\rm plaquette}\rangle$ 在 $\beta=1$ 算到 71 位。
+          $L=3$ 时 $Z$ 的最小方程是 15 阶，同样等于 630 个鞍点的轨道数；用这个方程，plaquette 可以算到任意精度。
         </p>
         <p>
           拓扑荷 $Q$ 是相位的非多项式函数，不在这个积分族里，所以 IBP 不直接给 $\langle Q^2\rangle$（第 0 章的精确 $\langle Q^2\rangle$ 来自 Bessel 函数的特征标求和）。
@@ -307,8 +291,7 @@
           只用 Casimir 算子生成的关系不完整（主积分数随盒子一直涨），一阶的圈方程才完整。主积分数在 2、3、4 个格点的环上分别是 7、21、48，$2\times2$ 也是 48。
         </p>
         <div class="num">
-          $2\times2$、$h=1/4$、$\mu/T=\ln2$、$\lambda=0.1$：IBP 给出 $n=0.42667177993021947317\ldots$，$\langle L\rangle=0.70938752779243166723\ldots$，$\langle L^*\rangle=0.81269366703808429190\ldots$，
-          与网格转移矩阵一致到 $10^{-16}$（转移矩阵的双精度极限）。2、3 个格点时，它和另一种独立的 IBP 写法（直接在本征相位上做）40 位相同。
+          $2\times2$、$h=1/4$、$\mu/T=\ln2$、$\lambda=0.1$ 时，IBP 给出 $n=0.4266717799\ldots$，$\langle L\rangle=0.7093875278\ldots$，$\langle L^*\rangle=0.8126936670\ldots$，和独立的转移矩阵计算一致。$\langle L\rangle\neq\langle L^*\rangle$ 本身就是有限密度的标志：$\mu$ 让夸克和反夸克不再对称。
         </div>
         <figure>
           <img src="figs/fig_sign_mu.png" alt="密度与平均相位随化学势的变化" />
@@ -320,7 +303,7 @@
         <p>
           图 5.2 展示了这个模型的物理。$\mu$ 只通过绕时间一圈的世界线进入；单个夸克带色荷，被 Haar 积分消掉，只有三个夸克组成的色单态（重子）留下 $\mu$ 的依赖。
           密度从 0 平滑升到每格点 3 个夸克。平均相位在半填充（$he^{\mu/T}=1$）处回到接近 1，因为那里 $\det(1+P)=2+2\,{\rm Re}L$ 是实数（粒子–空穴对称）；
-          两侧最低，格点越多越低。这和三维格子上的文献结果（图 0.2）是同一个图像。
+          两侧最低，格点越多越低。这和三维格子上的文献结果是同一个图像。
         </p>
       </section>
 
@@ -329,15 +312,23 @@
         <figure>
           <img src="figs/fig_cost.png" alt="加速与主积分增长" />
           <figcaption>
-            <b>图 6.1</b>　左：$3\times2$、$\mu=0.5$ 各阶段的耗时，借用 Feynman 积分工具前后。右：主积分数随格点数的增长。
+            <b>图 6.1</b>　左：主积分数随格点数的增长，虚线为指数拟合，图例中是每增加一个格点的倍数。右：整个计算的耗时随主积分数 $n$ 的变化，虚线为幂律拟合。
           </figcaption>
         </figure>
         <p>
-          主积分数不看化学势，但随格点数指数增长（图 6.1 右）：一维 $\phi^4$ 每多一个格点约乘 2.2，重夸克有效理论约乘 2 到 3。采样方法付的代价是 $e^{V\Delta f}$，$\Delta f$ 由物理决定；
-          这里付的是 $c^V$，$c$ 由每个格点上的局部结构决定。另一个限制是盒子：观测量（例如费米子行列式）次数越高，盒子要越大，消元矩阵的列数随之爆炸。
+          主积分数不看化学势，但随格点数指数增长，增长率可以直接量出来（图 6.1 左）。一维 $\phi^4$ 不扣对称性时，2 到 5 个格点的主积分数是 5、16、49、166，
+          每多一个格点乘约 3.2；按对称类计，1 到 7 个格点是 2、4、8、16、34、78、180，每个格点乘约 2.25（对称群只随格点数线性增大，抵消不了指数增长）。
+          重夸克有效理论的环每个格点乘约 2.6。对照一下 $t=0$：格点互不耦合时主积分数恰好是 $2^N$，每个格点贡献单格点的两个主积分。
+          跳跃把格点连起来以后，每格点的倍数从 2 涨到约 3.2，多出来的是跳跃产生的新的集体鞍点。
         </p>
         <p>
-          按这两点估计，$\phi^4$ 的 $4\times2$ 约有 800 个主积分，一次消元要几个小时；重夸克有效理论的三维 $2^3$ 需要约 $3\times10^7$ 列的消元，要 1 TB 量级的内存，属于花资源能做的范围。
+          耗时随主积分数 $n$ 按约 $n^{3.8}$ 增长（图 6.1 右）：消元的盒子随之变大，$A(t)$ 有 $n^2$ 个元素要重建，输运的每一步是 $n\times n$ 矩阵运算。
+          两者合起来，一维 $\phi^4$ 每多一个格点，耗时乘约 $2.25^{3.8}\approx 20$。按这个规律，8 个格点约 400 个主积分，要算两三天；
+          二维 $4\times2$ 的首次消元给出约 800 个主积分，已经到了实际能做的边缘。采样方法付的代价是 $e^{V\Delta f}$，$\Delta f$ 由物理决定；
+          这里付的是 $c^{3.8V}$，$c$ 由格点上鞍点的结构决定。
+        </p>
+        <p>
+          重夸克有效理论的三维 $2^3$ 难在另一处：夸克行列式是高次分子，盒子要很大，估计需要约 $3\times10^7$ 列的消元和 1 TB 量级的内存。
           三维纯规范 SU(3) 则做不了：每条链 8 个自由度，而且规范理论的鞍点不孤立（环面上的平坦联络连成连续的一族），"主积分 = 孤立鞍点"的图像不再成立。
         </p>
       </section>
@@ -360,18 +351,7 @@
         </p>
       </section>
 
-      <section id="appA">
-        <h2>附录 A　怎么知道算对了</h2>
-        <p>每个结论至少有一条完全独立的路线核对：</p>
-        <table>
-          <tr><th>问题</th><th>独立路线</th><th>一致到</th></tr>
-          <tr><td>复 $\phi^4$，一维</td><td>对偶表示的转移矩阵</td><td>$10^{-73}$–$10^{-91}$</td></tr>
-          <tr><td>复 $\phi^4$，$3\times2$</td><td>二维转移矩阵（精度受其网格限制）；worm Monte Carlo</td><td>约 6 位；统计误差内</td></tr>
-          <tr><td>$\phi^4$ + 费米子</td><td>带费米子块的转移矩阵</td><td>$10^{-90}$</td></tr>
-          <tr><td>0+1 维 SU(3) QCD</td><td>解析常数项 vs 数值积分</td><td>$10^{-16}$</td></tr>
-          <tr><td>重夸克有效理论</td><td>两种独立 IBP 写法；转移矩阵；小耦合级数</td><td>40 位；$10^{-16}$</td></tr>
-        </table>
-      </section>
+
 
 
     </main>
